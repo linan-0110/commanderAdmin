@@ -29,5 +29,16 @@ npm test
 
 For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
 
+## src 文件描述
+#### components
+tpl.vue ==>> 模板文件，
+
+
+#### page
+Login.vue ==>> 登录页
+
+
+
+
 ## 目录结构
 自动生成教程（https://juejin.im/post/5dc1340e6fb9a04abf552b40）
