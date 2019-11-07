@@ -5,6 +5,7 @@
                 class="header_img"
                 src="http://b-ssl.duitang.com/uploads/item/201806/07/20180607185957_fjrFt.thumb.700_0.jpeg"
                 alt="头像"
+                @click="linkMyAccount"
             />
             <article class="header_article">
                 <span class="name">张三</span>
@@ -28,20 +29,76 @@
                 </p>
             </section>
         </header>
+        <section class="section">
+            <article class="my_sales_order">
+                <header class="my_sales_order_header">
+                    <img class="icon_home_1" src="../../assets/icon_home_1.png" />
+                    我的小手订单
+                    <img
+                        class="icon_arrow_orange"
+                        src="../../assets/icon_arrow_orange.png"
+                    />
+                </header>
+                <section class="grid">
+                    <div class="block area_order">
+                        <img class="icon" src="../../assets/icon_home_2.png" />
+                        <h3>小区订单</h3>
+                        <span>今日订单：0</span>
+                    </div>
+                    <div class="block order_express">
+                        <img class="icon" src="../../assets/icon_home_3.png" />
+                        <h3>小区订单</h3>
+                        <span>今日订单：0</span>
+                    </div>
+                    <div class="block client_get_cargo">
+                        <img class="icon" src="../../assets/icon_home_4.png" />
+                        <h3>小区订单</h3>
+                        <span>今日订单：0</span>
+                    </div>
+                </section>
+            </article>
+            <article class="user_rights">
+                <header class="my_sales_order_header">
+                    <img class="icon_home_5" src="../../assets/icon_home_5.png" />
+                    用户权益
+                    <img
+                        class="icon_arrow_orange"
+                        src="../../assets/icon_arrow_orange.png"
+                    />
+                </header>
+                <section class="container">
+                    <div class="bar my_buy_order">
+                        <span class="text">我的购买订单</span>
+                        <van-icon class="icon_arrow" name="arrow" />
+                    </div>
+                    <div class="bar discount_coupon">
+                        <span class="text">优惠劵</span>
+                        <van-icon class="icon_arrow" name="arrow" />
+                    </div>
+                    <div class="bar my_agreement">
+                        <span class="text">我的协议</span>
+                        <van-icon class="icon_arrow" name="arrow" />
+                    </div>
+                </section>
+            </article>
+        </section>
+        <footer class="footer_bar"></footer>
     </div>
 </template>
 
 <script>
-import { Toast } from "vant";
 export default {
     name: "home",
     data() {
         return {};
     },
     methods: {
-        onClickLeft() {
-            Toast("返回");
-        }
+        /* 跳转我的账号 */
+        linkMyAccount() {
+            this.$router.push({
+                name: "myAccount"
+            })
+        },
     }
 };
 </script>
@@ -49,7 +106,6 @@ export default {
 <style lang="less" scoped>
 .home {
     .header {
-        border: 1px solid #0ff;
         width: 100%;
         height: 250px;
         background-size: 100%;
@@ -123,5 +179,121 @@ export default {
             }
         }
     }
+    /* ---我的销售订单 和 用户权益--- */
+    .section {
+        margin: 12px 15px;
+        display: flex;
+        flex-direction: column;
+        /* 我的销售订单 */
+        .my_sales_order {
+            .my_sales_order_header {
+                display: flex;
+                align-items: center;
+                font-size: 17px;
+                .icon_home_1 {
+                    width: 15px;
+                    height: 20px;
+                    margin-right: 5px;
+                }
+                .icon_arrow_orange {
+                    width: 6px;
+                    height: 6px;
+                    margin-left: 5px;
+                }
+            }
+            /* 三块 （ 小区订单、订单配送、 顾客提货）*/
+            .grid {
+                display: flex;
+                justify-content: space-around;
+                margin: 15px 0;
+                /* 三块的公共样式 */
+                .block {
+                    width: 70px;
+                    height: 75px;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: space-around;
+                    .icon {
+                        width: 30px;
+                        height: 32px;
+                    }
+                    h3 {
+                        color: rgb(48, 50, 62);
+                        font-weight: normal;
+                        font-size: 14px;
+                        margin-top: 10px;
+                    }
+                    span {
+                        color: rgb(103, 106, 112);
+                        font-size: 8px;
+                    }
+                }
+            }
+        }
+        /* 用户权益 */
+        .user_rights {
+            .my_sales_order_header {
+                display: flex;
+                align-items: center;
+                font-size: 17px;
+                margin-bottom: 15px;
+                .icon_home_5 {
+                    width: 17px;
+                    height: 17px;
+                    margin-right: 5px;
+                }
+                .icon_arrow_orange {
+                    width: 6px;
+                    height: 6px;
+                    margin-left: 5px;
+                }
+            }
+            .container {
+                display: flex;
+                flex-direction: column;
+                margin-left: 10px;
+                /* 公共样式（ 我的购买订单、 优惠劵、 我的协议 ） */
+                .bar {
+                    width: 332px;
+                    height: 62px;
+                    display: flex;
+                    align-items: center;
+                    .text {
+                        flex: 8;
+                        font-size: 16px;
+                        color: rgba(164, 130, 56, 0.6);
+                        padding-left: 100px;
+                        line-height: 100%;
+                    }
+                    .icon_arrow {
+                        flex: 2;
+                        font-size: 25px;
+                        color: rgba(164, 130, 56, 0.6);
+                    }
+                }
+                .my_buy_order {
+                    background-image: url("../../assets/home_user_rights_1.png");
+                }
+                .discount_coupon {
+                    background-image: url("../../assets/home_user_rights_2.png");
+                }
+                .my_agreement {
+                    background-image: url("../../assets/home_user_rights_3.png");
+                }
+            }
+        }
+    }
+    .footer_bar {
+        width: 100px;
+        height: 4px;
+        background-color: rgb(0, 0, 0);
+        border-radius: 2px;
+        position: absolute;
+        bottom: 2px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
 }
+// border: 1px solid #0ff;
 </style>

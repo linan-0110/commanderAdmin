@@ -20,5 +20,8 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.tpl {}
+.tpl {
+    background-color: rgb(240,239,245);
+    height: 100%;
+}
 </style>

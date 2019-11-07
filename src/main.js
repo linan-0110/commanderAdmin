@@ -6,10 +6,11 @@ import router from './router'
 import '../static/init.css'
 
 /* vant start */
-import { Button, Search, NavBar } from 'vant';
+import { Button, Search, NavBar, Icon } from 'vant';
 Vue.use(Button);
 Vue.use(Search);
 Vue.use(NavBar);
+Vue.use(Icon);
 /* vant end */
 
 Vue.config.productionTip = false
