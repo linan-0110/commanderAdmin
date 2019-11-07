@@ -18,14 +18,14 @@
             </article>
             <section class="header_data">
                 <div class="container_money">
-                    <div class="my_asset">
+                    <div class="my_asset" @click="linkAssetDetails">
                         <h3 class="my_asset_text">我的资产(元)</h3>
                         <p class="money">185.8</p>
                     </div>
                     <div class="carry_cash">可提现185.8 ▶</div>
                 </div>
                 <p class="see_full_data">
-                    <span>查看完整数据 ▶</span>
+                    <span @click="linkFullStatus">查看完整数据 ▶</span>
                 </p>
             </section>
         </header>
@@ -48,12 +48,12 @@
                     <div class="block order_express">
                         <img class="icon" src="../../assets/icon_home_3.png" />
                         <h3>小区订单</h3>
-                        <span>今日订单：0</span>
+                        <span>待配送：0</span>
                     </div>
                     <div class="block client_get_cargo">
                         <img class="icon" src="../../assets/icon_home_4.png" />
                         <h3>小区订单</h3>
-                        <span>今日订单：0</span>
+                        <span>未提货：0</span>
                     </div>
                 </section>
             </article>
@@ -82,7 +82,6 @@
                 </section>
             </article>
         </section>
-        <footer class="footer_bar"></footer>
     </div>
 </template>
 
@@ -93,12 +92,24 @@ export default {
         return {};
     },
     methods: {
-        /* 跳转我的账号 */
+        /* 跳转 我的账号 */
         linkMyAccount() {
             this.$router.push({
-                name: "myAccount"
+                name: "home_myAccount"
             })
         },
+        /* 跳转 资产明细 */
+        linkAssetDetails() {
+            this.$router.push({
+                name: "home_assetDetails"
+            })
+        },
+        /* 跳转 整体状况 */
+        linkFullStatus() {
+            this.$router.push({
+                name: "home_fullStatus"
+            })
+        }
     }
 };
 </script>
@@ -283,16 +294,6 @@ export default {
                 }
             }
         }
-    }
-    .footer_bar {
-        width: 100px;
-        height: 4px;
-        background-color: rgb(0, 0, 0);
-        border-radius: 2px;
-        position: absolute;
-        bottom: 2px;
-        left: 50%;
-        transform: translateX(-50%);
     }
 }
 // border: 1px solid #0ff;

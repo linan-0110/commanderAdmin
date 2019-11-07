@@ -1,11 +1,12 @@
 <template>
     <div class="myAccount">
-        <van-nav-bar title="我的账号" left-text="返回" left-arrow @click-left="onClickLeft" />
+        <van-nav-bar title="我的账号" left-text="返回" left-arrow @click-left="linkBack" />
         <ul class="list">
             <li class="head_portrait">
                 <article class="lable">个人头像</article>
                 <article class="container">
                     <span class="content"></span>
+                    <img class="head_img" src="http://b-ssl.duitang.com/uploads/item/201806/07/20180607185957_fjrFt.thumb.700_0.jpeg">
                     <van-icon class="right_arrow" name="arrow" />
                 </article>
             </li>
@@ -40,7 +41,6 @@
             <li class="shipping_address">
                 <article class="lable">收货地址</article>
                 <article class="container">
-                    <span class="content"></span>
                     <van-icon class="right_arrow" name="arrow" />
                 </article>
             </li>
@@ -49,7 +49,6 @@
 </template>
 
 <script>
-import { Toast } from "vant";
 export default {
     name: "myAccount",
     data() {
@@ -57,8 +56,8 @@ export default {
     },
     methods: {
         /* 返回 */
-        onClickLeft() {
-            this.$router.back()
+        linkBack() {
+            this.$router.back();
         }
     }
 };
@@ -70,7 +69,7 @@ export default {
     height: 100%;
     .list{
         li{
-            height: 43px;
+            min-height: 43px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -78,11 +77,19 @@ export default {
             font-size: 18px;
             background-color: #fff;
             margin-bottom: 1px;
+            .container{
+                color: rgb(135,135,135)
+            }
         }
         .head_portrait{
-
+            .head_img{
+                width: 50px;
+                height: 50px;
+                border-radius: 50%;
+                margin: 15px 0;
+            }
         }
-        .name{
+        /* .name{
 
         }
         .acount_name{
@@ -96,7 +103,7 @@ export default {
         }
         .shipping_address{
 
-        }
+        } */
     }
 }
 </style>
