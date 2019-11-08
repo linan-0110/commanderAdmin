@@ -24,7 +24,7 @@ export default {
     height: 4px;
     background-color: rgb(0, 0, 0);
     border-radius: 2px;
-    position: absolute;
+    position: fixed;
     bottom: 2px;
     left: 50%;
     transform: translateX(-50%);
