@@ -37,10 +37,14 @@ tpl.vue ==>> 模板文件，
 
 
 #### page
-Login.vue ==>> 登录页
-
-
+Login ==>> 登录页
+home ==>> 主页
+myAccount ==>> 我的账号
+assetDetails ==>> 资产明细
+fullStatus ==>> 整体状况
 
 
 ## 目录结构
+
+项目完结 加
 自动生成教程（https://juejin.im/post/5dc1340e6fb9a04abf552b40）
