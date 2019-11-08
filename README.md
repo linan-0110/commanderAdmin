@@ -42,6 +42,12 @@ home ==>> 主页
 myAccount ==>> 我的账号
 assetDetails ==>> 资产明细
 fullStatus ==>> 整体状况
+areaOrder ==>> 小区订单
+orderExpress ==>> 订单配送
+clientGetCargo ==>> 顾客提货
+myBuyOrder ==>> 我的购买订单
+discountCoupon ==>> 优惠劵
+myAgreement ==>> 我的协议
 
 
 ## 目录结构

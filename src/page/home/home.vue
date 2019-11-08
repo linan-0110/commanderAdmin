@@ -40,19 +40,19 @@
                     />
                 </header>
                 <section class="grid">
-                    <div class="block area_order">
+                    <div class="block area_order" @click="linkAreaOrder">
                         <img class="icon" src="../../assets/icon_home_2.png" />
                         <h3>小区订单</h3>
                         <span>今日订单：0</span>
                     </div>
-                    <div class="block order_express">
+                    <div class="block order_express" @click="linkOrderExpress">
                         <img class="icon" src="../../assets/icon_home_3.png" />
-                        <h3>小区订单</h3>
+                        <h3>订单配送</h3>
                         <span>待配送：0</span>
                     </div>
-                    <div class="block client_get_cargo">
+                    <div class="block client_get_cargo" @click="linkClientGetCargo">
                         <img class="icon" src="../../assets/icon_home_4.png" />
-                        <h3>小区订单</h3>
+                        <h3>顾客提货</h3>
                         <span>未提货：0</span>
                     </div>
                 </section>
@@ -67,15 +67,15 @@
                     />
                 </header>
                 <section class="container">
-                    <div class="bar my_buy_order">
+                    <div class="bar my_buy_order" @click="linkMyBuyOrder">
                         <span class="text">我的购买订单</span>
                         <van-icon class="icon_arrow" name="arrow" />
                     </div>
-                    <div class="bar discount_coupon">
+                    <div class="bar discount_coupon" @click="linkDiscountCoupon">
                         <span class="text">优惠劵</span>
                         <van-icon class="icon_arrow" name="arrow" />
                     </div>
-                    <div class="bar my_agreement">
+                    <div class="bar my_agreement" @click="linkMyAgreement">
                         <span class="text">我的协议</span>
                         <van-icon class="icon_arrow" name="arrow" />
                     </div>
@@ -109,7 +109,44 @@ export default {
             this.$router.push({
                 name: "home_fullStatus"
             })
-        }
+        },
+        /* 跳转 小区订单 */
+        linkAreaOrder() {
+            this.$router.push({
+                name: "home_areaOrder"
+            })
+        },
+        /* 跳转 订单配送 */
+        linkOrderExpress() {
+            this.$router.push({
+                name: "home_orderExpress"
+            })
+        },
+        /* 跳转 顾客提货 */
+        linkClientGetCargo() {
+            this.$router.push({
+                name: "home_clientGetCargo"
+            })
+        },
+        /* 跳转 我的购买订单 */
+        linkMyBuyOrder() {
+            this.$router.push({
+                name: "home_myBuyOrder"
+            })
+        },
+        /* 跳转 优惠劵 */
+        linkDiscountCoupon() {
+            this.$router.push({
+                name: "home_discountCoupon"
+            })
+        },
+        /* 跳转 我的协议 */
+        linkMyAgreement() {
+            this.$router.push({
+                name: "home_myAgreement"
+            })
+        },
+        
     }
 };
 </script>

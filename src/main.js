@@ -6,13 +6,14 @@ import router from './router'
 import '../static/init.css'
 
 /* vant start */
-import { Button, Search, NavBar, Icon, DatetimePicker, Popup } from 'vant';
+import { Button, Search, NavBar, Icon, DatetimePicker, Popup, Card } from 'vant';
 Vue.use(Button);
 Vue.use(Search);
 Vue.use(NavBar);
 Vue.use(Icon);
 Vue.use(DatetimePicker);
 Vue.use(Popup);
+Vue.use(Card);
 /* vant end */
 
 Vue.config.productionTip = false;
