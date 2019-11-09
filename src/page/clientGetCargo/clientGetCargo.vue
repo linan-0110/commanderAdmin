@@ -59,12 +59,12 @@
                         </van-card>
                     </van-checkbox>
                 </van-checkbox-group>
-                <van-button class="confirm_cargo" type="default" size="small">确认收货</van-button>
+                <van-button class="confirm_cargo" type="default" size="small" @click="confirm_cargo">确认收货</van-button>
             </section>
         </article>
 
         <footer class="footer">
-            <van-button class="inform_all_client" type="default" size="small">一键通知所有顾客提货</van-button>
+            <van-button class="inform_all_client" type="default" size="small" @click="inform_all_client">一键通知所有顾客提货</van-button>
         </footer>
     </div>
 </template>
@@ -80,6 +80,14 @@ export default {
         };
     },
     methods: {
+        /* 确认收货 */
+        confirm_cargo() {
+            console.log("确认收货");
+        },
+        /* 一键通知所有顾客提货 */
+        inform_all_client() {
+            console.log("一键通知所有顾客提货");
+        },
         /* 返回 */
         linkBack() {
             this.$router.back();
