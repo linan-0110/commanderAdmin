@@ -9,20 +9,16 @@
                 </div>
                 <span class="pay_info">三种订单 三种价格</span>
             </header>
-            <section class="imgList">
-                <div class="imgItem">
+            <ul class="imgList">
+                <li class="imgItem">
                     <img src="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2526052080,876486397&fm=26&gp=0.jpg" alt="商品标题">
                     <p class="describe">1份</p>
-                </div>
-                <div class="imgItem">
+                </li>
+                <li class="imgItem">
                     <img src="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2526052080,876486397&fm=26&gp=0.jpg" alt="商品标题">
                     <p class="describe">1份</p>
-                </div>
-                <div class="imgItem">
-                    <img src="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2526052080,876486397&fm=26&gp=0.jpg" alt="商品标题">
-                    <p class="describe">1份</p>
-                </div>
-            </section>
+                </li>
+            </ul>
         </article>
         
         <article class="product_card" @click="linkConfirmDelivery">
@@ -33,20 +29,16 @@
                 </div>
                 <span class="pay_info">三种订单 三种价格</span>
             </header>
-            <section class="imgList">
-                <div class="imgItem">
+            <ul class="imgList">
+                <li class="imgItem">
                     <img src="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2526052080,876486397&fm=26&gp=0.jpg" alt="商品标题">
                     <p class="describe">1份</p>
-                </div>
-                <div class="imgItem">
+                </li>
+                <li class="imgItem">
                     <img src="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2526052080,876486397&fm=26&gp=0.jpg" alt="商品标题">
                     <p class="describe">1份</p>
-                </div>
-                <div class="imgItem">
-                    <img src="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2526052080,876486397&fm=26&gp=0.jpg" alt="商品标题">
-                    <p class="describe">1份</p>
-                </div>
-            </section>
+                </li>
+            </ul>
         </article>
         
         <article class="product_card" @click="linkConfirmDelivery">
@@ -57,20 +49,16 @@
                 </div>
                 <span class="pay_info">三种订单 三种价格</span>
             </header>
-            <section class="imgList">
-                <div class="imgItem">
+            <ul class="imgList">
+                <li class="imgItem">
                     <img src="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2526052080,876486397&fm=26&gp=0.jpg" alt="商品标题">
                     <p class="describe">1份</p>
-                </div>
-                <div class="imgItem">
+                </li>
+                <li class="imgItem">
                     <img src="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2526052080,876486397&fm=26&gp=0.jpg" alt="商品标题">
                     <p class="describe">1份</p>
-                </div>
-                <div class="imgItem">
-                    <img src="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2526052080,876486397&fm=26&gp=0.jpg" alt="商品标题">
-                    <p class="describe">1份</p>
-                </div>
-            </section>
+                </li>
+            </ul>
         </article>
         
     </div>

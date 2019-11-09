@@ -25,16 +25,6 @@
                 </section>
             </li>
 
-            <li class="product_item">
-                <img
-                    class="item_main_img"
-                    src="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2526052080,876486397&fm=26&gp=0.jpg"
-                />
-                <section class="container">
-                    <p class="order_describe">现货猕猴桃新鲜水果奇异果10斤当季绿心野生弥整箱非徐香</p>
-                    <p class="order_number">数量: 3份</p>
-                </section>
-            </li>
         </ul>
 
         <article class="peoduct_info">
