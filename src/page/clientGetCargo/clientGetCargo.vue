@@ -6,7 +6,7 @@
         <article class="product_card">
             <div class="title">
                 <div>
-                    <img class="icon_time" src="../../assets/icon_time.png" />
+                    <img class="icon_reat_success" src="../../assets/icon_reat_success.png" />
                     提货人：张三 18888888888
                 </div>
                 <span class="pay_info">1个待提货订单</span>
@@ -126,7 +126,7 @@ export default {
             align-items: center;
             justify-content: space-between;
             border-bottom: 1px solid rgb(239, 238, 244);
-            .icon_time {
+            .icon_reat_success {
                 width: 13px;
                 height: 13px;
             }
