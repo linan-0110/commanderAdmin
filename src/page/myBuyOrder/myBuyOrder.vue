@@ -126,6 +126,7 @@ const tabsConfig = [
                     width: 80px;
                     height: 80px;
                     margin: 0 20px;
+                    border-radius: 5px;
                 }
                 .container {
                     height: 100%;
