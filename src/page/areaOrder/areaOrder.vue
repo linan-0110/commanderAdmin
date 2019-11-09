@@ -2,9 +2,8 @@
     <div class="areaOrder">
         <van-nav-bar title="小区订单" left-text="返回" left-arrow @click-left="linkBack" />
         <header class="header">
-            <div class="item"></div>
-            <div class="item title">订单</div>
-            <div class="item">7月8日</div>
+            订单
+            <date-tiem-picker class="date_picker" @ok="clickOk"/>
         </header>
         
         <article class="product_card">
@@ -74,12 +73,20 @@
 </template>
 
 <script>
+import dateTiemPicker from "@/components/dateTiemPicker/dateTiemPicker";
 export default {
     name: "areaOrder",
     data() {
         return {};
     },
+    components: {
+        "date-tiem-picker": dateTiemPicker
+    },
     methods: {
+        /* 时间选择器 确认事件 */
+        clickOk(dateTime) {
+            console.log(dateTime);
+        },
         /* 返回 */
         linkBack() {
             this.$router.back();
@@ -94,18 +101,18 @@ export default {
     height: 100%;
     .header {
         height: 40px;
+        line-height: 40px;
         background-color: #fff;
         margin: 10px;
         border-radius: 5px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        .item{
-            width: 50px;   
-        }
-        .item.title{
-            text-align: center;
-            font-size: 20px;
+        text-align: center;
+        font-size: 20px;
+        position: relative;
+        .date_picker{
+            font-size: 14px;
+            position: absolute;
+            right: 10px;
+            top: 0;
         }
     }
     .product_card {

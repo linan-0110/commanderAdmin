@@ -1,7 +1,7 @@
 <template>
     <div class="orderExpress">
         <van-nav-bar title="订单配送" left-text="返回" left-arrow @click-left="linkBack" />
-        <article class="product_card">
+        <article class="product_card" @click="linkConfirmDelivery">
             <header class="top_header">
                 <div>
                     <img class="icon_time" src="../../assets/icon_time.png">
@@ -25,7 +25,7 @@
             </section>
         </article>
         
-        <article class="product_card">
+        <article class="product_card" @click="linkConfirmDelivery">
             <header class="top_header">
                 <div>
                     <img class="icon_time" src="../../assets/icon_time.png">
@@ -48,8 +48,8 @@
                 </div>
             </section>
         </article>
-
-        <article class="product_card">
+        
+        <article class="product_card" @click="linkConfirmDelivery">
             <header class="top_header">
                 <div>
                     <img class="icon_time" src="../../assets/icon_time.png">
@@ -72,6 +72,7 @@
                 </div>
             </section>
         </article>
+        
     </div>
 </template>
 
@@ -82,6 +83,12 @@ export default {
         return {};
     },
     methods: {
+        /* 跳转 以确认送达 */
+        linkConfirmDelivery() {
+            this.$router.push({
+                name: "home_orderExpress_confirmDelivery"
+            })
+        },
         /* 返回 */
         linkBack() {
             this.$router.back();

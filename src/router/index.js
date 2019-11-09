@@ -7,6 +7,7 @@ import assetDetails from '@/page/assetDetails/assetDetails'; //资产明细
 import fullStatus from '@/page/fullStatus/fullStatus'; //整体状况
 import areaOrder from '@/page/areaOrder/areaOrder'; //小区订单
 import orderExpress from '@/page/orderExpress/orderExpress'; //订单配送
+import confirmDelivery from '@/page/orderExpress/confirmDelivery/confirmDelivery'; //订单配送
 import clientGetCargo from '@/page/clientGetCargo/clientGetCargo'; //顾客提货
 import myBuyOrder from '@/page/myBuyOrder/myBuyOrder'; //我的购买订单
 import discountCoupon from '@/page/discountCoupon/discountCoupon'; //优惠劵
@@ -50,6 +51,11 @@ export default new Router({
       path: '/home/orderExpress',
       name: 'home_orderExpress',
       component: orderExpress
+    },
+    {
+      path: '/home/orderExpress/confirmDelivery',
+      name: 'home_orderExpress_confirmDelivery',
+      component: confirmDelivery
     },
     {
       path: '/home/clientGetCargo',
