@@ -34,6 +34,7 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
 ## src 文件描述
 #### components
 tpl.vue ==>> 模板文件，
+dateTiemPicker ==>> 时间选择器，
 
 
 #### page
@@ -54,4 +55,4 @@ myAgreement ==>> 我的协议
 ## 目录结构
 
 项目完结 加
-自动生成教程（https://juejin.im/post/5dc1340e6fb9a04abf552b40）
+自动生成目录结构教程（https://juejin.im/post/5dc1340e6fb9a04abf552b40）
