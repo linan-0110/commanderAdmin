@@ -3,7 +3,7 @@
         <header class="header">
             <img
                 class="header_img"
-                src="http://b-ssl.duitang.com/uploads/item/201806/07/20180607185957_fjrFt.thumb.700_0.jpeg"
+                src="http://b-ssl.duitang.com/uploads/item/201508/27/20150827115940_jcSLY.jpeg"
                 alt="头像"
                 @click="linkMyAccount"
             />
