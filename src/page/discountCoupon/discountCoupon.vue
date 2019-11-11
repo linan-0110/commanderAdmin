@@ -30,7 +30,7 @@
                     </header>
                     <footer class="card_bottom">
                         <div class="valid">有效期至2019.11.15</div>
-                        <button class="go_use_btn" is="div">去使用</button>
+                        <button class="go_use_btn" is="div" @click="go_use_btn">去使用</button>
                     </footer>
                 </article>
 
@@ -47,7 +47,7 @@
                     </header>
                     <footer class="card_bottom">
                         <div class="valid">已过期</div>
-                        <button class="go_use_btn" is="div">去使用</button>
+                        <button class="go_use_btn" is="div" @click="go_use_btn">去使用</button>
                     </footer>
                 </article>
             </li>
@@ -66,7 +66,7 @@
                     </header>
                     <footer class="card_bottom">
                         <div class="valid">有效期至2019.11.15</div>
-                        <button class="go_use_btn" is="div">去使用</button>
+                        <button class="go_use_btn" is="div" @click="go_use_btn">去使用</button>
                     </footer>
                 </article>
 
@@ -83,7 +83,7 @@
                     </header>
                     <footer class="card_bottom">
                         <div class="valid">已过期</div>
-                        <button class="go_use_btn" is="div">去使用</button>
+                        <button class="go_use_btn" is="div" @click="go_use_btn">去使用</button>
                     </footer>
                 </article>
             </li>
@@ -101,6 +101,10 @@ export default {
         };
     },
     methods: {
+        /* 优惠劵去使用 */
+        go_use_btn() {
+            console.log("优惠劵去使用");
+        },
         /* 顶部tab点击事件 */
         clickTopTab(name) {
             console.log(name);
