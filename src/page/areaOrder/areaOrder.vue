@@ -73,7 +73,16 @@
             </article>
         </div>
 
-        
+        <!-- 无订单 -->
+        <div v-else class="container_no_order">
+            <img src="../../assets/bg_no_order.png">
+            <article class="article">
+                <div class="title">暂无
+                    <span class="orange">订单</span>
+                </div>
+                <p class="text">请您去选购心仪产品</p>
+            </article>
+        </div>
     </div>
 </template>
 
