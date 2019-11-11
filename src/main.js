@@ -8,9 +8,9 @@ import '../static/public.css';
 
 /* vant start */
 import { Button, Search, NavBar, Icon, DatetimePicker, Popup, Card, Checkbox, CheckboxGroup, 
-    Tab, Tabs } from 'vant';
+    Tab, Tabs, Stepper } from 'vant';
 Vue.use(Button).use(Search).use(NavBar).use(Icon).use(DatetimePicker).use(Popup).use(Card)
-    .use(Checkbox).use(CheckboxGroup).use(Tab).use(Tabs);
+    .use(Checkbox).use(CheckboxGroup).use(Tab).use(Tabs).use(Stepper);
 /* vant end */
 
 Vue.config.productionTip = false;

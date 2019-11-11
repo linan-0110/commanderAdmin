@@ -19,6 +19,7 @@
                     <p class="order_describe">现货猕猴桃新鲜水果奇异果10斤当季绿心野生弥整箱非徐香</p>
                     <p class="order_number">数量: 3份</p>
                 </section>
+                <van-stepper class="stepper" v-model="stepperValue[0]" integer min="0" />
             </li>
 
             <li class="product_item">
@@ -30,6 +31,7 @@
                     <p class="order_describe">现货猕猴桃新鲜水果奇异果10斤当季绿心野生弥整箱非徐香</p>
                     <p class="order_number">数量: 3份</p>
                 </section>
+                <van-stepper class="stepper" v-model="stepperValue[0]" integer min="0"/>
             </li>
         </ul>
 
@@ -58,7 +60,9 @@
 export default {
     name: "confirmDelivery",
     data() {
-        return {};
+        return {
+            stepperValue: [] //步进器值
+        };
     },
     methods: {
         /* 提交收货信息 */
@@ -117,6 +121,7 @@ export default {
             height: 100px;
             display: flex;
             align-items: center;
+            position: relative;
             .item_main_img {
                 width: 80px;
                 height: 80px;
@@ -134,6 +139,11 @@ export default {
                 .order_number {
                     margin: 10px 0;
                 }
+            }
+            .stepper{
+                position: absolute;
+                right: 10px;
+                bottom: 10px;
             }
         }
     }
