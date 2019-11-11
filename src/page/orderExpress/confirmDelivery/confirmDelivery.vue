@@ -2,6 +2,13 @@
     <div class="confirmDelivery">
         <van-nav-bar title="以确认送达" left-text="返回" left-arrow @click-left="linkBack" />
         <header class="header">配送日期： 2019.11.9</header>
+        <aside class="aside">
+            <div class="left">
+                <img src="../../../assets/icon_todo_list.png">
+                二笔订单 三种商品
+            </div>
+            实际到货
+        </aside>
         <ul class="products">
             <li class="product_item">
                 <img
@@ -13,7 +20,7 @@
                     <p class="order_number">数量: 3份</p>
                 </section>
             </li>
-            
+
             <li class="product_item">
                 <img
                     class="item_main_img"
@@ -24,11 +31,20 @@
                     <p class="order_number">数量: 3份</p>
                 </section>
             </li>
-
         </ul>
 
         <article class="peoduct_info">
-
+            <p class="text">
+                若配送出现缺货情况，请在配送当天20:00前提交补货申请,售后会
+                在当日处理，第二天将货品送达:若超过20: 00,售后将在次日进
+                行补货处理，预计三日内送达;提交当天窗口有效，超过24点默认
+                收货完成。
+            </p>
+            <h3 class="describe">缺货信息</h3>
+            <div class="container">
+                <span>山东黄小米500g×2</span>
+                <span>缺1份</span>
+            </div>
         </article>
     </div>
 </template>
@@ -63,6 +79,27 @@ export default {
         font-size: 18px;
         color: rgb(50, 50, 50);
     }
+    .aside{
+        height: 45px;
+        background-color: #fff;
+        border-radius: 5px;
+        margin: 10px;
+        padding: 0 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        color: rgb(120, 120, 120);
+        font-size: 12px;
+        .left{
+            display: flex;
+            align-items: center;
+            img{
+                width: 12px;
+                height: 14px;
+                margin-right: 6px;
+            }
+        }
+    }
     .products {
         .product_item {
             background-color: #fff;
@@ -91,12 +128,29 @@ export default {
             }
         }
     }
-    .peoduct_info{
+    .peoduct_info {
         background-color: #fff;
         border-radius: 5px;
         margin: 10px;
         padding: 10px;
-        min-height: 100px;
+        .text{
+            color: rgb(120, 120, 120);
+            font-size: 12px;
+        }
+        .describe{
+            font-size: 20px;
+            font-weight: normal;
+            padding: 3px;
+            margin: 7px 0;
+            border-top: 1px solid rgb(240,239,244);
+            border-bottom: 1px solid rgb(240,239,244);
+        }
+        .container{
+            color: rgb(120, 120, 120);
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+        }
     }
 }
 // border: 1px solid #0ff;
