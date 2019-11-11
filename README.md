@@ -38,6 +38,7 @@ dateTiemPicker ==>> 时间选择器，
 
 
 #### page
+```javascript
 Login ==>> 登录页
 home ==>> 主页
 myAccount ==>> 我的账号
@@ -50,7 +51,7 @@ clientGetCargo ==>> 顾客提货
 myBuyOrder ==>> 我的购买订单
 discountCoupon ==>> 优惠劵
 myAgreement ==>> 我的协议
-
+```
 
 ## 目录结构
 
