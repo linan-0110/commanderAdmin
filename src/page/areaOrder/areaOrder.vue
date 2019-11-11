@@ -1,7 +1,7 @@
 <template>
     <div class="areaOrder">
         <van-nav-bar title="小区订单" left-text="返回" left-arrow @click-left="linkBack" />
-        
+
         <!-- 有订单 -->
         <div v-if="true" class="container_have_order">
             <header class="header">
@@ -75,9 +75,10 @@
 
         <!-- 无订单 -->
         <div v-else class="container_no_order">
-            <img src="../../assets/bg_no_order.png">
+            <img src="../../assets/bg_no_order.png" />
             <article class="article">
-                <div class="title">暂无
+                <div class="title">
+                    暂无
                     <span class="orange">订单</span>
                 </div>
                 <p class="text">请您去选购心仪产品</p>
@@ -166,26 +167,26 @@ export default {
         justify-content: center;
         align-items: center;
         transform: translateY(-15%);
-        img{
+        img {
             width: 278px;
             height: 147px;
         }
-        .article{
+        .article {
             text-align: center;
             margin: 25px 0;
-            .title{
-                border: 1px solid rgb(189,180,170);
+            .title {
+                border: 1px solid rgb(189, 180, 170);
                 height: 25px;
                 line-height: 25px;
                 width: 150px;
                 border-radius: 12px;
                 font-size: 14px;
-                .orange{
-                    color: rgb(238,185,104);
+                .orange {
+                    color: rgb(238, 185, 104);
                 }
             }
-            .text{
-                color: rgb(161,161,161);
+            .text {
+                color: rgb(161, 161, 161);
                 font-size: 10px;
                 margin: 10px 0;
             }

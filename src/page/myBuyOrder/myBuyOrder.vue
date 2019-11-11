@@ -1,7 +1,7 @@
  <template>
     <div class="myBuyOrder">
         <van-nav-bar title="我的购买订单" left-text="返回" left-arrow @click-left="linkBack" />
-        <van-tabs v-model="active" title-active-color="#f00" @click="clickTopTab">
+        <van-tabs v-model="active" title-active-color="rgb(190,157,83)" color="rgb(190,157,83)" @click="clickTopTab">
             <van-tab
                 v-for="(item) in tabsConfig"
                 :key="item.name"
