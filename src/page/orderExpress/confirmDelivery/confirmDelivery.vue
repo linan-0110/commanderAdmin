@@ -46,6 +46,11 @@
                 <span>缺1份</span>
             </div>
         </article>
+
+        <footer class="footer">
+            <p>可以再次修改缺货信息，进行再次提交</p>
+            <van-button class="sunmit_info" size="small" @click="sunmit_info">提交收货信息</van-button>
+        </footer>
     </div>
 </template>
 
@@ -56,6 +61,10 @@ export default {
         return {};
     },
     methods: {
+        /* 提交收货信息 */
+        sunmit_info() {
+            console.log("提交收货信息");
+        },
         /* 返回 */
         linkBack() {
             this.$router.back();
@@ -80,7 +89,7 @@ export default {
         color: rgb(50, 50, 50);
     }
     .aside{
-        height: 45px;
+        height: 35px;
         background-color: #fff;
         border-radius: 5px;
         margin: 10px;
@@ -150,6 +159,21 @@ export default {
             display: flex;
             justify-content: space-between;
             font-size: 14px;
+        }
+    }
+    .footer{
+        color: rgb(120, 120, 120);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 20px;
+        .sunmit_info{
+            background-color: rgb(221, 209, 167);
+            border-radius: 15px;
+            padding: 0 20px;
+            margin: 10px 0;
+            color: #fff;
+            font-size: 20px;
         }
     }
 }

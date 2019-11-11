@@ -3,7 +3,7 @@
         <header class="header">
             <img
                 class="header_img"
-                src="http://b-ssl.duitang.com/uploads/item/201508/27/20150827115940_jcSLY.jpeg"
+                src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1573271931181&di=5acd8addcee6387af2bc1258137c60ff&imgtype=0&src=http%3A%2F%2Fpic29.nipic.com%2F20130525%2F5947930_105420866000_2.jpg"
                 alt="头像"
                 @click="linkMyAccount"
             />
