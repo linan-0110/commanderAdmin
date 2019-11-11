@@ -32,13 +32,13 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
 #### 基础组件库用了vant 采用按需导入方式加载
 
 ## src 文件描述
-#### components
+```javascript
+/* -----components----- */
 tpl.vue ==>> 模板文件，
 dateTiemPicker ==>> 时间选择器，
 
 
-#### page
-```javascript
+/* -----page----- */
 Login ==>> 登录页
 home ==>> 主页
 myAccount ==>> 我的账号
