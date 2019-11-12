@@ -6,6 +6,7 @@ import router from './router';
 import '../static/init.css';
 import '../static/public.css';
 
+
 /* vant start */
 import { Button, Search, NavBar, Icon, DatetimePicker, Popup, Card, Checkbox, CheckboxGroup, 
     Tab, Tabs, Stepper } from 'vant';

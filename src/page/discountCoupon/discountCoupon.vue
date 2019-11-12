@@ -92,6 +92,9 @@
 </template>
 
 <script>
+import { md5 } from "../../units/md5.js";
+import { login } from "../../api/login"
+
 export default {
     name: "discountCoupon",
     data() {
@@ -100,7 +103,47 @@ export default {
             tabsConfig //顶部列表项
         };
     },
+    created() {
+        this.test()
+
+        login({
+                act: "order",
+                cmd: "mylist",
+                status: -1,
+                issub: 1,
+                pageindex: 1,
+                pagesize: 10,
+                token: "71ffdd05-b8ea-40e0-ba41-c7888af2ce89",
+            }).then(res => {
+                if(res.data.status === 0) {
+                    console.log(res.data);
+                } else {
+                    console.log(res.data.msg);
+                    console.log(res.data);
+                }
+            })
+    },
     methods: {
+        test() {
+            let obj = {
+                act: "order",
+                cmd: "mylist",
+                starttime: "",
+                endtime: "",
+                status: -1,
+                issub: 1,
+                pageindex: 1,
+                pagesize: 10,
+                token: "72ab975b-04bd-4fbc-98c8-a93d9b8c47a5",
+                v: "webv09",
+                time: "1573460895",
+                app_type: "web"
+            };
+            console.log(obj);
+            console.log(md5(obj));
+            // console.log("sss");
+        },
+
         /* 优惠劵去使用 */
         go_use_btn() {
             console.log("优惠劵去使用");
@@ -128,64 +171,65 @@ const tabsConfig = [
 .discountCoupon {
     background-color: rgb(240, 239, 245);
     height: 100%;
-    .list{
+    .list {
         display: flex;
         flex-direction: column;
-        .item{
-            .normal_card,.disabled_card{
+        .item {
+            .normal_card,
+            .disabled_card {
                 height: 115px;
                 margin: 10px 10px 0 10px;
-                .card_top{
+                .card_top {
                     height: 45px;
                     color: #fff;
                     display: flex;
                     justify-content: space-between;
                     align-items: center;
                     padding: 10px 30px;
-                    .card_top_left{
-                        .lable{
+                    .card_top_left {
+                        .lable {
                             font-size: 18px;
                             font-weight: normal;
                             margin-bottom: 5px;
                         }
-                        .text{
+                        .text {
                             font-size: 12px;
                         }
                     }
-                    .card_top_right{
-                        .symbol{
+                    .card_top_right {
+                        .symbol {
                             font-size: 12px;
                         }
-                        .money{
+                        .money {
                             font-size: 40px;
                         }
                     }
                 }
-                .card_bottom{
+                .card_bottom {
                     height: 50px;
                     display: flex;
                     justify-content: space-between;
                     align-items: center;
                     padding: 0 30px;
-                    .valid{
-                        color: rgb(100,100,100);
+                    .valid {
+                        color: rgb(100, 100, 100);
                     }
-                    .go_use_btn{
-                        color: rgb(160,160,160);
+                    .go_use_btn {
+                        color: rgb(160, 160, 160);
                         border-radius: 3px;
                         background-color: #fff;
-                        border: 1px solid rgb(158,158,158);
+                        border: 1px solid rgb(158, 158, 158);
                         padding: 3px 8px;
                     }
-                    
                 }
             }
-            .normal_card{
+            .normal_card {
                 background: url("../../assets/bg_discountCoupon.png") no-repeat;
                 background-size: 100%;
             }
-            .disabled_card{
-                background: url("../../assets/bg_discountCoupon_disable.png") no-repeat;
+            .disabled_card {
+                background: url("../../assets/bg_discountCoupon_disable.png")
+                    no-repeat;
                 background-size: 100%;
             }
         }

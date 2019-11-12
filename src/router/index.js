@@ -77,5 +77,9 @@ export default new Router({
       name: 'home_myAgreement',
       component: myAgreement
     },
+    {
+      path: '*',
+      component: Login
+    }
   ]
 })
