@@ -91,14 +91,23 @@ export default {
     name: "home",
     data() {
         return {
-            myAsset: {} //我的资产
+            myAsset: {
+                balance: 0,
+                freeze: 0,
+                total: 0,
+                salortotal: 0
+            }, //我的资产
+            userInfo: {} //用户信息
         };
     },
     beforeCreate() {
-        this.userInfo = JSON.parse(localStorage.getItem("userInfo"));
+        console.log("beforeCreate");
     },
     created() {
-        this.getMyAsset({act: "f", cmd: "myinfo"});
+        console.log("created");
+        this.userInfo = JSON.parse(localStorage.getItem("userInfo"));
+        /* 请求 我的资产 */
+        this.getMyAsset({ act: "f", cmd: "myinfo" });
     },
     methods: {
         /* 请求 我的资产 */

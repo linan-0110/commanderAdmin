@@ -12,6 +12,15 @@ export default {
         return {};
     },
     methods: {
+        get(params) {
+            req(params).then(res => {
+                if (res.data.status === 0) {
+					
+                } else {
+                    console.error("登录失败:" + res.data.msg);
+                }
+            });
+		},
         /* 返回 */
         linkBack() {
             Toast("返回");

@@ -24,27 +24,26 @@
                         src="../../assets/icon_arrow_bottom_black.png"
                     />
                 </div>
-                <span>截止今日16.13分</span>
+                <span>截止今日{{ moment().format("HH.mm") }}分</span>
             </article>
 
             <!-- 预估资产数据 -->
-            <article class="predict_asset_data">
+            <article class="total_income">
                 <header>累计收入（元）</header>
-                <section class="value_block">0</section>
+                <section class="value_block">{{ totalIncome.toFixed(2) }}</section>
                 <footer class="grid">
                     <div class="item">
                         <p class="title">累计收入</p>
-                        <p class="num">0</p>
+                        <p class="num">{{ totalIncome.toFixed(2) }}</p>
                     </div>
                     <div class="item">
-                        <p class="title">日常奖励金</p>
-                        <p class="num">0</p>
+                        <p class="title">推广收益</p>
+                        <p class="num">{{ generalizeMoney }}</p>
                     </div>
                     <div class="item">
-                        <p class="title">邀请奖励金</p>
-                        <p class="num">0</p>
+                        <p class="title">订单佣金</p>
+                        <p class="num">{{ orderMoney }}</p>
                     </div>
-                    <div class="item" style="background-color: #fff;"></div>
                 </footer>
             </article>
 
@@ -54,11 +53,11 @@
                 <section class="container">
                     <div class="block">
                         <p class="title">累计订单（笔）</p>
-                        <p class="num">0</p>
+                        <p class="num">{{ recordcount }}</p>
                     </div>
                     <div class="block">
-                        <p class="title">累计销售量（元）</p>
-                        <p class="num">0</p>
+                        <p class="title">累计销售额（元）</p>
+                        <p class="num">{{ totalMoney.toFixed(2) }}</p>
                     </div>
                 </section>
             </article>
@@ -94,7 +93,7 @@
 
 <script>
 import moment from "moment";
-import { reqTotalIncome } from "@/api/fullStatus";
+import { reqTotalIncome, reqOrderData } from "@/api/fullStatus";
 
 moment().format();
 export default {
@@ -105,18 +104,25 @@ export default {
             currentDate: new Date(),
             showDatepicker: false,
             dateTime: moment().format("YYYY年MM月DD日"),
-            TotalIncome: {} //累计收入
+            totalIncome: 0, //累计收入
+            generalizeMoney: 0, //推广收益
+            orderMoney: 0, //订单佣金
+            recordcount: 0, //订单数量
+            totalMoney: 0, //累计销售额
+            dateTimeStr: moment().format("YYYY-MM-DD") //日期选择器选择的时间
         };
     },
     created() {
+        /* 请求 累计收入 默认查询单日 */
         this.getTotalIncome({
-            act: 'f',
-            cmd: 'commission',
-            s: '2019 - 11 - 12',
-            e: '2019 - 11 - 12',
-            logtype: 1,
-            pageindex: 1,
-            pagesize: 10000
+            s: moment().format("YYYY-MM-DD") + " 00:00:00",
+            e: moment().format("YYYY-MM-DD") + " 23:59:59"
+        });
+
+        /* 订单数据 默认查询单日*/
+        this.getOrderData({
+            s: moment().format("YYYY-MM-DD") + " 00:00:00",
+            e: moment().format("YYYY-MM-DD") + " 23:59:59"
         });
     },
     methods: {
@@ -124,12 +130,41 @@ export default {
         getTotalIncome(params) {
             reqTotalIncome(params).then(res => {
                 if (res.data.status === 0) {
-                    this.TotalIncome = res.data.data;
+                    this.totalIncome = 0; //累计收入
+                    this.orderMoney = 0; //订单佣金
+                    this.generalizeMoney = 0; //推广收益
+                    res.data.data.list.forEach(item => {
+                        this.totalIncome += item.amount;
+                        if (item.otype == 1) {
+                            this.orderMoney += item.amount;
+                        }
+                        if (item.otype == 4) {
+                            this.generalizeMoney += item.amount;
+                        }
+                    });
                 } else {
                     console.error("登录失败:" + res.data.msg);
                 }
             });
         },
+
+        /* 请求 订单数据 */
+        getOrderData(params) {
+            reqOrderData(params).then(res => {
+                if (res.data.status === 0) {
+                    this.recordcount = 0; //订单数量
+                    this.totalMoney = 0; //累计销售额
+                    this.recordcount = res.data.data.recordcount;
+                    res.data.data.list.forEach(item => {
+                        this.totalMoney += item.amount;
+                    });
+                } else {
+                    console.error("登录失败:" + res.data.msg);
+                }
+            });
+        },
+
+        moment,
         /* ---------- 日期选择框 start ---------- */
         showPopup() {
             this.showDatepicker = true;
@@ -147,6 +182,47 @@ export default {
         /* 时间选择框确认事件 */
         clickOk(dateTime) {
             this.dateTime = moment(dateTime).format("YYYY年MM月DD日");
+            this.dateTimeStr = moment(dateTime).format("YYYY-MM-DD");
+            if (this.trigger_bar) {
+                //是月数据
+                /* 请求 累计收入 */
+                this.getTotalIncome({
+                    s:
+                        moment(dateTime)
+                            .startOf("month")
+                            .format("YYYY-MM-DD") + " 00:00:00",
+                    e:
+                        moment(dateTime)
+                            .endOf("month")
+                            .format("YYYY-MM-DD") + " 23:59:59"
+                });
+
+                /* 订单数据 查询单月*/
+                this.getOrderData({
+                    s:
+                        moment(dateTime)
+                            .startOf("month")
+                            .format("YYYY-MM-DD") + " 00:00:00",
+                    e:
+                        moment(dateTime)
+                            .endOf("month")
+                            .format("YYYY-MM-DD") + " 23:59:59"
+                });
+            } else {
+                //是日数据
+                /* 请求 累计收入 */
+                this.getTotalIncome({
+                    s: moment(dateTime).format("YYYY-MM-DD") + " 00:00:00",
+                    e: moment(dateTime).format("YYYY-MM-DD") + " 23:59:59"
+                });
+
+                /* 订单数据 查询单日*/
+                this.getOrderData({
+                    s: moment(dateTime).format("YYYY-MM-DD") + " 00:00:00",
+                    e: moment(dateTime).format("YYYY-MM-DD") + " 23:59:59"
+                });
+            }
+
             this.showDatepicker = false;
         },
         /* 时间选择框取消事件 */
@@ -157,10 +233,44 @@ export default {
 
         /* 日数据概况 */
         dayDataStatus() {
+            /* 请求 累计收入 */
+            this.getTotalIncome({
+                s: moment(this.dateTimeStr).format("YYYY-MM-DD") + " 00:00:00",
+                e: moment(this.dateTimeStr).format("YYYY-MM-DD") + " 23:59:59"
+            });
+
+            /* 订单数据 查询单日*/
+            this.getOrderData({
+                s: moment(this.dateTimeStr).format("YYYY-MM-DD") + " 00:00:00",
+                e: moment(this.dateTimeStr).format("YYYY-MM-DD") + " 23:59:59"
+            });
             this.trigger_bar = false;
         },
         /* 月数据概况 */
         monthDataStatus() {
+            /* 请求 累计收入 */
+            this.getTotalIncome({
+                s:
+                    moment(this.dateTimeStr)
+                        .startOf("month")
+                        .format("YYYY-MM-DD") + " 00:00:00",
+                e:
+                    moment(this.dateTimeStr)
+                        .endOf("month")
+                        .format("YYYY-MM-DD") + " 23:59:59"
+            });
+
+            /* 订单数据 查询单月*/
+            this.getOrderData({
+                s:
+                    moment(this.dateTimeStr)
+                        .startOf("month")
+                        .format("YYYY-MM-DD") + " 00:00:00",
+                e:
+                    moment(this.dateTimeStr)
+                        .endOf("month")
+                        .format("YYYY-MM-DD") + " 23:59:59"
+            });
             this.trigger_bar = true;
         },
         /* 返回 */
@@ -228,10 +338,10 @@ export default {
                 }
             }
         }
-        .predict_asset_data {
+        .total_income {
             background-color: #fff;
             border-radius: 6px;
-            padding: 10px 15px 0px 15px;
+            padding: 10px 15px 20px 15px;
             margin: 10px 0;
             header {
                 display: inline-block;
@@ -246,7 +356,6 @@ export default {
                 padding: 8px 0 8px 40px;
             }
             .grid {
-                height: 143px;
                 display: flex;
                 flex-wrap: wrap;
                 justify-content: space-between;

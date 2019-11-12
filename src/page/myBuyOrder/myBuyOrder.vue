@@ -1,7 +1,12 @@
  <template>
     <div class="myBuyOrder">
         <van-nav-bar title="我的购买订单" left-text="返回" left-arrow @click-left="linkBack" />
-        <van-tabs v-model="active" title-active-color="rgb(190,157,83)" color="rgb(190,157,83)" @click="clickTopTab">
+        <van-tabs
+            v-model="active"
+            title-active-color="rgb(190,157,83)"
+            color="rgb(190,157,83)"
+            @click="clickTopTab"
+        >
             <van-tab
                 v-for="(item) in tabsConfig"
                 :key="item.name"
@@ -70,21 +75,38 @@
                 </section>
                 <footer class="get_cargo_address">提货点：浙江省台州市椒江区经中路445-447号</footer>
             </li>
-
         </ul>
     </div>
 </template>
 
 <script>
+import { reqOrderData } from "@/api/myBuyOrder";
+const pagesize = 10;
 export default {
     name: "myBuyOrder",
     data() {
         return {
-            active: 1,
-            tabsConfig //顶部列表项
+            active: 0,
+            tabsConfig, //顶部列表项
+            getOrderDataParmas: {  //请求订单数据的参数
+                pageindex: 1,
+                pagesize: pagesize
+            }
         };
     },
+    created() {
+        this.getOrderData(this.getOrderDataParmas);
+    },
     methods: {
+        /* 请求 订单数据 */
+        getOrderData(params) {
+            reqOrderData(params).then(res => {
+                if (res.data.status === 0) {
+                } else {
+                    console.error("登录失败:" + res.data.msg);
+                }
+            });
+        },
         /* 顶部tab点击事件 */
         clickTopTab(name) {
             console.log(name);
@@ -117,7 +139,7 @@ const tabsConfig = [
         .li {
             background-color: #fff;
             margin-bottom: 10px;
-                border-radius: 5px;
+            border-radius: 5px;
             .item {
                 height: 100px;
                 display: flex;
@@ -147,7 +169,7 @@ const tabsConfig = [
                     }
                 }
             }
-            .get_cargo_address{
+            .get_cargo_address {
                 margin: 0 20px 10px 20px;
                 color: rgb(120, 120, 120);
                 font-size: 12px;
