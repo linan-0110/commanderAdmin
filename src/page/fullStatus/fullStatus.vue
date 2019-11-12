@@ -29,7 +29,7 @@
 
             <!-- 预估资产数据 -->
             <article class="predict_asset_data">
-                <header>预估资产数据（元）</header>
+                <header>累计收入（元）</header>
                 <section class="value_block">0</section>
                 <footer class="grid">
                     <div class="item">
@@ -42,14 +42,6 @@
                     </div>
                     <div class="item">
                         <p class="title">邀请奖励金</p>
-                        <p class="num">0</p>
-                    </div>
-                    <div class="item">
-                        <p class="title">平均活动奖励金</p>
-                        <p class="num">0</p>
-                    </div>
-                    <div class="item">
-                        <p class="title">其他收入</p>
                         <p class="num">0</p>
                     </div>
                     <div class="item" style="background-color: #fff;"></div>
@@ -65,14 +57,14 @@
                         <p class="num">0</p>
                     </div>
                     <div class="block">
-                        <p class="title">累计销售量（）元</p>
+                        <p class="title">累计销售量（元）</p>
                         <p class="num">0</p>
                     </div>
                 </section>
             </article>
 
             <!-- 预计客人数据 -->
-            <article class="predict_guest">
+            <!-- <article class="predict_guest">
                 <header>预估客户数据（人）</header>
                 <section class="container">
                     <div class="block">
@@ -84,7 +76,7 @@
                         <p class="num">0</p>
                     </div>
                 </section>
-            </article>
+            </article>-->
         </section>
 
         <!-- 时间选择框 -->
@@ -102,6 +94,8 @@
 
 <script>
 import moment from "moment";
+import { reqTotalIncome } from "@/api/fullStatus";
+
 moment().format();
 export default {
     name: "fullStatus",
@@ -110,10 +104,32 @@ export default {
             trigger_bar: false,
             currentDate: new Date(),
             showDatepicker: false,
-            dateTime: moment().format("YYYY年MM月DD日")
+            dateTime: moment().format("YYYY年MM月DD日"),
+            TotalIncome: {} //累计收入
         };
     },
+    created() {
+        this.getTotalIncome({
+            act: 'f',
+            cmd: 'commission',
+            s: '2019 - 11 - 12',
+            e: '2019 - 11 - 12',
+            logtype: 1,
+            pageindex: 1,
+            pagesize: 10000
+        });
+    },
     methods: {
+        /* 请求 累计收入 */
+        getTotalIncome(params) {
+            reqTotalIncome(params).then(res => {
+                if (res.data.status === 0) {
+                    this.TotalIncome = res.data.data;
+                } else {
+                    console.error("登录失败:" + res.data.msg);
+                }
+            });
+        },
         /* ---------- 日期选择框 start ---------- */
         showPopup() {
             this.showDatepicker = true;

@@ -92,8 +92,6 @@
 </template>
 
 <script>
-import { md5 } from "../../units/md5.js";
-import { login } from "../../api/login"
 
 export default {
     name: "discountCoupon",
@@ -104,24 +102,7 @@ export default {
         };
     },
     created() {
-        this.test()
-
-        login({
-                act: "order",
-                cmd: "mylist",
-                status: -1,
-                issub: 1,
-                pageindex: 1,
-                pagesize: 10,
-                token: "71ffdd05-b8ea-40e0-ba41-c7888af2ce89",
-            }).then(res => {
-                if(res.data.status === 0) {
-                    console.log(res.data);
-                } else {
-                    console.log(res.data.msg);
-                    console.log(res.data);
-                }
-            })
+        this.test();
     },
     methods: {
         test() {
@@ -140,8 +121,6 @@ export default {
                 app_type: "web"
             };
             console.log(obj);
-            console.log(md5(obj));
-            // console.log("sss");
         },
 
         /* 优惠劵去使用 */

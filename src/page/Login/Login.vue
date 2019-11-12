@@ -1,36 +1,60 @@
 <template>
     <div class="Login">
         <!-- <img class="main_img" src='http://img.lanrentuku.com/img/allimg/1409/14108610182609.jpg' alt="登录页主图" /> -->
-        <img class="main_img" src='../../assets/login_main.png' />
-        <p class="toast">
-            <img class="icon_mini_success" src="../../assets/icon_mini_success.png"/>你的账号信息（昵称、头像、地区及性别）
-        </p>
-        <button class="login_btn" @click="login">授权并登录</button>
-        <h6 class="bottom_state">
-            登录及代表您已同意
-            <a class="protocol_link">《集集享家隐私政策》</a>
-        </h6>
+        <img class="main_img" src="../../assets/login_main1.png" />
+        <van-cell-group class="input_container">
+            <van-field
+                v-model="username"
+                required
+                clearable
+                label="账 号"
+                placeholder="请输入账号"
+                @click-right-icon="$toast('question')"
+            />
+            <van-field v-model="password" type="password" label="密 码" placeholder="请输入密码" required />
+            <button class="login_btn" @click="login" is="div">登录</button>
+        </van-cell-group>
     </div>
 </template>
 
 <script>
+import { reqLogin } from "@/api/login";
 import { Toast } from "vant";
 export default {
     name: "Login",
     data() {
-        return {};
+        return {
+            username: '13396928327',
+            password: '13396928327'
+        };
     },
     created() {
-        console.log(this);
+        // console.log(this);
     },
     methods: {
         /* 登录 */
         login() {
-            Toast.success("登录成功");
-            this.$router.push("/home");
-        },
-        onClickLeft() {
-            Toast("返回");
+            Toast.loading({
+                message: '登录中...',
+                forbidClick: true
+            });
+            reqLogin({
+                act: "login",
+                cmd: "login",
+                account: this.username,
+                password: this.password
+            }).then(res => {
+                if (res.data.status === 0) {
+                    localStorage.setItem("userInfo", JSON.stringify(res.data.data))
+                    Toast.success("登录" + res.data.msg);
+                    setTimeout(() => {
+                        Toast.clear()
+                        this.$router.push("/home");
+                    }, 400)
+                } else {
+                    Toast.fail("登录失败:" + res.data.msg);
+                }
+            });
         }
     }
 };
@@ -42,53 +66,40 @@ export default {
     flex-direction: column;
     align-items: center;
     .main_img {
-        width: 17.5rem;
-        height: 16.25rem;
-        margin-top: 9.8rem;
+        width: 100%;
     }
-    .toast {
-        width: 200%;
-        text-align: center;
-        font-size: 17px;
-        transform: scale(0.5);
-        color: rgb(6, 180, 177);
-        margin: 0.9rem;
-        font-weight: 600;
+    .input_container {
+        height: 260px;
+        width: 90%;
         display: flex;
-        justify-content: center;
-        .icon_mini_success{
-            width: 1.4rem;
-            height: 1.4rem;
-            margin-right: 1rem;
-        }
-    }
-    .login_btn {
-        width: 14rem;
-        height: 2.2rem;
-        border-radius: 1.3rem;
-        background-image: linear-gradient(
-            to right,
-            rgb(255, 184, 128),
-            rgb(252, 205, 151)
-        );
-        border: 0;
-        color: rgb(252, 252, 254);
-        font-size: 0.88rem;
-        font-weight: normal;
-    }
-    .bottom_state {
-        width: 200%;
-        text-align: center;
-        font-size: 18px;
-        transform: scale(0.5);
-        color: rgb(180, 180, 180);
-        margin: 1rem 0;
-        font-weight: normal;
-        position: absolute;
-        bottom: 0;
-        .protocol_link {
-            color: rgb(113, 179, 231);
+        background-color: #fff;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+        border-radius: 10px;
+        padding: 30px 20px;
+        box-sizing: border-box;
+        transform: translateY(-58%);
+        box-shadow: 0px -8px 10px rgba(100, 100, 100, 0.15);
+        .login_btn {
+            color: #fff;
+            font-size: 16px;
+            height: 40px;
+            width: 80%;
+            border-radius: 20px;
+            background-image: linear-gradient(
+                to right,
+                rgb(247, 177, 124),
+                rgb(247, 212, 172) ;
+            );
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
     }
 }
+
+/* 组建样式 */
+
+// border: 1px solid #f0f;
 </style>

@@ -8,7 +8,7 @@
                 @click="linkMyAccount"
             />
             <article class="header_article">
-                <span class="name">张三</span>
+                <span class="name">{{ userInfo.RealName }}</span>
                 <span class="lable">
                     <img
                         class="icon_home_header_lable"
@@ -20,9 +20,9 @@
                 <div class="container_money">
                     <div class="my_asset" @click="linkAssetDetails">
                         <h3 class="my_asset_text">我的资产(元)</h3>
-                        <p class="money">185.8</p>
+                        <p class="money">{{ myAsset.balance + myAsset.freeze }}</p>
                     </div>
-                    <div class="carry_cash">可提现185.8 ▶</div>
+                    <div class="carry_cash">可提现 {{ myAsset.balance }} ▶</div>
                 </div>
                 <p class="see_full_data">
                     <span @click="linkFullStatus">查看完整数据 ▶</span>
@@ -86,67 +86,86 @@
 </template>
 
 <script>
+import { reqMyAsset } from "@/api/home";
 export default {
     name: "home",
     data() {
-        return {};
+        return {
+            myAsset: {} //我的资产
+        };
+    },
+    beforeCreate() {
+        this.userInfo = JSON.parse(localStorage.getItem("userInfo"));
+    },
+    created() {
+        this.getMyAsset({act: "f", cmd: "myinfo"});
     },
     methods: {
+        /* 请求 我的资产 */
+        getMyAsset(params) {
+            reqMyAsset(params).then(res => {
+                if (res.data.status === 0) {
+                    this.myAsset = res.data.data;
+                } else {
+                    console.error("登录失败:" + res.data.msg);
+                }
+            });
+        },
+
         /* 跳转 我的账号 */
         linkMyAccount() {
             this.$router.push({
                 name: "home_myAccount"
-            })
+            });
         },
         /* 跳转 资产明细 */
         linkAssetDetails() {
             this.$router.push({
                 name: "home_assetDetails"
-            })
+            });
         },
         /* 跳转 整体状况 */
         linkFullStatus() {
             this.$router.push({
                 name: "home_fullStatus"
-            })
+            });
         },
         /* 跳转 小区订单 */
         linkAreaOrder() {
             this.$router.push({
                 name: "home_areaOrder"
-            })
+            });
         },
         /* 跳转 订单配送 */
         linkOrderExpress() {
             this.$router.push({
                 name: "home_orderExpress"
-            })
+            });
         },
         /* 跳转 顾客提货 */
         linkClientGetCargo() {
             this.$router.push({
                 name: "home_clientGetCargo"
-            })
+            });
         },
         /* 跳转 我的购买订单 */
         linkMyBuyOrder() {
             this.$router.push({
                 name: "home_myBuyOrder"
-            })
+            });
         },
         /* 跳转 优惠劵 */
         linkDiscountCoupon() {
             this.$router.push({
                 name: "home_discountCoupon"
-            })
+            });
         },
         /* 跳转 我的协议 */
         linkMyAgreement() {
             this.$router.push({
                 name: "home_myAgreement"
-            })
-        },
-        
+            });
+        }
     }
 };
 </script>
