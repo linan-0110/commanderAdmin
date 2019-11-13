@@ -4,7 +4,7 @@
         <img class="main_img" src="../../assets/login_main1.png" />
         <van-cell-group class="input_container">
             <van-field
-                v-model="username"
+                v-model="account"
                 required
                 clearable
                 label="账 号"
@@ -24,7 +24,7 @@ export default {
     name: "Login",
     data() {
         return {
-            username: '13396928327',
+            account: '13396928327',
             password: '13396928327'
         };
     },
@@ -39,9 +39,7 @@ export default {
                 forbidClick: true
             });
             reqLogin({
-                act: "login",
-                cmd: "login",
-                account: this.username,
+                account: this.account,
                 password: this.password
             }).then(res => {
                 if (res.data.status === 0) {

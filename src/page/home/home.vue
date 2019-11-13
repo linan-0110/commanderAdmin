@@ -2,11 +2,20 @@
     <div class="home">
         <header class="header">
             <img
+                v-if="userInfo.sex == '女'"
                 class="header_img"
-                src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1573271931181&di=5acd8addcee6387af2bc1258137c60ff&imgtype=0&src=http%3A%2F%2Fpic29.nipic.com%2F20130525%2F5947930_105420866000_2.jpg"
+                src="../../assets/head_img_woman.png"
                 alt="头像"
                 @click="linkMyAccount"
             />
+            <img
+                v-else
+                class="header_img"
+                src="../../assets/head_img_man.png"
+                alt="头像"
+                @click="linkMyAccount"
+            />
+
             <article class="header_article">
                 <span class="name">{{ userInfo.RealName }}</span>
                 <span class="lable">
@@ -100,19 +109,16 @@ export default {
             userInfo: {} //用户信息
         };
     },
-    beforeCreate() {
-        console.log("beforeCreate");
-    },
+    beforeCreate() {},
     created() {
-        console.log("created");
         this.userInfo = JSON.parse(localStorage.getItem("userInfo"));
         /* 请求 我的资产 */
-        this.getMyAsset({ act: "f", cmd: "myinfo" });
+        this.getMyAsset();
     },
     methods: {
         /* 请求 我的资产 */
-        getMyAsset(params) {
-            reqMyAsset(params).then(res => {
+        getMyAsset() {
+            reqMyAsset().then(res => {
                 if (res.data.status === 0) {
                     this.myAsset = res.data.data;
                 } else {
