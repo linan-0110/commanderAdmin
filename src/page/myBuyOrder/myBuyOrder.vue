@@ -27,19 +27,30 @@
                 <section class="item">
                     <img class="item_main_img" :src="item.detaileList[0].mainImg" />
                     <section class="container">
-                        <p class="order_money">订单金额：{{ item.amount}}</p>
+                        <p class="order_money">订单金额：{{ item.amount}}元</p>
                         <p class="order_number">订单号：{{ item.id }}</p>
                         <p class="time">订单时间：{{ item.DateTimePay }}</p>
                     </section>
                 </section>
-                <footer class="get_cargo_address">提货点：{{ item.GetProductAddress }} {{item.consignee}}</footer>
+                <footer
+                    class="get_cargo_address"
+                >提货点：{{ item.GetProductAddress }} {{item.consignee}}</footer>
+                <van-button
+                    v-if="item.States == 15"
+                    :loading="btnLoading"
+                    type="info"
+                    size="mini"
+                    class="get_cargo_btn"
+                    @click="confirmGetCargo(item.id)"
+                >收货</van-button>
             </van-cell>
         </van-list>
     </div>
 </template>
 
 <script>
-import { reqOrderData } from "@/api/myBuyOrder";
+import { Toast } from "vant";
+import { reqOrderData, reqGetCargo } from "@/api/myBuyOrder";
 
 /* 顶部列表项 配置*/
 const tabsConfig = [
@@ -66,7 +77,8 @@ export default {
             orderData: [], // 订单数据
             orderDataTotal: 0, // 订单数据总条数
             loading: false, // 列表加载标识
-            finished: false // 数据全部加载完成的状态标识
+            finished: false, // 数据全部加载完成的状态标识
+            btnLoading: false //按钮的加载状态
         };
     },
     created() {
@@ -118,6 +130,25 @@ export default {
             this.getOrderData(this.getOrderDataParmas[this.active]);
             console.log("选显卡状态 ==>>" + active);
         },
+        
+        /* 确认收货 */
+        confirmGetCargo(oid) {
+            // 按钮是加载状态的时候禁止点击
+            if(this.btnLoading) {
+                return
+            }
+            this.btnLoading = true;
+            reqGetCargo(oid).then(res => {
+                if (res.data.status === 0) {
+                    // 收货成功后刷新列表
+                    this.getOrderData(this.getOrderDataParmas[this.active]);
+                    Toast.success(res.data.msg);
+                    this.btnLoading = false;
+                } else {
+                    Toast.fail(res.data.msg);
+                }
+            });
+        },
 
         /* 返回 */
         linkBack() {
@@ -147,6 +178,7 @@ export default {
             background-color: #fff;
             margin-bottom: 10px;
             border-radius: 5px;
+            position: relative;
             .item {
                 height: 100px;
                 display: flex;
@@ -180,6 +212,11 @@ export default {
                 margin: 0 20px 10px 20px;
                 color: rgb(120, 120, 120);
                 font-size: 12px;
+            }
+            .get_cargo_btn {
+                position: absolute;
+                right: 10px;
+                top: 10px;
             }
         }
     }

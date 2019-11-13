@@ -29,7 +29,7 @@
                 <div class="container_money">
                     <div class="my_asset" @click="linkAssetDetails">
                         <h3 class="my_asset_text">我的资产(元)</h3>
-                        <p class="money">{{ myAsset.balance + myAsset.freeze }}</p>
+                        <p class="money">{{ (myAsset.balance + myAsset.freeze).toFixed(2) }}</p>
                     </div>
                     <div class="carry_cash">可提现 {{ myAsset.balance }} ▶</div>
                 </div>
@@ -245,7 +245,7 @@ export default {
                         font-size: 16px;
                     }
                     .money {
-                        font-size: 35px;
+                        font-size: 30px;
                         margin-bottom: 10px;
                     }
                 }
