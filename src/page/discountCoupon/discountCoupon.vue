@@ -88,23 +88,25 @@
                 </article>
             </li>
         </ul>
+
     </div>
 </template>
 
 <script>
-
 export default {
     name: "discountCoupon",
     data() {
         return {
             active: 0,
-            tabsConfig //顶部列表项
+            tabsConfig, //顶部列表项
+
         };
     },
     created() {
         this.test();
     },
     methods: {
+
         test() {
             let obj = {
                 act: "order",
