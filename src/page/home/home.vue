@@ -52,17 +52,17 @@
                     <div class="block area_order" @click="linkAreaOrder">
                         <img class="icon" src="../../assets/icon_home_2.png" />
                         <h3>小区订单</h3>
-                        <span>今日订单：0</span>
+                        <!-- <span>今日订单：0</span> -->
                     </div>
                     <div class="block order_express" @click="linkOrderExpress">
                         <img class="icon" src="../../assets/icon_home_3.png" />
                         <h3>订单配送</h3>
-                        <span>待配送：0</span>
+                        <!-- <span>待配送：0</span> -->
                     </div>
                     <div class="block client_get_cargo" @click="linkClientGetCargo">
                         <img class="icon" src="../../assets/icon_home_4.png" />
                         <h3>顾客提货</h3>
-                        <span>未提货：0</span>
+                        <!-- <span>未提货：0</span> -->
                     </div>
                 </section>
             </article>
@@ -291,7 +291,7 @@ export default {
                 /* 三块的公共样式 */
                 .block {
                     width: 70px;
-                    height: 75px;
+                    height: 65px;
                     display: flex;
                     flex-direction: column;
                     align-items: center;
