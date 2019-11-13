@@ -143,7 +143,7 @@ export default {
                         }
                     });
                 } else {
-                    console.error("登录失败:" + res.data.msg);
+                    console.error("网络错误:" + res.data.msg);
                 }
             });
         },
@@ -159,7 +159,7 @@ export default {
                         this.totalMoney += item.amount;
                     });
                 } else {
-                    console.error("登录失败:" + res.data.msg);
+                    console.error("网络错误:" + res.data.msg);
                 }
             });
         },

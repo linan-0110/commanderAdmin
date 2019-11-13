@@ -4,34 +4,26 @@
         <header class="header">配送日期： 2019.11.9</header>
         <aside class="aside">
             <div class="left">
-                <img src="../../../assets/icon_todo_list.png">
+                <img src="../../../assets/icon_todo_list.png" />
                 二笔订单 三种商品
-            </div>
-            实际到货
+            </div>实际到货
         </aside>
         <ul class="products">
-            <li class="product_item">
-                <img
-                    class="item_main_img"
-                    src="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2526052080,876486397&fm=26&gp=0.jpg"
-                />
+            <li class="product_item" v-for="(item) in stockInfo" :key="item.id">
                 <section class="container">
-                    <p class="order_describe">现货猕猴桃新鲜水果奇异果10斤当季绿心野生弥整箱非徐香</p>
-                    <p class="order_number">数量: 3份</p>
+                    <p class="order_describe">品名：{{ item.ProductName }}</p>
+                    <p class="order_number">数量: {{ item.total + item.Unit }}</p>
+                    <p>单价: {{ item.price }}元</p>
+                    <p>总价: {{ item.amount }}元</p>
                 </section>
-                <van-stepper class="stepper" v-model="stepperValue[0]" integer min="0" />
-            </li>
-
-            <li class="product_item">
-                <img
-                    class="item_main_img"
-                    src="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2526052080,876486397&fm=26&gp=0.jpg"
+                <van-stepper
+                    class="stepper"
+                    :disabled="status != 15"
+                    v-model="item.mayGet"
+                    integer
+                    min="0"
+                    :max="item.mayGet"
                 />
-                <section class="container">
-                    <p class="order_describe">现货猕猴桃新鲜水果奇异果10斤当季绿心野生弥整箱非徐香</p>
-                    <p class="order_number">数量: 3份</p>
-                </section>
-                <van-stepper class="stepper" v-model="stepperValue[0]" integer min="0"/>
             </li>
         </ul>
 
@@ -51,23 +43,86 @@
 
         <footer class="footer">
             <p>可以再次修改缺货信息，进行再次提交</p>
-            <van-button class="sunmit_info" size="small" @click="sunmit_info">提交收货信息</van-button>
+            <van-button
+                v-if="status == 15"
+                class="sunmit_info"
+                size="small"
+                @click="sunmit_info"
+            >提交收货信息</van-button>
         </footer>
     </div>
 </template>
 
 <script>
+import { Toast } from "vant";
+import { reqStockInfo, reqReceipt } from "@/api/orderExpress";
 export default {
-    name: "confirmDelivery",
+    name: "reqStockInfo",
     data() {
         return {
-            stepperValue: [] //步进器值
+            stockInfo: [], // 备货信息列表
+            id: -1, // 当前订单ID
+            status: -1 // 当前订单状态 （用于判断是否是 已发货（status==15）状态）
         };
     },
+    created() {
+        console.log("params >>");
+        console.log(this.$route);
+        this.id = this.$route.query.id;
+        this.status = this.$route.query.status;
+        // 请求 备货信息
+        this.getStockInfo(this.id);
+    },
     methods: {
+        /* 请求 备货信息 */
+        getStockInfo(params) {
+            reqStockInfo(params).then(res => {
+                if (res.data.status === 0) {
+                    let values = res.data.data.list;
+                    console.log(">>>");
+                    console.log(values);
+                    values.forEach(item => {
+                        item.mayGet = item.total - item.Actual; // mayGet ==> 可收
+                    })
+                    this.stockInfo = res.data.data.list;
+                } else {
+                    console.error("网络错误:" + res.data.msg);
+                }
+            });
+        },
+
         /* 提交收货信息 */
         sunmit_info() {
-            console.log("提交收货信息");
+            // 加载提示
+            let toast = Toast.loading({
+                message: "加载中...",
+                forbidClick: true
+            });
+
+            let list = [];
+            this.stockInfo.forEach(item => {
+                list.push({
+                    id: item.id,
+                    value: item.total
+                });
+            });
+            // 请求收货的请求参数
+            let params = {
+                id: this.id,
+                list: JSON.stringify(list)
+            };
+
+            // 请求 收货
+            reqReceipt(params).then(res => {
+                if (res.data.status === 0) {
+                    toast.clear();
+                    Toast.success('确认收货成功');
+                    this.$router.back();
+                } else {
+                    Toast.fail(res.data.msg);
+                    console.error("网络错误:" + res.data.msg);
+                }
+            });
         },
         /* 返回 */
         linkBack() {
@@ -94,7 +149,7 @@ export default {
         font-size: 18px;
         color: rgb(50, 50, 50);
     }
-    .aside{
+    .aside {
         height: 35px;
         background-color: #fff;
         border-radius: 5px;
@@ -105,10 +160,10 @@ export default {
         align-items: center;
         color: rgb(120, 120, 120);
         font-size: 12px;
-        .left{
+        .left {
             display: flex;
             align-items: center;
-            img{
+            img {
                 width: 12px;
                 height: 14px;
                 margin-right: 6px;
@@ -120,16 +175,11 @@ export default {
             background-color: #fff;
             border-radius: 5px;
             margin: 10px;
+            padding: 0 10px;
             height: 100px;
             display: flex;
             align-items: center;
             position: relative;
-            .item_main_img {
-                width: 80px;
-                height: 80px;
-                margin: 0 20px;
-                border-radius: 5px;
-            }
             .container {
                 height: 100%;
                 flex: 3.5;
@@ -138,11 +188,8 @@ export default {
                 justify-content: center;
                 color: rgb(120, 120, 120);
                 font-size: 14px;
-                .order_number {
-                    margin: 10px 0;
-                }
             }
-            .stepper{
+            .stepper {
                 position: absolute;
                 right: 10px;
                 bottom: 10px;
@@ -154,32 +201,32 @@ export default {
         border-radius: 5px;
         margin: 10px;
         padding: 10px;
-        .text{
+        .text {
             color: rgb(120, 120, 120);
             font-size: 12px;
         }
-        .describe{
+        .describe {
             font-size: 20px;
             font-weight: normal;
             padding: 3px;
             margin: 7px 0;
-            border-top: 1px solid rgb(240,239,244);
-            border-bottom: 1px solid rgb(240,239,244);
+            border-top: 1px solid rgb(240, 239, 244);
+            border-bottom: 1px solid rgb(240, 239, 244);
         }
-        .container{
+        .container {
             color: rgb(120, 120, 120);
             display: flex;
             justify-content: space-between;
             font-size: 14px;
         }
     }
-    .footer{
+    .footer {
         color: rgb(120, 120, 120);
         display: flex;
         flex-direction: column;
         align-items: center;
         margin-top: 20px;
-        .sunmit_info{
+        .sunmit_info {
             background-color: rgb(221, 209, 167);
             border-radius: 15px;
             padding: 0 20px;

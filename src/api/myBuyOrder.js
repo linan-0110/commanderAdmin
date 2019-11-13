@@ -5,6 +5,5 @@ export const reqOrderData = (data) => ajax("post", {
     act: "order",
     cmd: "mylist",
     ...data,
-    status: -1,
     issub: 1,
 })

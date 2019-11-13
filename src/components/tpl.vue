@@ -15,9 +15,9 @@ export default {
         get(params) {
             req(params).then(res => {
                 if (res.data.status === 0) {
-					
+					console.log(">>>", res.data.data);
                 } else {
-                    console.error("登录失败:" + res.data.msg);
+                    console.error("网络错误:" + res.data.msg);
                 }
             });
 		},

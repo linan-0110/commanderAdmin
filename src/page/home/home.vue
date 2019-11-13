@@ -77,7 +77,7 @@
                 </header>
                 <section class="container">
                     <div class="bar my_buy_order" @click="linkMyBuyOrder">
-                        <span class="text">我的购买订单</span>
+                        <span class="text">我的订单</span>
                         <van-icon class="icon_arrow" name="arrow" />
                     </div>
                     <div class="bar discount_coupon" @click="linkDiscountCoupon">
@@ -122,7 +122,7 @@ export default {
                 if (res.data.status === 0) {
                     this.myAsset = res.data.data;
                 } else {
-                    console.error("登录失败:" + res.data.msg);
+                    console.error("网络错误:" + res.data.msg);
                 }
             });
         },

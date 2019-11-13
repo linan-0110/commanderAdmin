@@ -1,6 +1,6 @@
  <template>
     <div class="myBuyOrder">
-        <van-nav-bar fixed title="我的购买订单" left-text="返回" left-arrow @click-left="linkBack" />
+        <van-nav-bar fixed title="我的订单" left-text="返回" left-arrow @click-left="linkBack" />
         <van-tabs
             v-model="active"
             class="tab_bar"
@@ -32,7 +32,7 @@
                         <p class="time">订单时间：{{ item.DateTimePay }}</p>
                     </section>
                 </section>
-                <footer class="get_cargo_address">提货点：{{ item.GetProductAddress }}</footer>
+                <footer class="get_cargo_address">提货点：{{ item.GetProductAddress }} {{item.consignee}}</footer>
             </van-cell>
         </van-list>
     </div>
@@ -74,14 +74,15 @@ export default {
     },
     methods: {
         onLoad() {
-            // 请求 订单数据
-            this.getOrderDataParmas.pageindex += pagesize;
-            this.getOrderData(this.getOrderDataParmas[this.active]);
-
             // 数据全部加载完成
             if (this.orderData.length >= this.recordcount) {
                 this.finished = true;
+                return;
             }
+
+            // 请求 订单数据
+            this.getOrderDataParmas.pageindex += pagesize;
+            this.getOrderData(this.getOrderDataParmas[this.active]);
             console.count("加载中列表 >>>>");
             // console.log("999");
         },
