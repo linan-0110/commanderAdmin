@@ -1,6 +1,6 @@
 <template>
     <div class="myAccount">
-        <van-nav-bar title="我的账号" left-text="返回" left-arrow @click-left="linkBack" />
+        <van-nav-bar fixed title="我的账号" left-text="返回" left-arrow @click-left="linkBack" />
         <ul class="list">
             <li class="head_portrait">
                 <article class="lable">个人头像</article>
@@ -80,6 +80,8 @@ export default {
 
 <style lang="less" scoped>
 .myAccount {
+    padding-top: 45px;
+    box-sizing: border-box;
     background-color: rgb(240, 239, 245);
     height: 100%;
     .list {

@@ -1,6 +1,6 @@
 <template>
     <div class="areaOrder">
-        <van-nav-bar title="小区订单" left-text="返回" left-arrow @click-left="linkBack" />
+        <van-nav-bar fixed title="小区订单" left-text="返回" left-arrow @click-left="linkBack" />
 
         <!-- 有订单 -->
         <div v-if="true" class="container_have_order">
@@ -112,6 +112,8 @@ export default {
 
 <style lang="less" scoped>
 .areaOrder {
+    padding-top: 45px;
+    box-sizing: border-box;
     height: 100%;
     display: flex;
     flex-direction: column;

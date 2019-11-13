@@ -1,6 +1,6 @@
 <template>
     <div class="orderExpress">
-        <van-nav-bar title="订单配送" left-text="返回" left-arrow @click-left="linkBack" />
+        <van-nav-bar fixed title="订单配送" left-text="返回" left-arrow @click-left="linkBack" />
         <article class="product_card" @click="linkConfirmDelivery">
             <header class="top_header">
                 <div>
@@ -87,6 +87,8 @@ export default {
 
 <style lang="less" scoped>
 .orderExpress {
+    padding-top: 45px;
+    box-sizing: border-box;
     background-color: rgb(240,239,245);
     height: 100%;
     .product_card {

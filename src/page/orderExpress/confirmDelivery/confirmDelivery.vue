@@ -1,6 +1,6 @@
 <template>
     <div class="confirmDelivery">
-        <van-nav-bar title="以确认送达" left-text="返回" left-arrow @click-left="linkBack" />
+        <van-nav-bar fixed title="以确认送达" left-text="返回" left-arrow @click-left="linkBack" />
         <header class="header">配送日期： 2019.11.9</header>
         <aside class="aside">
             <div class="left">
@@ -79,6 +79,8 @@ export default {
 
 <style lang="less" scoped>
 .confirmDelivery {
+    padding-top: 45px;
+    box-sizing: border-box;
     background-color: rgb(240, 239, 245);
     height: 100%;
     .header {

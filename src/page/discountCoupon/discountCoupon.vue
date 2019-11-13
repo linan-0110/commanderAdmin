@@ -1,6 +1,6 @@
  <template>
     <div class="discountCoupon">
-        <van-nav-bar title="优惠劵" left-text="返回" left-arrow @click-left="linkBack" />
+        <van-nav-bar fixed title="优惠劵" left-text="返回" left-arrow @click-left="linkBack" />
         <van-tabs
             v-model="active"
             title-active-color="rgb(190,157,83)"
@@ -148,6 +148,8 @@ const tabsConfig = [
 
 <style lang="less" scoped>
 .discountCoupon {
+    padding-top: 45px;
+    box-sizing: border-box;
     background-color: rgb(240, 239, 245);
     height: 100%;
     .list {

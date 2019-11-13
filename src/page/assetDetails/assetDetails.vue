@@ -1,6 +1,6 @@
 <template>
     <div class="assetDetails">
-        <van-nav-bar title="资产明细" left-text="返回" left-arrow @click-left="linkBack" />
+        <van-nav-bar fixed title="资产明细" left-text="返回" left-arrow @click-left="linkBack" />
         <header class="header">
             <div @click="showPopup">{{ dateTime }}</div>
             <img class="icon_arrow_bottom_black" src="../../assets/icon_arrow_bottom_black.png">
@@ -108,6 +108,8 @@ export default {
 
 <style lang="less" scoped>
 .assetDetails {
+    padding-top: 45px;
+    box-sizing: border-box;
     background-color: rgb(240, 239, 245);
     height: 100%;
     .header {

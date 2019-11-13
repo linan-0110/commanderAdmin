@@ -1,6 +1,6 @@
 <template>
     <div class="fullStatus">
-        <van-nav-bar title="整体状况" left-text="返回" left-arrow @click-left="linkBack" />
+        <van-nav-bar fixed title="整体状况" left-text="返回" left-arrow @click-left="linkBack" />
         <nav class="nav">
             <a
                 class="dayDataStatus"
@@ -283,6 +283,8 @@ export default {
 
 <style lang="less" scoped>
 .fullStatus {
+    padding-top: 45px;
+    box-sizing: border-box;
     background-color: rgb(240, 239, 245);
     height: 100%;
     .nav {

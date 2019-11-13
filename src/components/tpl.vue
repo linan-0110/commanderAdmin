@@ -1,6 +1,6 @@
 <template>
     <div class="tpl">
-        <van-nav-bar title="标题" left-text="返回" left-arrow @click-left="linkBack" />
+        <van-nav-bar fixed title="标题" left-text="返回" left-arrow @click-left="linkBack" />
     </div>
 </template>
 
@@ -32,6 +32,8 @@ export default {
 
 <style lang="less" scoped>
 .tpl {
+    padding-top: 45px;
+    box-sizing: border-box;
     background-color: rgb(240,239,245);
     height: 100%;
 }

@@ -1,7 +1,7 @@
  <template>
     <div class="myBuyOrder">
-        <van-nav-bar title="我的购买订单" left-text="返回" left-arrow @click-left="linkBack" />
-        <van-tabs
+        <van-nav-bar fixed title="我的购买订单" left-text="返回" left-arrow @click-left="linkBack" />
+        <van-tabs 
             v-model="active"
             title-active-color="rgb(190,157,83)"
             color="rgb(190,157,83)"
@@ -59,6 +59,7 @@
 <script>
 import { reqOrderData } from "@/api/myBuyOrder";
 const pagesize = 10;
+let tiemr;
 export default {
     name: "myBuyOrder",
     data() {
@@ -83,7 +84,11 @@ export default {
     methods: {
         onLoad() {
             // 异步更新数据
-            // setTimeout(() => {
+            if(tiemr) {
+                clearTimeout(tiemr);
+                return
+            }
+            tiemr = setTimeout(() => {
                 // 请求 订单数据
                 this.getOrderDataParmas.pageindex += pagesize;
                 this.getOrderData(this.getOrderDataParmas);
@@ -92,15 +97,24 @@ export default {
                 if (this.orderData.length >= this.recordcount) {
                     this.finished = true;
                 }
-            // }, 500);
-            console.log("999");
+                console.log("999");
+            }, 500);
+            // console.log("999");
         },
         /* 请求 订单数据 */
         getOrderData(params) {
             reqOrderData(params).then(res => {
                 if (res.data.status === 0) {
-                    this.orderData.concat(res.data.data.list);
-                    this.orderDataTotal = res.data.data.recordcount;
+                    if(this.orderData.length <=0 ) {
+                        this.orderData = res.data.data.list;
+                        this.orderDataTotal = res.data.data.recordcount;
+                    } else {
+                        res.data.data.list.forEach(item => {
+                            this.orderData.push(item)
+                        })
+                    }
+                    
+                    
                     // 加载状态结束
                     this.loading = false;
                 } else {
@@ -131,6 +145,8 @@ const tabsConfig = [
 
 <style lang="less" scoped>
 .myBuyOrder {
+    padding-top: 45px;
+    box-sizing: border-box;
     background-color: rgb(240, 239, 245);
     .data {
         display: flex;

@@ -1,6 +1,6 @@
 <template>
     <div class="clientGetCargo">
-        <van-nav-bar title="顾客提货" left-text="返回" left-arrow @click-left="linkBack" />
+        <van-nav-bar fixed title="顾客提货" left-text="返回" left-arrow @click-left="linkBack" />
         <van-search class="seaech" placeholder="请输入搜索的订单" v-model="seaechValue" />
         <article class="hint_info">只显示七天内送达的未送达的自营订单</article>
         <article class="product_card">
@@ -98,6 +98,8 @@ export default {
 
 <style lang="less" scoped>
 .clientGetCargo {
+    padding-top: 45px;
+    box-sizing: border-box;
     background-color: rgb(240, 239, 245);
     height: 100%;
     .seaech {

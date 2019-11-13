@@ -1,6 +1,6 @@
  <template>
     <div class="myAgreement">
-        <van-nav-bar title="我的协议" left-text="返回" left-arrow @click-left="linkBack" />
+        <van-nav-bar fixed title="我的协议" left-text="返回" left-arrow @click-left="linkBack" />
         <section class="content">
             <div class="container">
                 <img src="../../assets/my_agreement.png" />
@@ -44,6 +44,8 @@ export default {
 
 <style lang="less" scoped>
 .myAgreement {
+    padding-top: 45px;
+    box-sizing: border-box;
     background-color: rgb(240, 239, 245);
     height: 100%;
     .content {
