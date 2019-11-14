@@ -27,7 +27,7 @@
                 <span>截止今日{{ moment().format("HH.mm") }}分</span>
             </article>
 
-            <!-- 预估资产数据 -->
+            <!-- 累计收入 -->
             <article class="total_income">
                 <header>累计收入（元）</header>
                 <section class="value_block">{{ totalIncome.toFixed(2) }}</section>

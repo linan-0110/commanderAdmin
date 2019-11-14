@@ -8,8 +8,8 @@
 
         <van-list
             class="data"
-            v-model="loading"
-            :finished="finished"
+            v-model="ListLoading"
+            :finished="ListFinished"
             finished-text="没有更多了"
             @load="onLoad"
         >
@@ -35,15 +35,16 @@ import moment from "moment";
 moment().format();
 
 // 请求 我的收益记录列表 默认参数
+const defaultGetMyEarningsParams = {logtype: 1, pageindex: 1, pagesize: 20};
 let getMyEarningsParams = {logtype: 1, pageindex: 1, pagesize: 20};
 
 export default {
     name: "myEarnings",
     data() {
         return {
-            myEarningsList: [], // 备货列表
-            loading: false,
-            finished: false,
+            myEarningsList: [], // 备货列表 ListFinished
+            ListLoading: false,
+            ListFinished: false,
             getMyEarningsParams, // 请求 我的收益记录列表 默认参数
             myEarningsTotal: 0 // 收益记录列表数据总长度
         };
@@ -53,13 +54,13 @@ export default {
     },
     created() {
         // 发送请求 我的收益记录列表
-        this.getMyEarnings(this.getMyEarningsParams);
+        this.getMyEarnings(defaultGetMyEarningsParams);
     },
     methods: {
         onLoad() {
             // 数据全部加载完成
             if (this.myEarningsList.length >= this.myEarningsTotal) {
-                this.finished = true;
+                this.ListFinished = true;
                 return;
             }
             // 请求 备货列表
@@ -80,7 +81,7 @@ export default {
                         });
                     }
                     // 加载状态结束
-                    this.loading = false;
+                    this.ListLoading = false;
                 } else {
                     console.error("网络错误:" + res.data.msg);
                 }
@@ -101,7 +102,7 @@ export default {
 
         /* 请求全部 我的收益记录列表 */
         all() {
-            this.getMyEarnings({logtype: 1, pageindex: 1, pagesize: 20});
+            this.getMyEarnings(defaultGetMyEarningsParams);
         },
 
         /* 返回 */

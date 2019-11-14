@@ -88,7 +88,6 @@
                 </article>
             </li>
         </ul>
-
     </div>
 </template>
 
@@ -98,33 +97,11 @@ export default {
     data() {
         return {
             active: 0,
-            tabsConfig, //顶部列表项
-
+            tabsConfig //顶部列表项
         };
     },
-    created() {
-        this.test();
-    },
+    created() {},
     methods: {
-
-        test() {
-            let obj = {
-                act: "order",
-                cmd: "mylist",
-                starttime: "",
-                endtime: "",
-                status: -1,
-                issub: 1,
-                pageindex: 1,
-                pagesize: 10,
-                token: "72ab975b-04bd-4fbc-98c8-a93d9b8c47a5",
-                v: "webv09",
-                time: "1573460895",
-                app_type: "web"
-            };
-            console.log(obj);
-        },
-
         /* 优惠劵去使用 */
         go_use_btn() {
             console.log("优惠劵去使用");
