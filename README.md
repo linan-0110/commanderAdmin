@@ -43,12 +43,13 @@ Login ==>> 登录页
 home ==>> 主页
 myAccount ==>> 我的账号
 myEarnings ==>> 我的收益
+carryCash ==>> 提现
 fullStatus ==>> 整体状况
-areaOrder ==>> 小区订单
+myOrder ==>> 我的订单
 orderExpress ==>> 订单配送
     confirmDelivery ==>> 以确认送达
 clientGetCargo ==>> 顾客提货
-myOrder ==>> 我的订单
+areaOrder ==>> 小区订单
 discountCoupon ==>> 优惠劵
 myAgreement ==>> 我的协议
 ```

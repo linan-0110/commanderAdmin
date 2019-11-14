@@ -31,7 +31,7 @@
                         <h3 class="my_asset_text">我的资产(元)</h3>
                         <p class="money">{{ (myAsset.balance + myAsset.freeze).toFixed(2) }}</p>
                     </div>
-                    <div class="carry_cash">可提现 {{ myAsset.balance }} ▶</div>
+                    <div class="carry_cash" @click="linkCarryCash">可提现 {{ myAsset.balance }} ▶</div>
                 </div>
                 <p class="see_full_data">
                     <span @click="linkFullStatus">查看完整数据 ▶</span>
@@ -137,6 +137,12 @@ export default {
         linkMyEarnings() {
             this.$router.push({
                 name: "home_myEarnings"
+            });
+        },
+        /* 跳转 提现 */
+        linkCarryCash() {
+            this.$router.push({
+                name: "home_carryCash"
             });
         },
         /* 跳转 整体状况 */

@@ -4,6 +4,7 @@ import Login from '@/page/Login/Login'; //登录页
 import home from '@/page/home/home'; //主页
 import myAccount from '@/page/myAccount/myAccount'; //我的账号
 import myEarnings from '@/page/myEarnings/myEarnings'; //我的收益
+import carryCash from '@/page/carryCash/carryCash'; //提现
 import fullStatus from '@/page/fullStatus/fullStatus'; //整体状况
 import areaOrder from '@/page/areaOrder/areaOrder'; //小区订单
 import orderExpress from '@/page/orderExpress/orderExpress'; //订单配送
@@ -36,6 +37,11 @@ export default new Router({
       path: '/home/myEarnings',
       name: 'home_myEarnings',
       component: myEarnings
+    },
+    {
+      path: '/home/carryCash',
+      name: 'home_carryCash',
+      component: carryCash
     },
     {
       path: '/home/fullStatus',

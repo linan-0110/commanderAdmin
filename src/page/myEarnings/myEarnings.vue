@@ -118,7 +118,6 @@ export default {
     padding-top: 45px;
     box-sizing: border-box;
     background-color: rgb(240, 239, 245);
-    height: 100%;
     .header {
         width: 100%;
         height: 40px;
