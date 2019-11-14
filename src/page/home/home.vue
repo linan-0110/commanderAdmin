@@ -27,7 +27,7 @@
             </article>
             <section class="header_data">
                 <div class="container_money">
-                    <div class="my_asset" @click="linkAssetDetails">
+                    <div class="my_asset" @click="linkMyEarnings">
                         <h3 class="my_asset_text">我的资产(元)</h3>
                         <p class="money">{{ (myAsset.balance + myAsset.freeze).toFixed(2) }}</p>
                     </div>
@@ -133,10 +133,10 @@ export default {
                 name: "home_myAccount"
             });
         },
-        /* 跳转 资产明细 */
-        linkAssetDetails() {
+        /* 跳转 我的收益 */
+        linkMyEarnings() {
             this.$router.push({
-                name: "home_assetDetails"
+                name: "home_myEarnings"
             });
         },
         /* 跳转 整体状况 */
@@ -163,7 +163,7 @@ export default {
                 name: "home_clientGetCargo"
             });
         },
-        /* 跳转 我的购买订单 */
+        /* 跳转 我的订单 */
         linkMyOrder() {
             this.$router.push({
                 name: "home_myOrder"

@@ -42,7 +42,7 @@ dateTiemPicker ==>> 时间选择器，
 Login ==>> 登录页
 home ==>> 主页
 myAccount ==>> 我的账号
-assetDetails ==>> 资产明细
+myEarnings ==>> 我的收益
 fullStatus ==>> 整体状况
 areaOrder ==>> 小区订单
 orderExpress ==>> 订单配送

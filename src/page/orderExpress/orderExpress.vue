@@ -3,7 +3,7 @@
         <van-nav-bar fixed title="订单配送" left-text="返回" left-arrow @click-left="linkBack" />
         <van-list v-model="loading" :finished="finished" finished-text="没有更多了" @load="onLoad">
             <van-cell
-                v-for="item in myStock"
+                v-for="item in myStockList"
                 :key="item.id"
                 class="product_card"
                 @click="linkConfirmDelivery(item.id, item.status)"
@@ -45,7 +45,7 @@ export default {
             loading: false,
             finished: false,
             myStockParams, // 备货列表请求参数
-            myStock: [], // 备货列表数据
+            myStockList: [], // 备货列表数据
             myStockTotal: 0 // 备货列表数据总长度
         };
     },
@@ -56,7 +56,7 @@ export default {
     methods: {
         onLoad() {
             // 数据全部加载完成
-            if (this.myStock.length >= this.myStockTotal) {
+            if (this.myStockList.length >= this.myStockTotal) {
                 this.finished = true;
                 return;
             }
@@ -69,12 +69,12 @@ export default {
         getMyStock(params) {
             reqMyStock(params).then(res => {
                 if (res.data.status === 0) {
-                    if (this.myStock.length <= 0) {
-                        this.myStock = res.data.data.list;
+                    if (this.myStockList.length <= 0) {
+                        this.myStockList = res.data.data.list;
                         this.myStockTotal = res.data.data.recordcount;
                     } else {
                         res.data.data.list.forEach(item => {
-                            this.myStock.push(item);
+                            this.myStockList.push(item);
                         });
                     }
                     // 加载状态结束
@@ -131,9 +131,10 @@ export default {
             align-items: center;
             padding: 5px;
             .id {
-                width: 20px;
-                height: 20px;
+                width: 25px;
+                height: 25px;
                 border-radius: 50%;
+                padding: 3px;
                 background-color: rgb(226, 186, 98);
                 color: #fff;
                 display: flex;

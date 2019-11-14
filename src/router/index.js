@@ -3,13 +3,13 @@ import Router from 'vue-router';
 import Login from '@/page/Login/Login'; //登录页
 import home from '@/page/home/home'; //主页
 import myAccount from '@/page/myAccount/myAccount'; //我的账号
-import assetDetails from '@/page/assetDetails/assetDetails'; //资产明细
+import myEarnings from '@/page/myEarnings/myEarnings'; //我的收益
 import fullStatus from '@/page/fullStatus/fullStatus'; //整体状况
 import areaOrder from '@/page/areaOrder/areaOrder'; //小区订单
 import orderExpress from '@/page/orderExpress/orderExpress'; //订单配送
 import confirmDelivery from '@/page/orderExpress/confirmDelivery/confirmDelivery'; //订单配送
 import clientGetCargo from '@/page/clientGetCargo/clientGetCargo'; //顾客提货
-import myOrder from '@/page/myOrder/myOrder'; //我的购买订单
+import myOrder from '@/page/myOrder/myOrder'; //我的订单
 import discountCoupon from '@/page/discountCoupon/discountCoupon'; //优惠劵
 import myAgreement from '@/page/myAgreement/myAgreement'; //我的协议
 
@@ -33,9 +33,9 @@ export default new Router({
       component: myAccount
     },
     {
-      path: '/home/assetDetails',
-      name: 'home_assetDetails',
-      component: assetDetails
+      path: '/home/myEarnings',
+      name: 'home_myEarnings',
+      component: myEarnings
     },
     {
       path: '/home/fullStatus',
