@@ -33,13 +33,13 @@
                     <van-icon class="right_arrow" name="arrow" />
                 </article>
             </li>
-            <li class="bank_card">
+            <!-- <li class="bank_card">
                 <article class="lable">银行卡</article>
                 <article class="container">
                     <span class="content">无3212*************5</span>
                     <van-icon class="right_arrow" name="arrow" />
                 </article>
-            </li>
+            </li> -->
             <li class="phome_number">
                 <article class="lable">我的联系信息</article>
                 <article class="container">
@@ -47,13 +47,12 @@
                     <van-icon class="right_arrow" name="arrow" />
                 </article>
             </li>
-            <li class="shipping_address">
+            <!-- <li class="shipping_address">
                 <article class="lable">收货地址</article>
                 <article class="container">
-                    <!-- <span class="content">{{ userInfo.GetProductAddress }}</span> -->
                     <van-icon class="right_arrow" name="arrow" />
                 </article>
-            </li>
+            </li> -->
         </ul>
     </div>
 </template>

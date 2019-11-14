@@ -9,7 +9,7 @@ import areaOrder from '@/page/areaOrder/areaOrder'; //小区订单
 import orderExpress from '@/page/orderExpress/orderExpress'; //订单配送
 import confirmDelivery from '@/page/orderExpress/confirmDelivery/confirmDelivery'; //订单配送
 import clientGetCargo from '@/page/clientGetCargo/clientGetCargo'; //顾客提货
-import myBuyOrder from '@/page/myBuyOrder/myBuyOrder'; //我的购买订单
+import myOrder from '@/page/myOrder/myOrder'; //我的购买订单
 import discountCoupon from '@/page/discountCoupon/discountCoupon'; //优惠劵
 import myAgreement from '@/page/myAgreement/myAgreement'; //我的协议
 
@@ -63,9 +63,9 @@ export default new Router({
       component: clientGetCargo
     },
     {
-      path: '/home/myBuyOrder',
-      name: 'home_myBuyOrder',
-      component: myBuyOrder
+      path: '/home/myOrder',
+      name: 'home_myOrder',
+      component: myOrder
     },
     {
       path: '/home/discountCoupon',

@@ -38,11 +38,11 @@
                     </div>
                     <div class="item">
                         <p class="title">推广收益</p>
-                        <p class="num">{{ generalizeMoney }}</p>
+                        <p class="num">{{ generalizeMoney.toFixed(2) }}</p>
                     </div>
                     <div class="item">
                         <p class="title">订单佣金</p>
-                        <p class="num">{{ orderMoney }}</p>
+                        <p class="num">{{ orderMoney.toFixed(2) }}</p>
                     </div>
                 </footer>
             </article>

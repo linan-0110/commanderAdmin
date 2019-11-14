@@ -1,5 +1,5 @@
  <template>
-    <div class="myBuyOrder">
+    <div class="myOrder">
         <van-nav-bar fixed title="我的订单" left-text="返回" left-arrow @click-left="linkBack" />
         <van-tabs
             v-model="active"
@@ -18,7 +18,7 @@
 
         <van-list
             class="data"
-            v-model="loading"
+            v-model="listLoading"
             :finished="finished"
             finished-text="没有更多了"
             @load="onLoad"
@@ -37,7 +37,7 @@
                 >提货点：{{ item.GetProductAddress }} {{item.consignee}}</footer>
                 <van-button
                     v-if="item.States == 15"
-                    :loading="btnLoading"
+                    :listLoading="btnLoading && item.id == activeId"
                     type="info"
                     size="mini"
                     class="get_cargo_btn"
@@ -50,7 +50,7 @@
 
 <script>
 import { Toast } from "vant";
-import { reqOrderData, reqGetCargo } from "@/api/myBuyOrder";
+import { reqOrderData, reqGetCargo } from "@/api/myOrder";
 
 /* 顶部列表项 配置*/
 const tabsConfig = [
@@ -68,17 +68,18 @@ let getOrderDataParmas = [
     { pageindex: 1, pagesize, status: 20 } // 已完成(实际代表未评价)
 ];
 export default {
-    name: "myBuyOrder",
+    name: "myOrder",
     data() {
         return {
             active: 0, // 顶部选项卡 当前选中项
             tabsConfig, // 顶部列表项
             getOrderDataParmas, // 请求订单数据的参数列表
             orderData: [], // 订单数据
-            orderDataTotal: 0, // 订单数据总条数
-            loading: false, // 列表加载标识
+            orderDataTotal: 1, // 订单数据总条数
+            listLoading: false, // 列表加载标识
             finished: false, // 数据全部加载完成的状态标识
-            btnLoading: false //按钮的加载状态
+            btnLoading: false, //按钮的加载状态
+            activeId: -1 // 用于按钮加载状态判断
         };
     },
     created() {
@@ -87,16 +88,15 @@ export default {
     methods: {
         onLoad() {
             // 数据全部加载完成
-            if (this.orderData.length >= this.recordcount) {
+            if (this.orderData.length >= this.orderDataTotal) {
                 this.finished = true;
                 return;
             }
 
             // 请求 订单数据
-            this.getOrderDataParmas.pageindex += pagesize;
+            this.getOrderDataParmas[this.active].pageindex += pagesize;
             this.getOrderData(this.getOrderDataParmas[this.active]);
             console.count("加载中列表 >>>>");
-            // console.log("999");
         },
 
         /* 请求 订单数据 */
@@ -112,7 +112,7 @@ export default {
                         });
                     }
                     // 加载状态结束
-                    this.loading = false;
+                    this.listLoading = false;
                 } else {
                     console.error("登录失败:" + res.data.msg);
                 }
@@ -125,7 +125,7 @@ export default {
             // 置空 订单数据 以重新获取数据
             this.orderData = [];
             // 出现加载状态
-            this.loading = true;
+            this.listLoading = true;
             // 加载订单数据
             this.getOrderData(this.getOrderDataParmas[this.active]);
             console.log("选显卡状态 ==>>" + active);
@@ -134,13 +134,17 @@ export default {
         /* 确认收货 */
         confirmGetCargo(oid) {
             // 按钮是加载状态的时候禁止点击
-            if(this.btnLoading) {
-                return
+            if(this.btnLoading && this.activeId == oid) {
+                return;
             }
+            this.activeId = oid;
             this.btnLoading = true;
             reqGetCargo(oid).then(res => {
                 if (res.data.status === 0) {
                     // 收货成功后刷新列表
+                    this.orderData = [];
+                    // 重置索引页
+                    this.getOrderDataParmas[this.active].pageindex = 1;
                     this.getOrderData(this.getOrderDataParmas[this.active]);
                     Toast.success(res.data.msg);
                     this.btnLoading = false;
@@ -159,7 +163,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.myBuyOrder {
+.myOrder {
     padding-top: 90px;
     box-sizing: border-box;
     background-color: rgb(240, 239, 245);

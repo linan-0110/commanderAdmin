@@ -48,7 +48,7 @@ areaOrder ==>> 小区订单
 orderExpress ==>> 订单配送
     confirmDelivery ==>> 以确认送达
 clientGetCargo ==>> 顾客提货
-myBuyOrder ==>> 我的购买订单
+myOrder ==>> 我的订单
 discountCoupon ==>> 优惠劵
 myAgreement ==>> 我的协议
 ```

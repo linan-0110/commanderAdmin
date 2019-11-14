@@ -49,9 +49,9 @@
                     />
                 </header>
                 <section class="grid">
-                    <div class="block area_order" @click="linkAreaOrder">
+                    <div class="block area_order" @click="linkMyOrder">
                         <img class="icon" src="../../assets/icon_home_2.png" />
-                        <h3>小区订单</h3>
+                        <h3>我的订单</h3>
                         <!-- <span>今日订单：0</span> -->
                     </div>
                     <div class="block order_express" @click="linkOrderExpress">
@@ -76,8 +76,8 @@
                     />
                 </header>
                 <section class="container">
-                    <div class="bar my_buy_order" @click="linkMyBuyOrder">
-                        <span class="text">我的订单</span>
+                    <div class="bar my_buy_order" @click="linkAreaOrder">
+                        <span class="text">小区订单</span>
                         <van-icon class="icon_arrow" name="arrow" />
                     </div>
                     <div class="bar discount_coupon" @click="linkDiscountCoupon">
@@ -164,9 +164,9 @@ export default {
             });
         },
         /* 跳转 我的购买订单 */
-        linkMyBuyOrder() {
+        linkMyOrder() {
             this.$router.push({
-                name: "home_myBuyOrder"
+                name: "home_myOrder"
             });
         },
         /* 跳转 优惠劵 */
