@@ -44,6 +44,8 @@ home ==>> 主页
 myAccount ==>> 我的账号
 myEarnings ==>> 我的收益
 carryCash ==>> 提现
+    carryCashSuccess ==>> 提现提交
+    alterBankCard ==>> 更改银行卡
 fullStatus ==>> 整体状况
 myOrder ==>> 我的订单
 orderExpress ==>> 订单配送

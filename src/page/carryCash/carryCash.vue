@@ -1,7 +1,7 @@
 <template>
     <div class="carryCash">
         <van-nav-bar fixed title="提现" left-text="返回" left-arrow @click-left="linkBack" />
-        <header class="bankCard">
+        <header class="bankCard" @click="alterBankCard">
             <h3>
                 {{ "中国农业银行" }}
                 <span class="side">（{{ "尾号9527" }}）</span>
@@ -14,7 +14,7 @@
                 <span>{{ "5188.00" }}元</span>
             </div>
             <van-cell-group>
-                <van-field v-model="message" label="提现金额：" placeholder="请输入提现金额" />
+                <van-field v-model="money" label="提现金额：" placeholder="可转出到卡9999元" />
             </van-cell-group>
         </section>
         <aside class="aside">
@@ -22,7 +22,7 @@
             <p>2.单日提现不起02000元。</p>
         </aside>
         <footer class="footer">
-            <van-button class="carryCashBtn">提现</van-button>
+            <van-button class="carryCashBtn" @click="carryCashBtn">提现</van-button>
         </footer>
     </div>
 </template>
@@ -32,7 +32,7 @@ export default {
     name: "carryCash",
     data() {
         return {
-            message: ''
+            money: ''
         };
     },
     methods: {
@@ -44,6 +44,21 @@ export default {
                     console.error("网络错误:" + res.data.msg);
                 }
             });
+        },
+
+        /* 更改银行卡 */
+        alterBankCard() {
+            this.$router.push({
+                name: "home_carryCash_alterBankCard"
+            })
+        },
+
+        /* 提现 */
+        carryCashBtn() {
+            console.log(typeof this.money);
+            this.$router.push({
+                name: "home_carryCash_carryCashSuccess"
+            })
         },
         /* 返回 */
         linkBack() {
@@ -98,6 +113,7 @@ export default {
         text-align: center;
         .carryCashBtn{
             width: 60%;
+            color: #fff;
             border-radius: 22px;
             background-image: linear-gradient(
                 to right,
