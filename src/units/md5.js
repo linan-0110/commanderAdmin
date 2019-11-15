@@ -8,9 +8,6 @@ export const md5 = function (params) {
 /* ------------------------------------------------------------ */
 /* 排序拼接参数字符串 */
 const sort_concat_str = function (params) {
-    params.v = "webv09";
-    params.time = Date.parse(new Date()) / 1000;
-    params.app_type = "web";
     let keys = Object.keys(params).sort(),
         kAppkey = "user_app_v0920161116191811247",
         str = "",

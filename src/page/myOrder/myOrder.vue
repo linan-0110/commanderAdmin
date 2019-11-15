@@ -83,12 +83,15 @@ export default {
         };
     },
     created() {
+        if(this.$route.query.initId) {
+            this.active = parseInt(this.$route.query.initId);
+        }
         this.getOrderData(this.getOrderDataParmas[this.active]);
     },
     methods: {
         onLoad() {
             // 数据全部加载完成
-            if (this.orderData.length >= this.orderDataTotal) {
+            if (this.getOrderDataParmas[this.active].pageindex > this.orderDataTotal) {
                 this.finished = true;
                 return;
             }

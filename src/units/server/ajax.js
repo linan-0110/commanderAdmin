@@ -12,6 +12,9 @@ const configURL = "https://allinone.jjsqwg.com/Salors"; //测试版
 /* 常用ajax封装 */
 export const ajax = function (type = "post", params) {
     params.token = JSON.parse(localStorage.getItem("userInfo")).Token;
+    params.v = "webv09";
+    params.time = Date.parse(new Date()) / 1000;
+    params.app_type = "web";
     params.sign = md5(params);
 
     return new Promise((resole, reject) => {
@@ -34,7 +37,11 @@ export const ajax = function (type = "post", params) {
 
 /* 登录ajax封装 */
 export const ajax_login = function (type = "post", params) {
+    params.v = "webv09";
+    params.time = Date.parse(new Date()) / 1000;
+    params.app_type = "web";
     params.sign = md5(params);
+    
     return new Promise((resole, reject) => {
         axios({
             method: type,

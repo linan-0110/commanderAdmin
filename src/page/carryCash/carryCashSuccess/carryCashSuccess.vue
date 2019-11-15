@@ -47,7 +47,7 @@ export default {
         
         /* 完成按钮 */
         fulfill() {
-            this.$router.back();
+            this.$router.go(-2);
         },
         /* 返回 */
         linkBack() {

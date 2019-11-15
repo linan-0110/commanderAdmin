@@ -60,6 +60,7 @@ export default {
                 this.finished = true;
                 return;
             }
+            
             // 请求 备货列表
             this.myStockParams.pageindex += pagesize;
             this.getMyStock(this.myStockParams);

@@ -14,12 +14,12 @@
                 <span>{{ balance }}元</span>
             </div>
             <van-cell-group>
-                <van-field v-model="money" label="提现金额：" :placeholder="'可转出到卡' + balance + '元'"/>
+                <van-field v-model="amount" label="提现金额：" :placeholder="'可转出到卡' + balance + '元'"/>
             </van-cell-group>
         </section>
         <aside class="aside">
             <p>1.预计到账时间: 2个工作日内。</p>
-            <p>2.单日提现不起02000元。</p>
+            <p>2.单日提现不超过2000元。</p>
         </aside>
         <footer class="footer">
             <van-button class="carryCashBtn" @click="carryCashBtn">提现</van-button>
@@ -29,12 +29,13 @@
 
 <script>
 import { reqCarryCash } from "@/api/carryCash";
+import { Toast } from "vant";
 
 export default {
     name: "carryCash",
     data() {
         return {
-            money: '',
+            amount: '', // 提现金额
             balance: -1 // 可提现金额
         };
     },
@@ -44,11 +45,22 @@ export default {
         this.balance = this.$route.query.balance;
     },
     methods: {
-        get(params) {
-            req(params).then(res => {
+        /* 提现 */
+        getCarryCash(amount) {
+            let toast_1 = Toast.loading({
+                message: '加载中...',
+                forbidClick: true,
+                loadingType: 'spinner'
+            });
+            reqCarryCash(amount).then(res => {
                 if (res.data.status === 0) {
                     console.log(">>>", res.data.data);
+                    toast_1.clear();
+                    this.$router.push({
+                        name: "home_carryCash_carryCashSuccess"
+                    })
                 } else {
+                    Toast(res.data.msg)
                     console.error("网络错误:" + res.data.msg);
                 }
             });
@@ -63,9 +75,11 @@ export default {
 
         /* 提现 */
         carryCashBtn() {
-            this.$router.push({
-                name: "home_carryCash_carryCashSuccess"
-            })
+            if(!parseFloat(this.amount) || parseFloat(this.amount) <= 0.01 ) {
+                Toast('至少提现0.01元');
+            } else {
+                this.getCarryCash(parseFloat(this.amount))
+            }
         },
         /* 返回 */
         linkBack() {

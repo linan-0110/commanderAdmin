@@ -50,9 +50,9 @@ fullStatus ==>> 整体状况
 myOrder ==>> 我的订单
 orderExpress ==>> 订单配送
     confirmDelivery ==>> 以确认送达
-clientGetCargo ==>> 顾客提货
-areaOrder ==>> 小区订单
-discountCoupon ==>> 优惠劵
+clientGetCargo ==>> 顾客提货 (准备删除)
+areaOrder ==>> 小区订单 (准备删除)
+discountCoupon ==>> 优惠劵 (准备删除)
 myAgreement ==>> 我的协议
 ```
 

@@ -76,14 +76,14 @@
                     />
                 </header>
                 <section class="container">
-                    <div class="bar my_buy_order" @click="linkAreaOrder">
+                    <!-- <div class="bar my_buy_order" @click="linkAreaOrder">
                         <span class="text">小区订单</span>
                         <van-icon class="icon_arrow" name="arrow" />
                     </div>
                     <div class="bar discount_coupon" @click="linkDiscountCoupon">
                         <span class="text">优惠劵</span>
                         <van-icon class="icon_arrow" name="arrow" />
-                    </div>
+                    </div> -->
                     <div class="bar my_agreement" @click="linkMyAgreement">
                         <span class="text">我的协议</span>
                         <van-icon class="icon_arrow" name="arrow" />
@@ -154,10 +154,13 @@ export default {
                 name: "home_fullStatus"
             });
         },
-        /* 跳转 小区订单 */
-        linkAreaOrder() {
+        /* 跳转 我的订单 (全部) */
+        linkMyOrder() {
             this.$router.push({
-                name: "home_areaOrder"
+                name: "home_myOrder",
+                query: {
+                    initId: 0
+                }
             });
         },
         /* 跳转 订单配送 */
@@ -166,24 +169,27 @@ export default {
                 name: "home_orderExpress"
             });
         },
-        /* 跳转 顾客提货 */
+        /* 跳转 顾客提货 (待提货) */
         linkClientGetCargo() {
             this.$router.push({
-                name: "home_clientGetCargo"
+                name: "home_myOrder",
+                query: {
+                    initId: 2
+                }
             });
         },
-        /* 跳转 我的订单 */
-        linkMyOrder() {
-            this.$router.push({
-                name: "home_myOrder"
-            });
-        },
+        /* 跳转 小区订单 */
+        // linkAreaOrder() {
+        //     this.$router.push({
+        //         name: "home_areaOrder"
+        //     });
+        // },
         /* 跳转 优惠劵 */
-        linkDiscountCoupon() {
-            this.$router.push({
-                name: "home_discountCoupon"
-            });
-        },
+        // linkDiscountCoupon() {
+        //     // this.$router.push({
+        //     //     name: "home_discountCoupon"
+        //     // });
+        // },
         /* 跳转 我的协议 */
         linkMyAgreement() {
             this.$router.push({
