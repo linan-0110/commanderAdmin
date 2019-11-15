@@ -1,33 +1,27 @@
 <template>
     <div class="alterBankCard">
-        <van-nav-bar fixed title="更改银行卡" left-text="返回" left-arrow @click-left="linkBack" />
-        <header class="header">绑定银行卡</header>
+        <van-nav-bar fixed :title="alterBankParams.bankconact ? '更改银行卡' : '绑定银行卡'" left-text="返回" left-arrow @click-left="linkBack" />
+        <header class="header">{{ alterBankParams.bankconact ? '更改银行卡' : '绑定银行卡'}}</header>
         <section class="section">
             <van-cell-group>
                 <van-field
-                    v-model="formData.username"
+                    v-model="alterBankParams.bankconact"
                     clearable
                     label="持卡人"
                     placeholder="请输入持卡人姓名"
                 />
 
                 <van-field
-                    v-model="formData.cardNum"
+                    v-model="alterBankParams.bankaccount"
                     clearable
                     label="卡号"
                     placeholder="请输入卡号"
                 />
                 <van-field
-                    v-model="formData.phoneNum"
+                    v-model="alterBankParams.bankname"
                     clearable
-                    label="预留号码"
+                    label="开户行"
                     placeholder="请输入预留号码"
-                />
-                <van-field
-                    clearable
-                    label="卡类型"
-                    right-icon="arrow"
-                    @click-right-icon="$toast('卡类型')"
                 />
             </van-cell-group>
         </section>
@@ -38,33 +32,47 @@
 </template>
 
 <script>
-import { Toast } from "vant";
+import { reqAlterBank } from "@/api/carryCash";
+import { Toast, Dialog } from "vant";
+
 export default {
     name: "alterBankCard",
     data() {
         return {
-            formData: {
-                username: '',
-                cardNum: '',
-                phoneNum: ''
+            alterBankParams: {
+                bankconact: "",
+                bankaccount: "",
+                bankname: ""
             }
         };
     },
+    created() {
+        if(this.$route.params.bankInfo) {
+            this.alterBankParams = this.$route.params.bankInfo;
+        }
+    },
     methods: {
-        get(params) {
-            req(params).then(res => {
+        /* 请求 修改绑定银行卡 */
+        getAlterBank(params) {
+            reqAlterBank(params).then(res => {
                 if (res.data.status === 0) {
-                    console.log(">>>", res.data.data);
+                    Toast.success(res.data.msg);
                 } else {
-                    console.error("网络错误:" + res.data.msg);
+                    Toast.fail(res.data.data);
                 }
             });
         },
 
         /* 确认更改按钮 */
         confirmAlter() {
-            Toast("确认更改按钮");
-            console.log("确认更改按钮");
+            Dialog.confirm({
+                title: "确认",
+                message: "确认更改绑定银行卡？"
+            })
+                .then(() => {
+                    this.getAlterBank(this.alterBankParams);
+                })
+                .catch(() => {});
         },
         /* 返回 */
         linkBack() {
@@ -85,17 +93,17 @@ export default {
         color: rgb(105, 104, 109);
         font-size: 16px;
     }
-    .footer{
+    .footer {
         text-align: center;
         margin-top: 40px;
-        .carryCashBtn{
+        .carryCashBtn {
             width: 70%;
             border-radius: 22px;
             color: #fff;
             background-image: linear-gradient(
                 to right,
                 rgb(247, 177, 124),
-                rgb(247, 212, 172);
+                rgb(247, 212, 172) ;
             );
         }
     }

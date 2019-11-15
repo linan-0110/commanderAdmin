@@ -15,7 +15,7 @@
             ></van-tab>
         </van-tabs>
 
-        <ul v-if="false" class="list">
+        <ul class="list">
             <li class="item">
                 <article v-if="true" class="normal_card">
                     <header class="card_top">

@@ -2,10 +2,11 @@
     <div class="carryCash">
         <van-nav-bar fixed title="提现" left-text="返回" left-arrow @click-left="linkBack" />
         <header class="bankCard" @click="alterBankCard">
-            <h3>
-                {{ "中国农业银行" }}
-                <span class="side">（{{ "尾号9527" }}）</span>
+            <h3 v-if="bankInfo">
+                {{ bankInfo.bankname }}
+                <span class="side">（尾号{{ bankEndNum }}）</span>
             </h3>
+            <h3 v-else>请点击此处绑定银行卡</h3>
             <van-icon name="arrow" />
         </header>
         <section class="bankCardInfo">
@@ -28,24 +29,46 @@
 </template>
 
 <script>
-import { reqCarryCash } from "@/api/carryCash";
+import { reqCarryCash, reqBankInfo } from "@/api/carryCash";
 import { Toast } from "vant";
 
 export default {
     name: "carryCash",
     data() {
         return {
+            bankInfo: {}, // 账户绑定银行卡信息
             amount: '', // 提现金额
             balance: -1 // 可提现金额
         };
     },
-    beforeCreate() {
-    },
     created() {
         this.balance = this.$route.query.balance;
+        this.getBankInfo();
+    },
+    computed: {
+        bankEndNum() {
+            let bankaccount = this.bankInfo.bankaccount + "";
+            return bankaccount.substr(-4);
+        }
     },
     methods: {
-        /* 提现 */
+        /* 获取当前账户绑定银行卡信息 */
+        getBankInfo() {
+            reqBankInfo().then(res => {
+                if (res.data.status === 0) {
+                    let { bankaccount, bankconact, bankname } = res.data.data;
+                    this.bankInfo = {
+                        bankaccount,
+                        bankconact,
+                        bankname
+                    }
+                } else {
+                    console.error("网络错误:" + res.data.msg);
+                }
+            });
+        },
+
+        /* 请求 提现 */
         getCarryCash(amount) {
             let toast_1 = Toast.loading({
                 message: '加载中...',
@@ -54,14 +77,12 @@ export default {
             });
             reqCarryCash(amount).then(res => {
                 if (res.data.status === 0) {
-                    console.log(">>>", res.data.data);
                     toast_1.clear();
                     this.$router.push({
                         name: "home_carryCash_carryCashSuccess"
                     })
                 } else {
-                    Toast(res.data.msg)
-                    console.error("网络错误:" + res.data.msg);
+                    Toast.fail(res.data.msg)
                 }
             });
         },
@@ -69,7 +90,10 @@ export default {
         /* 更改银行卡 */
         alterBankCard() {
             this.$router.push({
-                name: "home_carryCash_alterBankCard"
+                name: "home_carryCash_alterBankCard",
+                params: {
+                    bankInfo: this.bankInfo
+                }
             })
         },
 
