@@ -5,30 +5,26 @@
         <section class="section">
             <van-cell-group>
                 <van-field
-                    v-model="username"
+                    v-model="formData.username"
                     clearable
                     label="持卡人"
                     placeholder="请输入持卡人姓名"
                 />
 
                 <van-field
-                    v-model="password"
+                    v-model="formData.cardNum"
                     clearable
-                    type="password"
                     label="卡号"
                     placeholder="请输入卡号"
                 />
                 <van-field
-                    v-model="password"
+                    v-model="formData.phoneNum"
                     clearable
-                    type="password"
                     label="预留号码"
                     placeholder="请输入预留号码"
                 />
                 <van-field
-                    v-model="password"
                     clearable
-                    type="password"
                     label="卡类型"
                     right-icon="arrow"
                     @click-right-icon="$toast('卡类型')"
@@ -47,8 +43,11 @@ export default {
     name: "alterBankCard",
     data() {
         return {
-            username: '',
-            password: ''
+            formData: {
+                username: '',
+                cardNum: '',
+                phoneNum: ''
+            }
         };
     },
     methods: {
@@ -84,6 +83,7 @@ export default {
     .header {
         padding: 18px;
         color: rgb(105, 104, 109);
+        font-size: 16px;
     }
     .footer{
         text-align: center;

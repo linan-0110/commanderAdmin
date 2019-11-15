@@ -11,10 +11,10 @@
         <section class="bankCardInfo">
             <div class="card">
                 <span>可提现</span>
-                <span>{{ "5188.00" }}元</span>
+                <span>{{ balance }}元</span>
             </div>
             <van-cell-group>
-                <van-field v-model="money" label="提现金额：" placeholder="可转出到卡9999元" />
+                <van-field v-model="money" label="提现金额：" :placeholder="'可转出到卡' + balance + '元'"/>
             </van-cell-group>
         </section>
         <aside class="aside">
@@ -28,12 +28,20 @@
 </template>
 
 <script>
+import { reqCarryCash } from "@/api/carryCash";
+
 export default {
     name: "carryCash",
     data() {
         return {
-            money: ''
+            money: '',
+            balance: -1 // 可提现金额
         };
+    },
+    beforeCreate() {
+    },
+    created() {
+        this.balance = this.$route.query.balance;
     },
     methods: {
         get(params) {
@@ -55,7 +63,6 @@ export default {
 
         /* 提现 */
         carryCashBtn() {
-            console.log(typeof this.money);
             this.$router.push({
                 name: "home_carryCash_carryCashSuccess"
             })
