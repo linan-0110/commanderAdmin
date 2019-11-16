@@ -35,7 +35,6 @@
                 </footer>
                 <van-button
                     v-if="item.States == 15"
-                    :listLoading="btnLoading"
                     type="info"
                     size="mini"
                     class="get_cargo_btn"
@@ -50,59 +49,47 @@
 import { Toast } from "vant";
 import { reqOrderData, reqGetCargo } from "@/api/myOrder";
 
-const pagesize = 10;
-//设置默认请求全部订单数据的参数 
-let getOrderDataParmas = { pageindex: 1, pagesize, status: 15 }; // 待收货
+const pagesize = 5;
 
 export default {
     name: "AwaitInCargo",
     data() {
         return {
             finished: false, // 数据全部加载完成的状态标识
-            btnLoading: false, //按钮的加载状态
             orderData: [], // 订单数据
-            getOrderDataParmas,
-            orderDataTotal: 1, // 订单数据总条数
-            listLoading: false, // 列表加载标识
-            activeId: -1, // 用于按钮加载状态判断
+            getOrderDataParmas: { pageindex: 1, pagesize, status: 15 }, // 设置默认请求待收货订单数据的参数
+            listLoading: false // 列表加载标识
         };
-    },
-    created() {
-        this.getOrderData(this.getOrderDataParmas);
     },
     methods: {
         onLoad() {
-            // 数据全部加载完成
-            if (this.orderData.length >= this.orderDataTotal && this.getOrderDataParmas.pageindex > this.orderDataTotal) {
-                this.finished = true;
-                return;
-            }
-            this.getOrderDataParmas.pageindex += pagesize;
             // 请求 订单数据
             this.getOrderData(this.getOrderDataParmas);
-            console.count("加载中列表 >>>>");
         },
         /* 请求 订单数据 */
         getOrderData(params) {
             reqOrderData(params).then(res => {
+                // 判断显示全部加载完的状态
+                if (res.data.data.list.length < pagesize) {
+                    this.finished = true;
+                }
                 if (res.data.status === 0) {
                     if (this.orderData.length <= 0) {
                         this.orderData = res.data.data.list;
-                        this.orderDataTotal = res.data.data.recordcount;
                     } else {
                         res.data.data.list.forEach(item => {
                             this.orderData.push(item);
                         });
                     }
-                    
                     // 加载状态结束
                     this.listLoading = false;
                 } else {
                     console.error("网络错误:" + res.data.msg);
                 }
             });
+            this.getOrderDataParmas.pageindex += 1;
         },
-         /* 搜索 */
+        /* 搜索 */
         onSearch() {
             this.orderData = [];
             this.getOrderDataParmas.pageindex = 1;
@@ -110,20 +97,20 @@ export default {
         },
         /* 确认收货 */
         confirmGetCargo(oid) {
-            // 按钮是加载状态的时候禁止点击
-            if(this.btnLoading && this.activeId == oid) {
-                return;
-            }
-            this.activeId = oid;
-            this.btnLoading = true;
+            let toast_1 = Toast.loading({
+                message: "加载中...",
+                forbidClick: true,
+                duration: 0
+            });
             reqGetCargo(oid).then(res => {
                 if (res.data.status === 0) {
+                    toast_1.clear()
                     // 收货成功后刷新列表
                     this.orderData = [];
                     // 重置索引页
-                   this.getOrderData(this.getOrderDataParmas);
-                    Toast.success(res.data.msg);
-                    this.btnLoading = false;
+                    this.getOrderDataParmas.pageindex = 1;
+                    // 重新请求列表刷新数据
+                    this.getOrderData(this.getOrderDataParmas);
                 } else {
                     Toast.fail(res.data.msg);
                 }
@@ -135,7 +122,7 @@ export default {
 
 <style lang="less" scoped>
 .AwaitInCargo {
-    background-color: rgb(240,239,245);
+    background-color: rgb(240, 239, 245);
     .data {
         display: flex;
         flex-direction: column;
@@ -146,7 +133,7 @@ export default {
             margin-bottom: 10px;
             border-radius: 5px;
             position: relative;
-            .header{
+            .header {
                 display: flex;
                 justify-content: space-between;
                 padding: 5px 15px 0 15px;
@@ -157,7 +144,7 @@ export default {
                 height: 100px;
                 display: flex;
                 align-items: center;
-                border-bottom: 1px solid rgb(240,239,245);
+                border-bottom: 1px solid rgb(240, 239, 245);
                 .item_main_img {
                     width: 80px;
                     height: 80px;

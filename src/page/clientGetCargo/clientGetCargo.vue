@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import AwaitInCargo from "./sub/AwaitInCargo";
+import AwaitInCargo from "../myOrder/sub/AwaitInCargo";
 
 export default {
     name: "clientGetCargo",

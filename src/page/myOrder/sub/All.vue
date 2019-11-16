@@ -42,9 +42,7 @@
 import { Toast } from "vant";
 import { reqOrderData, reqGetCargo } from "@/api/myOrder";
 
-const pagesize = 10;
-//设置默认请求全部订单数据的参数
-let getOrderDataParmas = { pageindex: 1, pagesize, status: -1}; // 全部
+const pagesize = 5;
 
 export default {
     name: "All",
@@ -53,33 +51,25 @@ export default {
             finished: false, // 数据全部加载完成的状态标识
             btnLoading: false, //按钮的加载状态
             orderData: [], // 订单数据
-            getOrderDataParmas,
-            orderDataTotal: 1, // 订单数据总条数
+            getOrderDataParmas: { pageindex: 1, pagesize, status: -1 }, // 默认请求全部订单数据的参数
             listLoading: false // 列表加载标识
         };
     },
-    created() {
-        this.getOrderData(this.getOrderDataParmas);
-    },
     methods: {
         onLoad() {
-            // 数据全部加载完成
-            if (this.orderData.length >= this.orderDataTotal && this.getOrderDataParmas.pageindex > this.orderDataTotal) {
-                this.finished = true;
-                return;
-            }
-            this.getOrderDataParmas.pageindex += pagesize;
             // 请求 订单数据
             this.getOrderData(this.getOrderDataParmas);
-            console.count("加载中列表 >>>>");
         },
         /* 请求 订单数据 */
         getOrderData(params) {
             reqOrderData(params).then(res => {
+                // 判断显示全部加载完的状态
+                if (res.data.data.list.length < pagesize) {
+                    this.finished = true;
+                }
                 if (res.data.status === 0) {
                     if (this.orderData.length <= 0) {
                         this.orderData = res.data.data.list;
-                        this.orderDataTotal = res.data.data.recordcount;
                     } else {
                         res.data.data.list.forEach(item => {
                             this.orderData.push(item);
@@ -92,6 +82,7 @@ export default {
                     console.error("网络错误:" + res.data.msg);
                 }
             });
+            this.getOrderDataParmas.pageindex += 1;
         },
         /* 搜索 */
         onSearch() {

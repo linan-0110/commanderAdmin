@@ -32,7 +32,7 @@
 import { reqMyStock } from "@/api/orderExpress";
 
 // 备货列表请求参数默认值
-const pagesize = 20;
+const pagesize = 7;
 
 export default {
     name: "orderExpress",
@@ -54,12 +54,6 @@ export default {
     },
     methods: {
         onLoad() {
-            // 数据全部加载完成
-            if (this.myStockList.length >= this.myStockTotal) {
-                this.finished = true;
-                return;
-            }
-
             // 请求 备货列表
             this.getMyStock(this.myStockParams);
         },
@@ -67,11 +61,15 @@ export default {
         /* 请求 备货列表 */
         getMyStock(params) {
             reqMyStock(params).then(res => {
+                // 判断显示全部加载完的状态
+                if(res.data.data.list.length < pagesize) {
+                    this.finished = true;
+                }
                 if (res.data.status === 0) {
                     if (this.myStockList.length <= 0) {
                         this.myStockList = res.data.data.list;
                         this.myStockTotal = res.data.data.recordcount;
-                        this.myStockParams.pageindex += pagesize;
+                        
                     } else {
                         res.data.data.list.forEach(item => {
                             this.myStockList.push(item);
@@ -83,6 +81,7 @@ export default {
                     console.error("网络错误:" + res.data.msg);
                 }
             });
+            this.myStockParams.pageindex += 1;
         },
 
         /* 跳转 以确认送达 */

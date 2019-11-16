@@ -1,12 +1,12 @@
 import Vue from 'vue';
-import axios from 'axios'
-import VueAxios from 'vue-axios'
+import axios from 'axios';
+import VueAxios from 'vue-axios'; 
+
+import DEV from "@/dev_config"; // 导入上线配置
+const { ONLINE_BASE_HREF, SERVER_HREF } = DEV;
 
 Vue.use(VueAxios, axios)
 import { md5 } from "../md5";
-
-// const configURL = "https://allapi.jjsqzg.com/Salors"; //正式版
-const configURL = "https://allinone.jjsqwg.com/Salors"; //测试版
 
 
 /* 常用ajax封装 */
@@ -20,13 +20,17 @@ export const ajax = function (type = "post", params) {
     return new Promise((resole, reject) => {
         axios({
             method: type,
-            url: configURL,
+            url: SERVER_HREF,
             params,
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded; charset=utf-8;"
             }
         }).then((res) => {
             resole(res);
+            if(res.data.status === -2) {
+                // res.data.status === -2 代表未登录 跳转登录页
+                window.location.href = ONLINE_BASE_HREF;
+            }
         }).catch((err) => {
             reject(err);
         });
@@ -35,7 +39,7 @@ export const ajax = function (type = "post", params) {
 
 
 
-/* 登录ajax封装 */
+/* 登录 ajax封装 */
 export const ajax_login = function (type = "post", params) {
     params.v = "webv09";
     params.time = Date.parse(new Date()) / 1000;
