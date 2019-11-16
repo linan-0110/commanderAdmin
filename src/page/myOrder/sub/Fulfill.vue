@@ -96,6 +96,7 @@ export default {
          /* 搜索 */
         onSearch() {
             this.orderData = [];
+            this.getOrderDataParmas.pageindex = 1;
             this.getOrderData(this.getOrderDataParmas);
         }
     }

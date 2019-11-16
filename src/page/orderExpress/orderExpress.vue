@@ -33,10 +33,6 @@ import { reqMyStock } from "@/api/orderExpress";
 
 // 备货列表请求参数默认值
 const pagesize = 20;
-let myStockParams = {
-    pageindex: 1,
-    pagesize
-};
 
 export default {
     name: "orderExpress",
@@ -44,7 +40,10 @@ export default {
         return {
             loading: false,
             finished: false,
-            myStockParams, // 备货列表请求参数
+            myStockParams: {
+                pageindex: 1,
+                pagesize
+            }, // 备货列表请求参数
             myStockList: [], // 备货列表数据
             myStockTotal: 0 // 备货列表数据总长度
         };
@@ -60,7 +59,7 @@ export default {
                 this.finished = true;
                 return;
             }
-            
+
             // 请求 备货列表
             this.getMyStock(this.myStockParams);
         },
@@ -85,7 +84,7 @@ export default {
                 }
             });
         },
-        
+
         /* 跳转 以确认送达 */
         linkConfirmDelivery(id, status) {
             this.$router.push({

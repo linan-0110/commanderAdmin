@@ -42,7 +42,7 @@
             <article class="my_sales_order">
                 <header class="my_sales_order_header">
                     <img class="icon_home_1" src="../../assets/icon_home_1.png" />
-                    我的小手订单
+                    订单信息
                     <img
                         class="icon_arrow_orange"
                         src="../../assets/icon_arrow_orange.png"
