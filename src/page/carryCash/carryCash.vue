@@ -2,7 +2,7 @@
     <div class="carryCash">
         <van-nav-bar fixed title="提现" left-text="返回" left-arrow @click-left="linkBack" />
         <header class="bankCard" @click="alterBankCard">
-            <h3 v-if="bankInfo">
+            <h3 v-if="bankInfo.bankname && bankInfo.bankconact && bankInfo.bankaccount">
                 {{ bankInfo.bankname }}
                 <span class="side">（尾号{{ bankEndNum }}）</span>
             </h3>
