@@ -62,7 +62,6 @@ export default {
             }
             
             // 请求 备货列表
-            this.myStockParams.pageindex += pagesize;
             this.getMyStock(this.myStockParams);
         },
 
@@ -73,6 +72,7 @@ export default {
                     if (this.myStockList.length <= 0) {
                         this.myStockList = res.data.data.list;
                         this.myStockTotal = res.data.data.recordcount;
+                        this.myStockParams.pageindex += pagesize;
                     } else {
                         res.data.data.list.forEach(item => {
                             this.myStockList.push(item);

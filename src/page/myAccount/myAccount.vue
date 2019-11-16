@@ -29,7 +29,7 @@
             <li class="acount_name">
                 <article class="lable">账号</article>
                 <article class="container">
-                    <span class="content">{{ userInfo.Mobile }}</span>
+                    <span class="content">{{ userInfo.Mobile.substr(0, 3) + '****' + userInfo.Mobile.substr(7) }}</span>
                     <van-icon class="right_arrow" name="arrow" />
                 </article>
             </li>
@@ -43,7 +43,7 @@
             <li class="phome_number">
                 <article class="lable">我的联系信息</article>
                 <article class="container">
-                    <span class="content">{{ userInfo.Mobile }}</span>
+                    <span class="content">{{ userInfo.Mobile.substr(0, 3) + '****' + userInfo.Mobile.substr(7) }}</span>
                     <van-icon class="right_arrow" name="arrow" />
                 </article>
             </li>

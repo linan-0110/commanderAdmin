@@ -79,7 +79,8 @@ export default {
             listLoading: false, // 列表加载标识
             finished: false, // 数据全部加载完成的状态标识
             btnLoading: false, //按钮的加载状态
-            activeId: -1 // 用于按钮加载状态判断
+            activeId: -1, // 用于按钮加载状态判断
+            isResponse: false // 是否在请求订单数据中 （false 否 反知）[ 为了解决接口响应时间慢，可能导致响应数据混合 ]
         };
     },
     created() {
@@ -90,6 +91,7 @@ export default {
     },
     methods: {
         onLoad() {
+            if(isResponse) {return}
             // 数据全部加载完成
             if (this.getOrderDataParmas[this.active].pageindex > this.orderDataTotal) {
                 this.finished = true;
@@ -97,18 +99,20 @@ export default {
             }
 
             // 请求 订单数据
-            this.getOrderDataParmas[this.active].pageindex += pagesize;
             this.getOrderData(this.getOrderDataParmas[this.active]);
             console.count("加载中列表 >>>>");
         },
 
         /* 请求 订单数据 */
         getOrderData(params) {
+            this.isResponse = true;
             reqOrderData(params).then(res => {
                 if (res.data.status === 0) {
                     if (this.orderData.length <= 0) {
                         this.orderData = res.data.data.list;
                         this.orderDataTotal = res.data.data.recordcount;
+                        this.getOrderDataParmas[this.active].pageindex += pagesize;
+                        this.isResponse = false;
                     } else {
                         res.data.data.list.forEach(item => {
                             this.orderData.push(item);
