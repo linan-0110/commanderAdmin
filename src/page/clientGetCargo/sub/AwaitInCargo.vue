@@ -1,5 +1,5 @@
 <template>
-    <div class="All">
+    <div class="AwaitInCargo">
         <van-search
             v-model="getOrderDataParmas.contact"
             placeholder="请输入搜索手机号或姓名"
@@ -18,13 +18,13 @@
         >
             <van-cell class="li" v-for="item in orderData" :key="item.id">
                 <header class="header">
-                    <div>订单金额：{{ item.amount }}</div>
+                    <div>订单金额：{{ item.amount}}元</div>
                     <div>订单号：{{ item.id }}</div>
                 </header>
                 <section class="item" v-for="item_sub in item.detaileList" :key="item_sub.id">
                     <img class="item_main_img" :src="item_sub.mainImg" />
                     <section class="container">
-                        <p class="product_name">品名：{{ item_sub.pname }}元</p>
+                        <p class="product_name">品名：{{ item_sub.pname }}</p>
                         <p class="product_number">数量：{{ item_sub.number + item_sub.unit }}</p>
                         <p class="product_price">价格：{{ item_sub.pcice }}元</p>
                     </section>
@@ -33,6 +33,14 @@
                     <p>订单时间：{{ item.DateTimePay }}</p>
                     <p>提货点：{{ item.GetProductAddress }} {{ item.consignee }}</p>
                 </footer>
+                <van-button
+                    v-if="item.States == 15"
+                    :listLoading="btnLoading"
+                    type="info"
+                    size="mini"
+                    class="get_cargo_btn"
+                    @click="confirmGetCargo(item.id)"
+                >收货</van-button>
             </van-cell>
         </van-list>
     </div>
@@ -43,11 +51,11 @@ import { Toast } from "vant";
 import { reqOrderData, reqGetCargo } from "@/api/myOrder";
 
 const pagesize = 10;
-//设置默认请求全部订单数据的参数
-let getOrderDataParmas = { pageindex: 1, pagesize, status: -1}; // 全部
+//设置默认请求全部订单数据的参数 
+let getOrderDataParmas = { pageindex: 1, pagesize, status: 15 }; // 待收货
 
 export default {
-    name: "All",
+    name: "AwaitInCargo",
     data() {
         return {
             finished: false, // 数据全部加载完成的状态标识
@@ -55,7 +63,8 @@ export default {
             orderData: [], // 订单数据
             getOrderDataParmas,
             orderDataTotal: 1, // 订单数据总条数
-            listLoading: false // 列表加载标识
+            listLoading: false, // 列表加载标识
+            activeId: -1, // 用于按钮加载状态判断
         };
     },
     created() {
@@ -64,7 +73,7 @@ export default {
     methods: {
         onLoad() {
             // 数据全部加载完成
-            if (this.orderData.length >= this.orderDataTotal && this.getOrderDataParmas.pageindex > this.orderDataTotal) {
+            if ( this.orderData.length >= this.orderDataTotal && this.getOrderDataParmas.pageindex > this.orderDataTotal) {
                 this.finished = true;
                 return;
             }
@@ -85,7 +94,7 @@ export default {
                             this.orderData.push(item);
                         });
                     }
-
+                    
                     // 加载状态结束
                     this.listLoading = false;
                 } else {
@@ -93,18 +102,39 @@ export default {
                 }
             });
         },
-        /* 搜索 */
+         /* 搜索 */
         onSearch() {
             this.orderData = [];
             this.getOrderData(this.getOrderDataParmas);
+        },
+        /* 确认收货 */
+        confirmGetCargo(oid) {
+            // 按钮是加载状态的时候禁止点击
+            if(this.btnLoading && this.activeId == oid) {
+                return;
+            }
+            this.activeId = oid;
+            this.btnLoading = true;
+            reqGetCargo(oid).then(res => {
+                if (res.data.status === 0) {
+                    // 收货成功后刷新列表
+                    this.orderData = [];
+                    // 重置索引页
+                   this.getOrderData(this.getOrderDataParmas);
+                    Toast.success(res.data.msg);
+                    this.btnLoading = false;
+                } else {
+                    Toast.fail(res.data.msg);
+                }
+            });
         }
     }
 };
 </script>
 
 <style lang="less" scoped>
-.All {
-    background-color: rgb(240, 239, 245);
+.AwaitInCargo {
+    background-color: rgb(240,239,245);
     .data {
         display: flex;
         flex-direction: column;
@@ -115,7 +145,7 @@ export default {
             margin-bottom: 10px;
             border-radius: 5px;
             position: relative;
-            .header {
+            .header{
                 display: flex;
                 justify-content: space-between;
                 padding: 5px 15px 0 15px;
@@ -126,7 +156,7 @@ export default {
                 height: 100px;
                 display: flex;
                 align-items: center;
-                border-bottom: 1px solid rgb(240, 239, 245);
+                border-bottom: 1px solid rgb(240,239,245);
                 .item_main_img {
                     width: 80px;
                     height: 80px;
@@ -158,6 +188,11 @@ export default {
                 font-size: 12px;
             }
         }
+    }
+    .get_cargo_btn {
+        position: absolute;
+        right: 10px;
+        bottom: 70px;
     }
 }
 // border: 1px solid #0ff;

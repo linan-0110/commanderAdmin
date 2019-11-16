@@ -52,17 +52,14 @@
                     <div class="block area_order" @click="linkMyOrder">
                         <img class="icon" src="../../assets/icon_home_2.png" />
                         <h3>我的订单</h3>
-                        <!-- <span>今日订单：0</span> -->
                     </div>
                     <div class="block order_express" @click="linkOrderExpress">
                         <img class="icon" src="../../assets/icon_home_3.png" />
                         <h3>订单配送</h3>
-                        <!-- <span>待配送：0</span> -->
                     </div>
                     <div class="block client_get_cargo" @click="linkClientGetCargo">
                         <img class="icon" src="../../assets/icon_home_4.png" />
                         <h3>顾客提货</h3>
-                        <!-- <span>未提货：0</span> -->
                     </div>
                 </section>
             </article>
@@ -157,10 +154,7 @@ export default {
         /* 跳转 我的订单 (全部) */
         linkMyOrder() {
             this.$router.push({
-                name: "home_myOrder",
-                query: {
-                    initId: 0
-                }
+                name: "home_myOrder"
             });
         },
         /* 跳转 订单配送 */
@@ -172,12 +166,16 @@ export default {
         /* 跳转 顾客提货 (待提货) */
         linkClientGetCargo() {
             this.$router.push({
-                name: "home_myOrder",
-                query: {
-                    initId: 2
-                }
+                name: "home_clientGetCargo"
             });
         },
+        /* 跳转 我的协议 */
+        linkMyAgreement() {
+            this.$router.push({
+                name: "home_myAgreement"
+            });
+        }
+
         /* 跳转 小区订单 */
         // linkAreaOrder() {
         //     this.$router.push({
@@ -189,13 +187,7 @@ export default {
         //     // this.$router.push({
         //     //     name: "home_discountCoupon"
         //     // });
-        // },
-        /* 跳转 我的协议 */
-        linkMyAgreement() {
-            this.$router.push({
-                name: "home_myAgreement"
-            });
-        }
+        // }
     }
 };
 </script>
@@ -352,7 +344,8 @@ export default {
                 margin-left: 10px;
                 /* 公共样式（ 我的购买订单、 优惠劵、 我的协议 ） */
                 .bar {
-                    width: 332px;
+                    // width: 332px;
+                    width: 95%;
                     height: 62px;
                     display: flex;
                     align-items: center;
@@ -371,12 +364,15 @@ export default {
                 }
                 .my_buy_order {
                     background-image: url("../../assets/home_user_rights_1.png");
+                    
                 }
                 .discount_coupon {
                     background-image: url("../../assets/home_user_rights_2.png");
                 }
                 .my_agreement {
                     background-image: url("../../assets/home_user_rights_3.png");
+                    background-size: 100% 100%;
+                    background-repeat: no-repeat;
                 }
             }
         }

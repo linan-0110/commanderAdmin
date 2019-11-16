@@ -64,7 +64,7 @@ export default {
     methods: {
         onLoad() {
             // 数据全部加载完成
-            if (this.getOrderDataParmas.pageindex > this.orderDataTotal) {
+            if (this.orderData.length >= this.orderDataTotal && this.getOrderDataParmas.pageindex > this.orderDataTotal) {
                 this.finished = true;
                 return;
             }

@@ -30,20 +30,11 @@ import AwaitInCargo from "./sub/AwaitInCargo";
 import AwaitOutCargo from "./sub/AwaitOutCargo";
 import Fulfill from "./sub/Fulfill";
 
-/* 顶部列表项 配置*/
-const tabsConfig = [
-    { title: "全部", name: 0 },
-    { title: "待发货", name: 1 },
-    { title: "待收货", name: 2 },
-    { title: "已完成", name: 3 }
-];
-
 export default {
     name: "myOrder",
     data() {
         return {
             active: 0, // 顶部选项卡 当前选中项
-            tabsConfig, // 顶部列表项
         };
     },
     components: {
