@@ -5,8 +5,8 @@
         <aside class="aside">
             <div class="left">
                 <img src="../../../assets/icon_todo_list.png" />
-                二笔订单 三种商品
-            </div>实际到货
+                {{ stockInfo.length + "笔订单" + " - " + productTotalNum + "件商品" }} 
+            </div>
         </aside>
         <ul class="products">
             <li class="product_item" v-for="(item) in stockInfo" :key="item.id">
@@ -27,20 +27,6 @@
             </li>
         </ul>
 
-        <!-- <article class="peoduct_info">
-            <p class="text">
-                若配送出现缺货情况，请在配送当天20:00前提交补货申请,售后会
-                在当日处理，第二天将货品送达:若超过20: 00,售后将在次日进
-                行补货处理，预计三日内送达;提交当天窗口有效，超过24点默认
-                收货完成。
-            </p>
-            <h3 class="describe">缺货信息</h3>
-            <div class="container">
-                <span>山东黄小米500g×2</span>
-                <span>缺1份</span>
-            </div>
-        </article>
- -->
         <footer class="footer">
             <p>可以再次修改缺货信息，进行再次提交</p>
             <van-button
@@ -62,12 +48,11 @@ export default {
         return {
             stockInfo: [], // 备货信息列表
             id: -1, // 当前订单ID
-            status: -1 // 当前订单状态 （用于判断是否是 已发货（status==15）状态）
+            status: -1, // 当前订单状态 （用于判断是否是 已发货（status==15）状态）
+            productTotalNum: 0
         };
     },
     created() {
-        console.log("params >>");
-        console.log(this.$route);
         this.id = this.$route.query.id;
         this.status = this.$route.query.status;
         // 请求 备货信息
@@ -79,11 +64,10 @@ export default {
             reqStockInfo(params).then(res => {
                 if (res.data.status === 0) {
                     let values = res.data.data.list;
-                    console.log(">>>");
-                    console.log(values);
                     values.forEach(item => {
                         item.mayGet = item.total - item.Actual; // mayGet ==> 可收
                         item.mayGetMax = item.total - item.Actual;
+                        this.productTotalNum += item.total - item.Actual;
                     })
                     this.stockInfo = res.data.data.list;
                 } else {
@@ -139,7 +123,6 @@ export default {
     padding-top: 45px;
     box-sizing: border-box;
     background-color: rgb(240, 239, 245);
-    height: 100%;
     .header {
         height: 45px;
         background-color: #fff;
@@ -196,30 +179,6 @@ export default {
                 right: 10px;
                 bottom: 10px;
             }
-        }
-    }
-    .peoduct_info {
-        background-color: #fff;
-        border-radius: 5px;
-        margin: 10px;
-        padding: 10px;
-        .text {
-            color: rgb(120, 120, 120);
-            font-size: 12px;
-        }
-        .describe {
-            font-size: 20px;
-            font-weight: normal;
-            padding: 3px;
-            margin: 7px 0;
-            border-top: 1px solid rgb(240, 239, 244);
-            border-bottom: 1px solid rgb(240, 239, 244);
-        }
-        .container {
-            color: rgb(120, 120, 120);
-            display: flex;
-            justify-content: space-between;
-            font-size: 14px;
         }
     }
     .footer {
