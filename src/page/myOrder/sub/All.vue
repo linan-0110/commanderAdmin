@@ -1,6 +1,14 @@
 <template>
     <div class="All">
-        All
+        <van-search
+            v-model="getOrderDataParmas.contact"
+            placeholder="请输入搜索手机号或姓名"
+            show-action
+            shape="round"
+        >
+            <div slot="action" @click="onSearch">搜索</div>
+        </van-search>
+
         <van-list
             class="data"
             v-model="listLoading"
@@ -10,7 +18,7 @@
         >
             <van-cell class="li" v-for="item in orderData" :key="item.id">
                 <header class="header">
-                    <div>订单金额：{{ item.amount}}元</div>
+                    <div>订单金额：{{ item.amount }}</div>
                     <div>订单号：{{ item.id }}</div>
                 </header>
                 <section class="item" v-for="item_sub in item.detaileList" :key="item_sub.id">
@@ -35,8 +43,8 @@ import { Toast } from "vant";
 import { reqOrderData, reqGetCargo } from "@/api/myOrder";
 
 const pagesize = 10;
-//设置默认请求全部订单数据的参数 
-let getOrderDataParmas = { pageindex: 1, pagesize, status: -1 }; // 全部
+//设置默认请求全部订单数据的参数
+let getOrderDataParmas = { pageindex: 1, pagesize, status: -1}; // 全部
 
 export default {
     name: "All",
@@ -47,7 +55,7 @@ export default {
             orderData: [], // 订单数据
             getOrderDataParmas,
             orderDataTotal: 1, // 订单数据总条数
-            listLoading: false, // 列表加载标识
+            listLoading: false // 列表加载标识
         };
     },
     created() {
@@ -77,21 +85,26 @@ export default {
                             this.orderData.push(item);
                         });
                     }
-                    
+
                     // 加载状态结束
                     this.listLoading = false;
                 } else {
-                    console.error("登录失败:" + res.data.msg);
+                    console.error("网络错误:" + res.data.msg);
                 }
             });
         },
+        /* 搜索 */
+        onSearch() {
+            this.orderData = [];
+            this.getOrderData(this.getOrderDataParmas);
+        }
     }
 };
 </script>
 
 <style lang="less" scoped>
 .All {
-    background-color: rgb(240,239,245);
+    background-color: rgb(240, 239, 245);
     .data {
         display: flex;
         flex-direction: column;
@@ -102,7 +115,7 @@ export default {
             margin-bottom: 10px;
             border-radius: 5px;
             position: relative;
-            .header{
+            .header {
                 display: flex;
                 justify-content: space-between;
                 padding: 5px 15px 0 15px;
@@ -113,7 +126,7 @@ export default {
                 height: 100px;
                 display: flex;
                 align-items: center;
-                border-bottom: 1px solid rgb(240,239,245);
+                border-bottom: 1px solid rgb(240, 239, 245);
                 .item_main_img {
                     width: 80px;
                     height: 80px;

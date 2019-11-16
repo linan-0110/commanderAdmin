@@ -1,6 +1,14 @@
 <template>
     <div class="AwaitOutCargo">
-        AwaitOutCargo
+        <van-search
+            v-model="getOrderDataParmas.contact"
+            placeholder="请输入搜索手机号或姓名"
+            show-action
+            shape="round"
+        >
+            <div slot="action" @click="onSearch">搜索</div>
+        </van-search>
+
         <van-list
             class="data"
             v-model="listLoading"
@@ -8,23 +16,22 @@
             finished-text="没有更多了"
             @load="onLoad"
         >
-            <van-cell class="li" v-for="item in 3" :key="item.id">
+            <van-cell class="li" v-for="item in orderData" :key="item.id">
                 <header class="header">
-                    <div>订单金额：{{ 'item.amount'}}元</div>
-                    <div>订单号：{{ 'item.id' }}</div>
+                    <div>订单金额：{{ item.amount}}元</div>
+                    <div>订单号：{{ item.id }}</div>
                 </header>
-                <section class="item">
-                    <img class="item_main_img" src="http://img007.hc360.cn/k3/M04/C0/6D/4Df79040e85809423ADA281529f96607eC.jpg" />
+                <section class="item" v-for="item_sub in item.detaileList" :key="item_sub.id">
+                    <img class="item_main_img" :src="item_sub.mainImg" />
                     <section class="container">
-                        <p class="product_name">品名：{{ 'item.amount'}}元</p>
-                        <p class="product_number">数量：{{ 'item.id' }}</p>
-                        <p class="product_price">价格：{{ 'item.DateTimePay' }}</p>
+                        <p class="product_name">品名：{{ item_sub.pname }}</p>
+                        <p class="product_number">数量：{{ item_sub.number + item_sub.unit }}</p>
+                        <p class="product_price">价格：{{ item_sub.pcice }}元</p>
                     </section>
                 </section>
-                
                 <footer class="get_cargo_address">
-                    <p>订单时间：{{ 'item.DateTimePay' }}</p>
-                    <p>提货点：{{ 'item.GetProductAddress' }} {{ 'item.consignee' }}</p>
+                    <p>订单时间：{{ item.DateTimePay }}</p>
+                    <p>提货点：{{ item.GetProductAddress }} {{ item.consignee }}</p>
                 </footer>
             </van-cell>
         </van-list>
@@ -36,9 +43,9 @@ import { Toast } from "vant";
 import { reqOrderData, reqGetCargo } from "@/api/myOrder";
 
 const pagesize = 10;
-//设置默认请求订单数据的参数 (顶部四个选项卡，分别对应五个请求参数)
+//设置默认请求全部订单数据的参数 
 let getOrderDataParmas = { pageindex: 1, pagesize, status: 10 }; // 待发货
-    
+
 export default {
     name: "AwaitOutCargo",
     data() {
@@ -51,10 +58,13 @@ export default {
             listLoading: false, // 列表加载标识
         };
     },
+    created() {
+        this.getOrderData(this.getOrderDataParmas);
+    },
     methods: {
         onLoad() {
             // 数据全部加载完成
-            if (this.getOrderDataParmas[this.active].pageindex > this.orderDataTotal) {
+            if (this.getOrderDataParmas.pageindex > this.orderDataTotal) {
                 this.finished = true;
                 return;
             }
@@ -63,7 +73,7 @@ export default {
             this.getOrderData(this.getOrderDataParmas);
             console.count("加载中列表 >>>>");
         },
-         /* 请求 订单数据 */
+        /* 请求 订单数据 */
         getOrderData(params) {
             reqOrderData(params).then(res => {
                 if (res.data.status === 0) {
@@ -75,13 +85,19 @@ export default {
                             this.orderData.push(item);
                         });
                     }
+                    
                     // 加载状态结束
                     this.listLoading = false;
                 } else {
-                    console.error("登录失败:" + res.data.msg);
+                    console.error("网络错误:" + res.data.msg);
                 }
             });
         },
+         /* 搜索 */
+        onSearch() {
+            this.orderData = [];
+            this.getOrderData(this.getOrderDataParmas);
+        }
     }
 };
 </script>

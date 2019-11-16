@@ -8,16 +8,16 @@
             color="rgb(190,157,83)"
             @click="clickTopTab"
         >
-            <van-tab title="全部" :name="0" class="van_tab">
+            <van-tab title="全部" :name="0" animated>
                 <all></all>
             </van-tab>
-            <van-tab title="待发货" :name="1" >
+            <van-tab title="待发货" :name="1" animated>
                 <await-out-cargo></await-out-cargo>
             </van-tab>
-            <van-tab title="待收货" :name="2" >
+            <van-tab title="待收货" :name="2" animated>
                 <await-in-cargo></await-in-cargo>
             </van-tab>
-            <van-tab title="已完成" :name="3" >
+            <van-tab title="已完成" :name="3" animated>
                 <culfill></culfill>
             </van-tab>
         </van-tabs>
@@ -44,8 +44,6 @@ export default {
         return {
             active: 0, // 顶部选项卡 当前选中项
             tabsConfig, // 顶部列表项
-            
-            activeId: -1, // 用于按钮加载状态判断
         };
     },
     components: {
@@ -54,14 +52,8 @@ export default {
         "await-out-cargo": AwaitOutCargo,
         "culfill": Fulfill
     },
-    created() {
-        // if(this.$route.query.initId) {
-        //     this.active = parseInt(this.$route.query.initId);
-        // }
-        // this.getOrderData(this.getOrderDataParmas[this.active]);
-    },
+    created() {},
     methods: {
-
         /* 顶部tab点击事件 */
         clickTopTab(active) {
             this.active = active;
@@ -69,29 +61,6 @@ export default {
             console.log("选显卡状态 ==>>" + active);
         },
         
-        /* 确认收货 */
-        confirmGetCargo(oid) {
-            // 按钮是加载状态的时候禁止点击
-            if(this.btnLoading && this.activeId == oid) {
-                return;
-            }
-            this.activeId = oid;
-            this.btnLoading = true;
-            reqGetCargo(oid).then(res => {
-                if (res.data.status === 0) {
-                    // 收货成功后刷新列表
-                    this.orderData = [];
-                    // 重置索引页
-                    this.getOrderDataParmas[this.active].pageindex = 1;
-                    this.getOrderData(this.getOrderDataParmas[this.active]);
-                    Toast.success(res.data.msg);
-                    this.btnLoading = false;
-                } else {
-                    Toast.fail(res.data.msg);
-                }
-            });
-        },
-
         /* 返回 */
         linkBack() {
             this.$router.back();
@@ -109,7 +78,6 @@ export default {
         // position: fixed;
         // top: 45px;
         width: 100%;
-        z-index: 1;
         .van_tab{
             overflow: scroll;
         }
