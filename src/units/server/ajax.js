@@ -49,7 +49,7 @@ export const ajax_login = function (type = "post", params) {
     return new Promise((resole, reject) => {
         axios({
             method: type,
-            url: configURL,
+            url: SERVER_HREF,
             params,
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded; charset=utf-8;"

@@ -28,15 +28,13 @@ export default {
             password: '13396928327'
         };
     },
-    created() {
-        // console.log(this);
-    },
     methods: {
         /* 登录 */
         login() {
             Toast.loading({
                 message: '登录中...',
-                forbidClick: true
+                forbidClick: true,
+                duration: 0
             });
             reqLogin({
                 account: this.account,
