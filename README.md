@@ -76,6 +76,7 @@ dev_config.js ==>> 上线配置文件
 
 项目完结 加
 自动生成目录结构教程（https://juejin.im/post/5dc1340e6fb9a04abf552b40）
+```
 |-- commanderAdmin
     |-- .babelrc
     |-- .editorconfig
@@ -240,4 +241,4 @@ dev_config.js ==>> 上线配置文件
             |-- setup.js
             |-- specs
                 |-- HelloWorld.spec.js
-
+```
