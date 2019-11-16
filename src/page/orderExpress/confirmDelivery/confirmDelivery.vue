@@ -97,7 +97,8 @@ export default {
             // 加载提示
             let toast = Toast.loading({
                 message: "加载中...",
-                forbidClick: true
+                forbidClick: true,
+                duration: 0
             });
 
             let list = [];
