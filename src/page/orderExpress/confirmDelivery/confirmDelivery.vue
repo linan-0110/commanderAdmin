@@ -22,7 +22,7 @@
                     v-model="item.mayGet"
                     integer
                     min="0"
-                    :max="item.mayGet"
+                    :max="item.mayGetMax"
                 />
             </li>
         </ul>
@@ -83,6 +83,7 @@ export default {
                     console.log(values);
                     values.forEach(item => {
                         item.mayGet = item.total - item.Actual; // mayGet ==> 可收
+                        item.mayGetMax = item.total - item.Actual;
                     })
                     this.stockInfo = res.data.data.list;
                 } else {
