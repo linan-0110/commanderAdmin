@@ -27,7 +27,7 @@
             </li>
         </ul>
 
-        <article class="peoduct_info">
+        <!-- <article class="peoduct_info">
             <p class="text">
                 若配送出现缺货情况，请在配送当天20:00前提交补货申请,售后会
                 在当日处理，第二天将货品送达:若超过20: 00,售后将在次日进
@@ -40,7 +40,7 @@
                 <span>缺1份</span>
             </div>
         </article>
-
+ -->
         <footer class="footer">
             <p>可以再次修改缺货信息，进行再次提交</p>
             <van-button
