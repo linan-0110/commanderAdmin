@@ -115,14 +115,14 @@ export default {
     created() {
         /* 请求 累计收入 默认查询单日 */
         this.getTotalIncome({
-            s: moment().format("YYYY-MM-DD") + " 00:00:00",
-            e: moment().format("YYYY-MM-DD") + " 23:59:59"
+            starttime: moment().format("YYYY-MM-DD") + " 00:00:00",
+            endtime: moment().format("YYYY-MM-DD") + " 23:59:59"
         });
 
         /* 订单数据 默认查询单日*/
         this.getOrderData({
-            s: moment().format("YYYY-MM-DD") + " 00:00:00",
-            e: moment().format("YYYY-MM-DD") + " 23:59:59"
+            starttime: moment().format("YYYY-MM-DD") + " 00:00:00",
+            endtime: moment().format("YYYY-MM-DD") + " 23:59:59"
         });
     },
     methods: {
@@ -187,11 +187,11 @@ export default {
                 //是月数据
                 /* 请求 累计收入 */
                 this.getTotalIncome({
-                    s:
+                    starttime:
                         moment(dateTime)
                             .startOf("month")
                             .format("YYYY-MM-DD") + " 00:00:00",
-                    e:
+                    endtime:
                         moment(dateTime)
                             .endOf("month")
                             .format("YYYY-MM-DD") + " 23:59:59"
@@ -199,11 +199,11 @@ export default {
 
                 /* 订单数据 查询单月*/
                 this.getOrderData({
-                    s:
+                    starttime:
                         moment(dateTime)
                             .startOf("month")
                             .format("YYYY-MM-DD") + " 00:00:00",
-                    e:
+                    endtime:
                         moment(dateTime)
                             .endOf("month")
                             .format("YYYY-MM-DD") + " 23:59:59"
@@ -212,14 +212,14 @@ export default {
                 //是日数据
                 /* 请求 累计收入 */
                 this.getTotalIncome({
-                    s: moment(dateTime).format("YYYY-MM-DD") + " 00:00:00",
-                    e: moment(dateTime).format("YYYY-MM-DD") + " 23:59:59"
+                    starttime: moment(dateTime).format("YYYY-MM-DD") + " 00:00:00",
+                    endtime: moment(dateTime).format("YYYY-MM-DD") + " 23:59:59"
                 });
 
                 /* 订单数据 查询单日*/
                 this.getOrderData({
-                    s: moment(dateTime).format("YYYY-MM-DD") + " 00:00:00",
-                    e: moment(dateTime).format("YYYY-MM-DD") + " 23:59:59"
+                    starttime: moment(dateTime).format("YYYY-MM-DD") + " 00:00:00",
+                    endtime: moment(dateTime).format("YYYY-MM-DD") + " 23:59:59"
                 });
             }
 
@@ -235,14 +235,14 @@ export default {
         dayDataStatus() {
             /* 请求 累计收入 */
             this.getTotalIncome({
-                s: moment(this.dateTimeStr).format("YYYY-MM-DD") + " 00:00:00",
-                e: moment(this.dateTimeStr).format("YYYY-MM-DD") + " 23:59:59"
+                starttime: moment(this.dateTimeStr).format("YYYY-MM-DD") + " 00:00:00",
+                endtime: moment(this.dateTimeStr).format("YYYY-MM-DD") + " 23:59:59"
             });
 
             /* 订单数据 查询单日*/
             this.getOrderData({
-                s: moment(this.dateTimeStr).format("YYYY-MM-DD") + " 00:00:00",
-                e: moment(this.dateTimeStr).format("YYYY-MM-DD") + " 23:59:59"
+                starttime: moment(this.dateTimeStr).format("YYYY-MM-DD") + " 00:00:00",
+                endtime: moment(this.dateTimeStr).format("YYYY-MM-DD") + " 23:59:59"
             });
             this.trigger_bar = false;
         },
@@ -250,11 +250,11 @@ export default {
         monthDataStatus() {
             /* 请求 累计收入 */
             this.getTotalIncome({
-                s:
+                starttime:
                     moment(this.dateTimeStr)
                         .startOf("month")
                         .format("YYYY-MM-DD") + " 00:00:00",
-                e:
+                endtime:
                     moment(this.dateTimeStr)
                         .endOf("month")
                         .format("YYYY-MM-DD") + " 23:59:59"
@@ -262,11 +262,11 @@ export default {
 
             /* 订单数据 查询单月*/
             this.getOrderData({
-                s:
+                starttime:
                     moment(this.dateTimeStr)
                         .startOf("month")
                         .format("YYYY-MM-DD") + " 00:00:00",
-                e:
+                endtime:
                     moment(this.dateTimeStr)
                         .endOf("month")
                         .format("YYYY-MM-DD") + " 23:59:59"

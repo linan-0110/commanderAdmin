@@ -30,8 +30,8 @@
                     </section>
                 </section>
                 <footer class="get_cargo_address">
-                    <p>订单时间：{{ item.DateTimePay }}</p>
-                    <p>提货点：{{ item.GetProductAddress }} {{ item.consignee }}</p>
+                    <p>订单时间：{{ item.CreatTime }}</p>
+                    <p>客户：{{ item.consignee }}  {{ item.phone }}</p>
                 </footer>
             </van-cell>
         </van-list>
@@ -136,7 +136,7 @@ export default {
                         font-weight: normal;
                     }
                     .product_number {
-                        margin: 10px 0;
+                        margin: 5px 0;
                     }
                     .product_price {
                         font-size: 14px;

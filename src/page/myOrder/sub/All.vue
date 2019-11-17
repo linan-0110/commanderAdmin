@@ -24,14 +24,14 @@
                 <section class="item" v-for="item_sub in item.detaileList" :key="item_sub.id">
                     <img class="item_main_img" :src="item_sub.mainImg" />
                     <section class="container">
-                        <p class="product_name">品名：{{ item_sub.pname }}元</p>
+                        <p class="product_name">品名：{{ item_sub.pname }}</p>
                         <p class="product_number">数量：{{ item_sub.number + item_sub.unit }}</p>
                         <p class="product_price">价格：{{ item_sub.pcice }}元</p>
                     </section>
                 </section>
                 <footer class="get_cargo_address">
-                    <p>订单时间：{{ item.DateTimePay }}</p>
-                    <p>提货点：{{ item.GetProductAddress }} {{ item.consignee }}</p>
+                    <p>订单时间：{{ item.CreatTime }}</p>
+                    <p>客户：{{ item.consignee }}  {{ item.phone }}</p>
                 </footer>
             </van-cell>
         </van-list>
@@ -137,7 +137,7 @@ export default {
                         font-weight: normal;
                     }
                     .product_number {
-                        margin: 10px 0;
+                        margin: 5px 0;
                     }
                     .product_price {
                         font-size: 14px;
