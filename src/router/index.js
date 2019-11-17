@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import Login from '@/page/Login/Login'; //登 录页
+import Login from '@/page/Login/Login'; //登录页
 import home from '@/page/home/home'; // 主页
 import myAccount from '@/page/myAccount/myAccount'; // 我的账号
 import myEarnings from '@/page/myEarnings/myEarnings'; // 我的收益

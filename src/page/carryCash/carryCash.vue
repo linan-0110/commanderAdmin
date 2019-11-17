@@ -38,7 +38,8 @@ export default {
         return {
             bankInfo: {}, // 账户绑定银行卡信息
             amount: '', // 提现金额
-            balance: -1 // 可提现金额
+            balance: -1, // 可提现金额
+            adminid: 0 // 保存企业id
         };
     },
     created() {
@@ -56,12 +57,13 @@ export default {
         getBankInfo() {
             reqBankInfo().then(res => {
                 if (res.data.status === 0) {
-                    let { bankaccount, bankconact, bankname } = res.data.data;
+                    let { bankaccount, bankconact, bankname, adminid } = res.data.data;
                     this.bankInfo = {
                         bankaccount,
                         bankconact,
                         bankname
                     }
+                    this.adminid = adminid ? adminid : 0; // 保存企业id
                 } else {
                     console.error("网络错误:" + res.data.msg);
                 }
@@ -91,8 +93,9 @@ export default {
         alterBankCard() {
             this.$router.push({
                 name: "home_carryCash_alterBankCard",
-                params: {
-                    bankInfo: this.bankInfo
+                query: {
+                    bankInfo: this.bankInfo,
+                    adminid: this.adminid
                 }
             })
         },

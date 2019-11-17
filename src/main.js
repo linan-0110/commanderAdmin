@@ -8,14 +8,17 @@ import '../static/public.css';
 
 
 /* vant start */
-import { Button, Search, NavBar, Icon, DatetimePicker, Popup, Card, Checkbox, CheckboxGroup, 
-    Tab, Tabs, Stepper,Field, Cell, CellGroup, List,Tag } from 'vant';
+import { Button, Search, NavBar, Icon, DatetimePicker, Popup, Card, Checkbox, CellGroup, 
+    Tab, Tabs, Stepper,Field, Cell, CheckboxGroup, List,Tag } from 'vant';
 Vue.use(Button).use(Search).use(NavBar).use(Icon).use(DatetimePicker).use(Popup).use(Card)
     .use(Checkbox).use(CheckboxGroup).use(Tab).use(Tabs).use(Stepper).use(Field).use(List)
     .use(Cell).use(CellGroup).use(Tag);
 /* vant end */
 
 Vue.config.productionTip = false;
+
+/* 根据路由设置标题 */ 
+document.title = '集集团长';
 
 /* eslint-disable no-new */
 new Vue({

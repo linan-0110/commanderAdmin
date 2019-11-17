@@ -21,7 +21,22 @@
                     v-model="alterBankParams.bankname"
                     clearable
                     label="开户行"
-                    placeholder="请输入预留号码"
+                    placeholder="请输入开户行"
+                />
+            </van-cell-group>
+            <h6 v-if="adminid" class="proportion">分成比例</h6>
+            <van-cell-group v-if="adminid">
+                <van-field
+                    v-model="alterBankParams.pratio"
+                    clearable
+                    label="企业："
+                    placeholder="分成比例相加要等于1"
+                />
+                <van-field
+                    v-model="alterBankParams.myratio"
+                    clearable
+                    label="团长："
+                    placeholder="分成比例相加要等于1"
                 />
             </van-cell-group>
         </section>
@@ -40,16 +55,21 @@ export default {
     data() {
         return {
             alterBankParams: {
-                bankconact: "",
-                bankaccount: "",
-                bankname: ""
-            }
+                bankconact: "", // 持卡人
+                bankaccount: "", // 卡号
+                bankname: "", // 开户行
+                pratio: "", // 企业
+                myratio: "", // 团长
+                // adminid: 0 // 判断是否是企业账号
+            },
+            adminid: 0 // 保存企业id
         };
     },
     created() {
-        if(this.$route.params.bankInfo) {
-            this.alterBankParams = this.$route.params.bankInfo;
+        if(this.$route.query.bankInfo) {
+            this.alterBankParams = this.$route.query.bankInfo;
         }
+        this.adminid = this.$route.query.adminid;
     },
     methods: {
         /* 请求 修改绑定银行卡 */
@@ -58,21 +78,28 @@ export default {
                 if (res.data.status === 0) {
                     Toast.success(res.data.msg);
                 } else {
-                    Toast.fail(res.data.data);
+                    Toast.fail(res.data.msg);
                 }
             });
         },
 
         /* 确认更改按钮 */
         confirmAlter() {
+            this.alterBankParams.pratio = parseFloat(this.alterBankParams.pratio);
+            this.alterBankParams.myratio = parseFloat(this.alterBankParams.myratio);
+            for(let key in this.alterBankParams) {
+                if(!this.alterBankParams[key]) {
+                    delete this.alterBankParams[key];
+                }
+            }
             Dialog.confirm({
                 title: "确认",
                 message: "确认更改绑定银行卡？"
             })
-                .then(() => {
-                    this.getAlterBank(this.alterBankParams);
-                })
-                .catch(() => {});
+            .then(() => {
+                this.getAlterBank(this.alterBankParams);
+            })
+            .catch(() => {});
         },
         /* 返回 */
         linkBack() {
@@ -92,6 +119,14 @@ export default {
         padding: 18px;
         color: rgb(105, 104, 109);
         font-size: 16px;
+    }
+    .section{
+        .proportion{
+            padding: 10px 18px;
+            color: rgb(105, 104, 109);
+            font-size: 16px;
+            font-weight: normal;
+        }
     }
     .footer {
         text-align: center;

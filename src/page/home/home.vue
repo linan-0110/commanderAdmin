@@ -174,7 +174,7 @@ export default {
             this.$router.push({
                 name: "home_myAgreement"
             });
-        }
+        },
 
         /* 跳转 小区订单 */
         // linkAreaOrder() {
@@ -184,9 +184,9 @@ export default {
         // },
         /* 跳转 优惠劵 */
         // linkDiscountCoupon() {
-        //     // this.$router.push({
-        //     //     name: "home_discountCoupon"
-        //     // });
+        //     this.$router.push({
+        //         name: "home_discountCoupon"
+        //     });
         // }
     }
 };

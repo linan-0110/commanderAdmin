@@ -100,7 +100,6 @@ export default {
             tabsConfig //顶部列表项
         };
     },
-    created() {},
     methods: {
         /* 优惠劵去使用 */
         go_use_btn() {
