@@ -102,6 +102,7 @@ export default {
 
         /* 请求全部 我的收益记录列表 */
         all() {
+            this.myEarningsList = [];
             this.getMyEarnings(defaultGetMyEarningsParams);
         },
 

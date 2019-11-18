@@ -12,10 +12,6 @@
                 >若配送出现缺货情况，请在配送当天20:00前提交补货申请，售后会在当日处理，第二天将货品送达;若超过20: 00,售后将在次日进行补货处理，预计三日内送达;提交当天窗口有效，超过24点默认收货完成。</p>
             </article>
         </section>
-        <!-- <footer class="footer">
-            <van-button class="btn no_consent" type="default" size="small" @click="no_consent">不同意</van-button>
-            <van-button class="btn consent" type="default" size="small" @click="consent">同意</van-button>
-        </footer> -->
     </div>
 </template>
 
@@ -26,15 +22,6 @@ export default {
         return {};
     },
     methods: {
-        // /* 不同意 */
-        // no_consent() {
-        //     console.log("不同意");
-        // },
-        // /* 同意 */
-        // consent() {
-        //     console.log("同意");
-        // },
-        
         /* 返回 */
         linkBack() {
             this.$router.back();
@@ -73,24 +60,6 @@ export default {
             }
         }
     }
-    /* .footer {
-        display: flex;
-        justify-content: space-around;
-        padding: 15px;
-        .btn {
-            width: 130px;
-            height: 32px;
-            border-radius: 16px;
-            color: #fff;
-            font-size: 18px;
-        }
-        .no_consent {
-            background-color: rgb(201, 201, 201);
-        }
-        .consent {
-            background-color: rgb(244, 197, 145);
-        }
-    } */
 }
 // border: 1px solid #0ff;
 </style>

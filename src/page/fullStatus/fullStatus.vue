@@ -53,11 +53,11 @@
                 <section class="container">
                     <div class="block">
                         <p class="title">累计订单（笔）</p>
-                        <p class="num">{{ recordcount }}</p>
+                        <p class="num">{{ orderData.ordercount }}</p>
                     </div>
                     <div class="block">
                         <p class="title">累计销售额（元）</p>
-                        <p class="num">{{ totalMoney.toFixed(2) }}</p>
+                        <p class="num">{{ orderData.ordersum }}</p>
                     </div>
                 </section>
             </article>
@@ -104,11 +104,12 @@ export default {
             currentDate: new Date(),
             showDatepicker: false,
             dateTime: moment().format("YYYY年MM月DD日"),
-            totalIncome: 0, //累计收入
-            generalizeMoney: 0, //推广收益
-            orderMoney: 0, //订单佣金
-            recordcount: 0, //订单数量
-            totalMoney: 0, //累计销售额
+            totalIncome: 0, // 累计收入
+            generalizeMoney: 0, // 推广收益
+            orderMoney: 0, // 订单佣金
+            orderData: {}, // 预计订单数据
+            //recordcount: 0, // 订单数量
+            //totalMoney: 0, // 累计销售额
             dateTimeStr: moment().format("YYYY-MM-DD") //日期选择器选择的时间
         };
     },
@@ -128,6 +129,11 @@ export default {
     methods: {
         /* 请求 累计收入 */
         getTotalIncome(params) {
+            // 跟改字段名
+            params.s = params.starttime;
+            params.e = params.endtime;
+            delete params.starttime;
+            delete params.endtime;
             reqTotalIncome(params).then(res => {
                 if (res.data.status === 0) {
                     this.totalIncome = 0; //累计收入
@@ -152,12 +158,7 @@ export default {
         getOrderData(params) {
             reqOrderData(params).then(res => {
                 if (res.data.status === 0) {
-                    this.recordcount = 0; //订单数量
-                    this.totalMoney = 0; //累计销售额
-                    this.recordcount = res.data.data.recordcount;
-                    res.data.data.list.forEach(item => {
-                        this.totalMoney += item.amount;
-                    });
+                    this.orderData = res.data.data;
                 } else {
                     console.error("网络错误:" + res.data.msg);
                 }

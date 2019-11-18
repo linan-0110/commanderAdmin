@@ -48,8 +48,6 @@ export default {
         /* 顶部tab点击事件 */
         clickTopTab(active) {
             this.active = active;
-            // 置空 订单数据 以重新获取数据
-            console.log("选显卡状态 ==>>" + active);
         },
         
         /* 返回 */
@@ -66,8 +64,6 @@ export default {
     box-sizing: border-box;
     background-color: rgb(240, 239, 245);
     .tab_bar {
-        // position: fixed;
-        // top: 45px;
         width: 100%;
         .van_tab{
             overflow: scroll;
@@ -75,5 +71,4 @@ export default {
     }
     
 }
-// border: 1px solid #0ff;
 </style>

@@ -12,11 +12,8 @@ export const reqTotalIncome = (data) => ajax("post", {
 
 /* 订单数据 */
 export const reqOrderData = (data) => ajax("post", {
-    act: "order",
-    cmd: "mylist",
+    act: "report",
+    cmd: "timesale",
     ...data,
-    status: -1,
-    issub: 1,
-    pageindex: 1,
-    pagesize: 1000000
+    status: 10
 })
