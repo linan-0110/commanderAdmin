@@ -34,10 +34,11 @@ export default {
         // consent() {
         //     console.log("同意");
         // },
-        // /* 返回 */
-        // linkBack() {
-        //     this.$router.back();
-        // }
+        
+        /* 返回 */
+        linkBack() {
+            this.$router.back();
+        }
     }
 };
 </script>
