@@ -1,6 +1,5 @@
 <template>
     <div class="Login">
-        <!-- <img class="main_img" src='http://img.lanrentuku.com/img/allimg/1409/14108610182609.jpg' alt="登录页主图" /> -->
         <img class="main_img" src="../../assets/login_main1.png" />
         <van-cell-group class="input_container">
             <van-field
@@ -19,20 +18,30 @@
 
 <script>
 import { reqLogin } from "@/api/login";
-import { Toast } from "vant";
+import { Toast, Dialog } from "vant";
 export default {
     name: "Login",
     data() {
         return {
-            account: '',
-            password: ''
+            account: "",
+            password: "",
+            accountpwdJSON: ""
         };
+    },
+    created() {
+        // 如果本地保存了密码就自动填入
+        this.accountpwdJSON = localStorage.getItem("accountpwd");
+        if (this.accountpwdJSON) {
+            let { account, password } = JSON.parse(this.accountpwdJSON);
+            this.account = account;
+            this.password = password;
+        }
     },
     methods: {
         /* 登录 */
         login() {
             Toast.loading({
-                message: '登录中...',
+                message: "登录中...",
                 forbidClick: true,
                 duration: 0
             });
@@ -41,12 +50,34 @@ export default {
                 password: this.password
             }).then(res => {
                 if (res.data.status === 0) {
-                    localStorage.setItem("userInfo", JSON.stringify(res.data.data))
+                    localStorage.setItem(
+                        "userInfo",
+                        JSON.stringify(res.data.data)
+                    );
+                    // 如果本地没有保存过密码 提示是否保存密码
+                    if (!this.accountpwdJSON) {
+                        Dialog.confirm({
+                            title: "保存密码",
+                            message: "是否保存密码？"
+                        })
+                            .then(() => {
+                                // 点击确认 时 保存密码
+                                localStorage.setItem(
+                                    "accountpwd",
+                                    JSON.stringify({
+                                        account: this.account,
+                                        password: this.password
+                                    })
+                                );
+                            })
+                            .catch(() => {});
+                    }
+
                     Toast.success("登录" + res.data.msg);
                     setTimeout(() => {
-                        Toast.clear()
+                        Toast.clear();
                         this.$router.push("/home");
-                    }, 400)
+                    }, 400);
                 } else {
                     Toast.fail("登录失败:" + res.data.msg);
                 }

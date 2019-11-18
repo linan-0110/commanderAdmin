@@ -61,21 +61,6 @@
                     </div>
                 </section>
             </article>
-
-            <!-- 预计客人数据 -->
-            <!-- <article class="predict_guest">
-                <header>预估客户数据（人）</header>
-                <section class="container">
-                    <div class="block">
-                        <p class="title">累计访问人数</p>
-                        <p class="num">0</p>
-                    </div>
-                    <div class="block">
-                        <p class="title">累计下单人数</p>
-                        <p class="num">0</p>
-                    </div>
-                </section>
-            </article>-->
         </section>
 
         <!-- 时间选择框 -->
@@ -428,5 +413,4 @@ export default {
     width: 70%;
     border-radius: 10px;
 }
-// border: 1px solid #0ff;
 </style>

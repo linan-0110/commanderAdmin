@@ -97,12 +97,12 @@ export default {
     name: "home",
     data() {
         return {
-            myAsset: {
+            myAsset: { //我的资产
                 balance: 0,
                 freeze: 0,
                 total: 0,
                 salortotal: 0
-            }, //我的资产
+            }, 
             userInfo: {} //用户信息
         };
     },

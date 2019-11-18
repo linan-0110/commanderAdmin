@@ -43,5 +43,4 @@ export default {
     }
     
 }
-// border: 1px solid #0ff;
 </style>
