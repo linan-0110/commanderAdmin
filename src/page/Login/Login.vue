@@ -24,8 +24,7 @@ export default {
     data() {
         return {
             account: "",
-            password: "",
-            accountpwdJSON: ""
+            password: ""
         };
     },
     created() {
@@ -36,6 +35,10 @@ export default {
             this.account = account;
             this.password = password;
         }
+        let act = localStorage.getItem("act"), 
+            pwd = localStorage.getItem("pwd");
+        if(act) {this.account = act;}
+        if(pwd) {this.password = pwd;}
     },
     methods: {
         /* 登录 */
@@ -54,23 +57,17 @@ export default {
                         "userInfo",
                         JSON.stringify(res.data.data)
                     );
+
                     // 如果本地没有保存过密码 提示是否保存密码
-                    if (!this.accountpwdJSON) {
+                    localStorage.setItem("act", this.account);
+                    if (!localStorage.getItem("pwd")) {
                         Dialog.confirm({
                             title: "保存密码",
                             message: "是否保存密码？"
-                        })
-                            .then(() => {
-                                // 点击确认 时 保存密码
-                                localStorage.setItem(
-                                    "accountpwd",
-                                    JSON.stringify({
-                                        account: this.account,
-                                        password: this.password
-                                    })
-                                );
-                            })
-                            .catch(() => {});
+                        }).then(() => {
+                            // 点击确认 时 保存密码
+                            localStorage.setItem("pwd", this.password);
+                        }).catch(() => {});
                     }
 
                     Toast.success("登录" + res.data.msg);
