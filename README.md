@@ -29,6 +29,9 @@ npm test
 
 For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
 
+
+
+
 #### 基础组件库用了vant 采用按需导入方式加载
 
 ## src 文件描述
