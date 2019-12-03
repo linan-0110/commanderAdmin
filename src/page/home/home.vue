@@ -25,7 +25,7 @@
                     />小区合伙人
                 </span>
             </article>
-            <section class="header_data">
+            <section v-if="isCompanyAdmin" class="header_data">
                 <div class="container_money">
                     <div class="my_asset" @click="linkMyEarnings">
                         <h3 class="my_asset_text">我的资产(元)</h3>
@@ -93,6 +93,7 @@
 
 <script>
 import { reqMyAsset } from "@/api/home";
+import { reqBankInfo } from "@/api/carryCash";
 export default {
     name: "home",
     data() {
@@ -103,14 +104,16 @@ export default {
                 total: 0,
                 salortotal: 0
             }, 
-            userInfo: {} //用户信息
+            userInfo: {}, //用户信息
+            isCompanyAdmin: false // 是否是企业用户管理端
         };
     },
-    beforeCreate() {},
     created() {
         this.userInfo = JSON.parse(localStorage.getItem("userInfo"));
         /* 请求 我的资产 */
         this.getMyAsset();
+        /* 获取当前账户信息 用于判断企业用户管理端和非管理端 */
+        this.getBankInfo();
     },
     methods: {
         /* 请求 我的资产 */
@@ -118,6 +121,21 @@ export default {
             reqMyAsset().then(res => {
                 if (res.data.status === 0) {
                     this.myAsset = res.data.data;
+                    
+                } else {
+                    console.error("网络错误:" + res.data.msg);
+                }
+            });
+        },
+
+         /* 获取当前账户信息 用于判断企业用户管理端和非管理端 */
+        getBankInfo() {
+            reqBankInfo().then(res => {
+                if (res.data.status === 0) {
+                    console.log(res.data.data)
+                    let ID = JSON.parse(localStorage.getItem("userInfo")).ID;
+                    this.isCompanyAdmin = ID === res.data.data.adminid;
+                    console.log(this.isCompanyAdmin)
                 } else {
                     console.error("网络错误:" + res.data.msg);
                 }

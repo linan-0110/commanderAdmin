@@ -63,6 +63,7 @@ export default {
                         bankconact,
                         bankname
                     }
+                    console.log(res.data.data)
                     this.adminid = adminid ? adminid : 0; // 保存企业id
                 } else {
                     console.error("网络错误:" + res.data.msg);
