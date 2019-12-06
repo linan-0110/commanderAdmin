@@ -2,6 +2,7 @@ import Vue from 'vue';
 import Router from 'vue-router';
 
 const Login = () => import('@/page/Login/Login');  // 登录页
+const forgetPassword = () => import('@/page/Login/forgetPassword/forgetPassword');  // 忘记密码
 const home = () => import('@/page/home/home'); // 主页
 const myAccount = () => import('@/page/myAccount/myAccount'); // 我的账号
 const myEarnings = () => import('@/page/myEarnings/myEarnings'); // 我的收益
@@ -25,6 +26,11 @@ export default new Router({
       path: '/',
       name: 'Login',
       component: Login
+    },
+    {
+      path: '/Login/forgetPassword',
+      name: 'Login_forgetPassword',
+      component: forgetPassword
     },
     {
       path: '/home',

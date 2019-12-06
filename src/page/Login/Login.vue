@@ -12,6 +12,9 @@
             />
             <van-field v-model="password" type="password" label="密 码" placeholder="请输入密码" required />
             <button class="login_btn" @click="login" is="div">登录</button>
+            <footer>
+                <span class="forgetPassword" @click="linkForgetPassword">忘记密码</span>
+            </footer>
         </van-cell-group>
     </div>
 </template>
@@ -79,6 +82,13 @@ export default {
                     Toast.fail("登录失败:" + res.data.msg);
                 }
             });
+        },
+        /* 跳转忘记密码 */ 
+        linkForgetPassword() {
+            // Login_forgetPassword
+            this.$router.push({
+                name: 'Login_forgetPassword'
+            })
         }
     }
 };
@@ -101,7 +111,7 @@ export default {
         justify-content: space-around;
         align-items: center;
         border-radius: 10px;
-        padding: 30px 20px;
+        padding: 30px 20px 5px 20px;
         box-sizing: border-box;
         transform: translateY(-58%);
         box-shadow: 0px -8px 10px rgba(100, 100, 100, 0.15);
@@ -119,6 +129,14 @@ export default {
             display: flex;
             justify-content: center;
             align-items: center;
+        }
+    }
+    footer{
+        // border: 1px solid #f0f;
+        width: 100%;
+        .forgetPassword{
+            float: right;
+            color: rgb(0, 0, 250);
         }
     }
 }

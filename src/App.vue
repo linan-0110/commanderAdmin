@@ -1,7 +1,7 @@
 <template>
     <div id="app">
         <router-view />
-        <footer class="footer_bar"></footer>
+        <!-- <footer class="footer_bar"></footer> -->
     </div>
 </template>
 
@@ -19,7 +19,7 @@ export default {
     bottom: 0;
     right: 0;
 }
-.footer_bar {
+/* .footer_bar {
     width: 100px;
     height: 4px;
     background-color: rgb(0, 0, 0);
@@ -28,5 +28,5 @@ export default {
     bottom: 2px;
     left: 50%;
     transform: translateX(-50%);
-}
+} */
 </style>
