@@ -59,7 +59,7 @@ export default {
         border-radius: 10px;
         padding: 30px 20px;
         box-sizing: border-box;
-        transform: translateY(64%);
+        transform: translateY(65%);
         box-shadow: 0px -8px 10px rgba(100, 100, 100, 0.15);
         .login_btn {
             color: #fff;
