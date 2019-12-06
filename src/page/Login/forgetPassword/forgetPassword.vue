@@ -6,11 +6,12 @@
                 v-model="account"
                 required
                 clearable
-                label="账 号"
-                placeholder="请输入账号"
+                label="手机号"
+                placeholder="请输入手机号"
                 @click-right-icon="$toast('question')"
             />
-            <van-field v-model="password" label="密 码" placeholder="请输入密码" required />
+            <van-field v-model="password" label="新密码" placeholder="请输入密码" required />
+            <van-field v-model="password" label="确认密码" placeholder="再次输入密码" required />
             <van-field v-model="sms" required center clearable label="短信验证码" placeholder="请输入短信验证码">
                 <van-button slot="button" size="small" type="primary">发送验证码</van-button>
             </van-field>
@@ -49,7 +50,7 @@ export default {
         height: 100%;
     }
     .input_container {
-        height: 260px;
+        height: 330px;
         width: 90%;
         display: flex;
         background-color: #fff;
@@ -57,9 +58,9 @@ export default {
         justify-content: space-around;
         align-items: center;
         border-radius: 10px;
-        padding: 30px 20px;
+        padding: 30px 8px;
         box-sizing: border-box;
-        transform: translateY(65%);
+        transform: translateY(45%);
         box-shadow: 0px -8px 10px rgba(100, 100, 100, 0.15);
         .login_btn {
             color: #fff;
