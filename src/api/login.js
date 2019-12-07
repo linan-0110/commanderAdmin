@@ -11,7 +11,7 @@ export const reqLogin = (data) => ajax_login("post", {
 /* 获取短信验证码 */
 export const reqNoteCode = (data) => ajax("post", {
     ...data
-}, "/Home/Common/vsmscode")
+}, "/Home")
 
 
 
