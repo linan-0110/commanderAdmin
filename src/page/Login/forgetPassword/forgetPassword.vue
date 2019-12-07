@@ -74,7 +74,7 @@ export default {
             )}&time=${Date.now()}`;
         },
 
-        /* 获取短信验证码 */
+        /* 发送短信验证码 */
         getNoteCode() {
             let mobile = this.resetPassword.mobile,
                 usertoken = this.imgVCode,
@@ -90,6 +90,7 @@ export default {
                 Toast("请输入图片验证码");
                 return;
             }
+            console.log(data)
             reqNoteCode(data).then(res => {
                 if (res.data.status === 0) {
                     console.log(res);
