@@ -36,7 +36,7 @@
                 label="短信验证码"
                 placeholder="请输入短信验证码"
             >
-                <van-button slot="button" @click="getNoteCode" size="small" type="primary">发送验证码</van-button>
+                <van-button slot="button" @click="getNoteCode" :disabled="btn_disabled" size="small" type="primary">{{ btn_msg }}</van-button>
             </van-field>
             <button class="login_btn" is="div" @click="getResetPassword">保存</button>
         </van-cell-group>
@@ -55,6 +55,8 @@ export default {
             ImgCodeSrc: `${SERVER_HREF}/Home/GetVCode?usertoken=${localStorage.getItem(
                 "Token"
             )}&time=${Date.now()}`,
+            btn_disabled: false,
+            btn_msg: '发送验证码',
             resetPassword: {
                 mobile: "",
                 pw1: "",
@@ -77,9 +79,11 @@ export default {
         /* 发送短信验证码 */
         getNoteCode() {
             let mobile = this.resetPassword.mobile,
-                usertoken = this.imgVCode,
+                vcode = this.imgVCode,
+                usertoken = localStorage.getItem("Token"),
                 data = {
                     mobile,
+                    vcode,
                     usertoken
                 };
             if (!/^1[3456789]\d{9}$/.test(mobile)) {
@@ -90,13 +94,28 @@ export default {
                 Toast("请输入图片验证码");
                 return;
             }
-            console.log(data)
             reqNoteCode(data).then(res => {
                 if (res.data.status === 0) {
                     console.log(res);
+                    // 发送验证码成功 禁用按钮
+                    this.btn_disabled = true;
+                    // 图形验证码过期时间
+                    let time = 120,
+                        timer_1 = setInterval(() => {
+                        this.btn_msg = time-- + "秒";
+                        if(time <= 0) {
+                            // 启用按钮
+                            this.btn_disabled = false;
+                            this.btn_msg = '发送验证码';
+                            clearInterval(timer_1)
+                        }
+                    }, 1000)
                 } else {
-                    Toast(res.data.msg);
+                    this.ImgCodeSrc = `${SERVER_HREF}/Home/GetVCode?usertoken=${localStorage.getItem(
+                        "Token"
+                    )}&time=${Date.now()}`;
                 }
+                Toast(res.data.msg);
             });
         },
 
