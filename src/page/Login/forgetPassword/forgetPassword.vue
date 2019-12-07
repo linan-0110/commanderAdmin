@@ -90,7 +90,7 @@ export default {
                 Toast("请输入正确的手机号");
                 return;
             }
-            if (!usertoken) {
+            if (!vcode) {
                 Toast("请输入图片验证码");
                 return;
             }
