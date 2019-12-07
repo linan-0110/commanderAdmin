@@ -73,7 +73,7 @@ export default {
                 "Token"
             )}&time=${Date.now()}`;
         },
-        
+
         /* 获取短信验证码 */
         getNoteCode() {
             let mobile = this.resetPassword.mobile,
@@ -81,32 +81,32 @@ export default {
                 data = {
                     mobile,
                     usertoken
-                }
-            if(!(/^1[3456789]\d{9}$/.test(mobile))) {
-                Toast("请输入正确的手机号")
-                return
+                };
+            if (!/^1[3456789]\d{9}$/.test(mobile)) {
+                Toast("请输入正确的手机号");
+                return;
             }
-            if(!usertoken) {
-                Toast("请输入图片验证码")
-                return
+            if (!usertoken) {
+                Toast("请输入图片验证码");
+                return;
             }
             reqNoteCode(data).then(res => {
                 if (res.data.status === 0) {
                     console.log(res);
                 } else {
-                    Toast(res.data.msg)
+                    Toast(res.data.msg);
                 }
             });
         },
 
         /* 重置密码 */
         getResetPassword() {
-            reqResetPassword(data).then(res => {
+            reqResetPassword(this.resetPassword).then(res => {
                 if (res.data.status === 0) {
                     console.log(res);
-                    Toast(res.data.msg)
+                    Toast(res.data.msg);
                 } else {
-                    Toast(res.data.msg)
+                    Toast(res.data.msg);
                 }
             });
         }
