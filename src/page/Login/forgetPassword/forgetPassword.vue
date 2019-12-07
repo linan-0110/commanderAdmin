@@ -38,7 +38,7 @@
             >
                 <van-button slot="button" @click="getNoteCode" size="small" type="primary">发送验证码</van-button>
             </van-field>
-            <button class="login_btn" is="div">保存</button>
+            <button class="login_btn" is="div" @click="getResetPassword">保存</button>
         </van-cell-group>
     </div>
 </template>
@@ -104,6 +104,7 @@ export default {
             reqResetPassword(data).then(res => {
                 if (res.data.status === 0) {
                     console.log(res);
+                    Toast(res.data.msg)
                 } else {
                     Toast(res.data.msg)
                 }
