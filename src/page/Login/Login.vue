@@ -38,10 +38,14 @@ export default {
             this.account = account;
             this.password = password;
         }
-        let act = localStorage.getItem("act"), 
+        let act = localStorage.getItem("act"),
             pwd = localStorage.getItem("pwd");
-        if(act) {this.account = act;}
-        if(pwd) {this.password = pwd;}
+        if (act) {
+            this.account = act;
+        }
+        if (pwd) {
+            this.password = pwd;
+        }
     },
     methods: {
         /* 登录 */
@@ -60,6 +64,7 @@ export default {
                         "userInfo",
                         JSON.stringify(res.data.data)
                     );
+                    localStorage.setItem("Token", res.data.data.Token);
 
                     // 如果本地没有保存过密码 提示是否保存密码
                     localStorage.setItem("act", this.account);
@@ -67,10 +72,12 @@ export default {
                         Dialog.confirm({
                             title: "保存密码",
                             message: "是否保存密码？"
-                        }).then(() => {
-                            // 点击确认 时 保存密码
-                            localStorage.setItem("pwd", this.password);
-                        }).catch(() => {});
+                        })
+                            .then(() => {
+                                // 点击确认 时 保存密码
+                                localStorage.setItem("pwd", this.password);
+                            })
+                            .catch(() => {});
                     }
 
                     Toast.success("登录" + res.data.msg);
@@ -83,12 +90,13 @@ export default {
                 }
             });
         },
-        /* 跳转忘记密码 */ 
+        /* 跳转忘记密码 */
+
         linkForgetPassword() {
             // Login_forgetPassword
             this.$router.push({
-                name: 'Login_forgetPassword'
-            })
+                name: "Login_forgetPassword"
+            });
         }
     }
 };
@@ -131,10 +139,10 @@ export default {
             align-items: center;
         }
     }
-    footer{
+    footer {
         // border: 1px solid #f0f;
         width: 100%;
-        .forgetPassword{
+        .forgetPassword {
             float: right;
             color: rgb(0, 0, 250);
         }
