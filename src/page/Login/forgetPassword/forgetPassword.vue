@@ -50,6 +50,7 @@ const { SERVER_HREF } = DEV;
 import { Toast } from "vant";
 export default {
     name: "forgetPassword",
+    
     data() {
         return {
             ImgCodeSrc: `${SERVER_HREF}/Home/GetVCode?usertoken=${localStorage.getItem(
