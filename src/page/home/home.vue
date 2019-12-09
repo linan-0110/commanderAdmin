@@ -132,10 +132,8 @@ export default {
         getBankInfo() {
             reqBankInfo().then(res => {
                 if (res.data.status === 0) {
-                    console.log(res.data.data)
                     let ID = JSON.parse(localStorage.getItem("userInfo")).ID;
-                    this.isCompanyAdmin = ID === res.data.data.adminid;
-                    console.log(this.isCompanyAdmin)
+                    this.isCompanyAdmin = (res.data.data.CompanyID == 0) || (ID === res.data.data.adminid);
                 } else {
                     console.error("网络错误:" + res.data.msg);
                 }
