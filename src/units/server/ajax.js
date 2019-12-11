@@ -11,6 +11,7 @@ import { md5 } from "../md5";
 
 /* 常用ajax封装 （固定URL） */
 export const ajax = function (type = "post", params, url = "/Salors") {
+    // 重置密码的时候不需要token  除了重置密码的url不是 "/Salors" 其他都是
     if (url == "/Salors") {
         params.token = JSON.parse(localStorage.getItem("userInfo")).Token;
     }
