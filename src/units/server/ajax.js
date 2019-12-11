@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import axios from 'axios';
-import VueAxios from 'vue-axios'; 
+import VueAxios from 'vue-axios';
 
 import DEV from "@/dev_config"; // 导入上线配置
 const { ONLINE_BASE_HREF, SERVER_HREF } = DEV;
@@ -11,7 +11,9 @@ import { md5 } from "../md5";
 
 /* 常用ajax封装 （固定URL） */
 export const ajax = function (type = "post", params, url = "/Salors") {
-    params.token = JSON.parse(localStorage.getItem("userInfo")).Token;
+    if (url == "/Salors") {
+        params.token = JSON.parse(localStorage.getItem("userInfo")).Token;
+    }
     params.v = "webv09";
     params.time = Date.parse(new Date()) / 1000;
     params.app_type = "web";
@@ -27,7 +29,7 @@ export const ajax = function (type = "post", params, url = "/Salors") {
             }
         }).then((res) => {
             resole(res);
-            if(res.data.status === -2) {
+            if (res.data.status === -2) {
                 // res.data.status === -2 代表未登录 跳转登录页
                 window.location.href = ONLINE_BASE_HREF;
             }
@@ -44,11 +46,11 @@ export const ajax_login = function (type = "post", params, url = "/Salors") {
     params.time = Date.parse(new Date()) / 1000;
     params.app_type = "web";
     params.sign = md5(params);
-    
+
     return new Promise((resole, reject) => {
         axios({
             method: type,
-            url: SERVER_HREF  + url,
+            url: SERVER_HREF + url,
             params,
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded; charset=utf-8;"
