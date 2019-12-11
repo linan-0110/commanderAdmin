@@ -3,8 +3,8 @@
 import Vue from 'vue';
 import App from './App';
 import router from './router';
-import '../static/init.css';
-import '../static/public.css';
+import '@/publicStyle/init.css';
+import '@/publicStyle/public.css';
 
 
 /* vant start */
