@@ -55,11 +55,10 @@ import DEV from "@/dev_config"; // 导入上线配置
 const { SERVER_HREF } = DEV;
 import { Toast } from "vant";
 
-const initTime = Date.now() + '' + Math.random()*100000000000000000;
+const initTime = Date.now() + "" + Math.random() * 100000000000000000;
 export default {
     name: "forgetPassword",
     data() {
-        console.log(initTime, 'data')
         return {
             ImgCodeSrc: `${SERVER_HREF}/Home/GetVCode?usertoken=${initTime}&time=${Date.now()}`,
             btn_disabled: false,
@@ -82,7 +81,6 @@ export default {
 
         /* 发送短信验证码 */
         getNoteCode() {
-            console.log(initTime)
             let mobile = this.resetPassword.mobile,
                 vcode = this.imgVCode,
                 usertoken = initTime,
@@ -114,9 +112,8 @@ export default {
                                 clearInterval(timer_1);
                             }
                         }, 1000);
-                } else {
-                    this.ImgCodeSrc = `${SERVER_HREF}/Home/GetVCode?usertoken=${initTime}&time=${Date.now()}`;
-                }
+                } 
+                this.ImgCodeSrc = `${SERVER_HREF}/Home/GetVCode?usertoken=${initTime}&time=${Date.now()}`;
                 Toast(res.data.msg);
             });
         },
@@ -133,62 +130,6 @@ export default {
                 Toast(res.data.msg);
             });
         }
-//         [
-//   {
-//     "name": "获取验证码",
-//     "url": "/Home/GetVCode",
-//     "parameter": [
-//       { "usertoken": "验证码Key，不传用sessionid,最好用客户端唯一标识" }
-//     ],
-//     "return": "返回一个图片",
-//     "Remarks": ""
-//   },
-//   {
-//     "name": "发送手机验证码",
-//     "url": "/Home/Common/vsmscode",
-//     "parameter": [
-//       { "mobile": "手机号" },
-//       { "usertoken": "验证码Key，不传用sessionid,最好用客户端唯一标识" }
-//     ],
-//     "return": "给指定手机发送验证码",
-//     "Remarks": "一个手机一天只能发10条"
-//   },
-//   {
-//     "name": "获取验证码",
-//     "url": "/Home/GetVCode",
-//     "parameter": [
-//       { "usertoken": "token，不传用sessionid,最好用客户端唯一标识" }
-//     ],
-//     "return": "返回一个图片",
-//     "Remarks": ""
-//   },
-//   {
-//     "name": "重置密码",
-//     "url": "/Home/restpassword",
-//     "parameter": [
-//       { "pw1": "密码" },
-//       { "pw2": "密码" },
-//       { "mobile": "手机号" },
-//       { "vcode": "验证码" }
-//     ],
-//     "return": "重新设置密码",
-//     "Remarks": ""
-//   },
-//   {
-//     "name": "获取附近团长点列表",
-//     "url": "/Home/GetShopSharorsByOnePosition",
-//     "parameter": [
-//       { "ShopId": "商家ID" },
-//       { "AddressId": "收货地址" },
-//       { "lon": "" },
-//       { "lat": "" },
-//       { "shareUserId": "分享用户ID" }
-
-//     ],
-//     "return": "返回团长点位置，AddressId优先，如果有则返回收货点附件团长，否则以坐标为准",
-//     "Remarks": ""
-//   }
-// ]
     }
 };
 </script>
