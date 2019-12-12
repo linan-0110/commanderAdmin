@@ -112,7 +112,7 @@ export default {
                                 clearInterval(timer_1);
                             }
                         }, 1000);
-                } 
+                }
                 this.ImgCodeSrc = `${SERVER_HREF}/Home/GetVCode?usertoken=${initTime}&time=${Date.now()}`;
                 Toast(res.data.msg);
             });
