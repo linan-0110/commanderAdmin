@@ -117,7 +117,6 @@ export default {
                 Toast(res.data.msg);
             });
         },
-
         /* 重置密码 */
         getResetPassword() {
             Toast.loading({
