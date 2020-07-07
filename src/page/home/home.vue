@@ -185,7 +185,6 @@ export default {
                 name: "home_clientGetCargo"
             });
         },
-        
         /* 跳转 我的协议 */
         linkMyAgreement() {
             this.$router.push({
