@@ -27,8 +27,6 @@ npm run e2e
 npm test
 ```
 
-
-
 #### 基础组件库用了vant 采用按需导入方式加载
 
 ## src 文件描述
